@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>627f8a10-9510-4fa1-bb50-eab3a11a4ce6</UserSecretsId>
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="NLog" Version="4.6.8" />
+    <PackageReference Include="NLog.Config" Version="4.6.8" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="1.6.1" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JBHRIS.Api.Bll\JBHRIS.Api.Bll.csproj" />
+    <ProjectReference Include="..\JBHRIS.Api.Dal.JBHR\JBHRIS.Api.Dal.JBHR.csproj" />
+    <ProjectReference Include="..\JBHRIS.Api.Dal\JBHRIS.Api.Dal.csproj" />
+    <ProjectReference Include="..\JBHRIS.Api.Dto\JBHRIS.Api.Dto.csproj" />
+    <ProjectReference Include="..\JBHRIS.Api.Service\JBHRIS.Api.Service.csproj" />
+  </ItemGroup>
+
+</Project>
