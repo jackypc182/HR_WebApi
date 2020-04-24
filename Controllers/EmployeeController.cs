@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HR_Api_Demo.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
+    //[Route("[controller]")]
+    //[ApiController]
     public class EmployeeController : ControllerBase
     {
         private IEmployeeInfoService _employeeService;
