@@ -13,7 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-namespace HR_Api_Demo
+namespace HR_WebApi
 {
     public class Startup
     {
@@ -32,15 +32,19 @@ namespace HR_Api_Demo
             services.AddSingleton<NLog.ILogger>(NLog.LogManager.GetLogger("HR"));
             //var config = Configuration.GetSection("Moduleregister");
             services.AddDbContext<JBHRIS.Api.Dal.JBHR.JBHRContext>(options => options.UseSqlServer(Configuration["HrConnectionStrings:DefaultConnection"]));
+
+            IoCConfig.Configure(Configuration, services);
+
             var conf = Configuration.Get<ConfigurationDto>();
-            foreach (var mod in conf.ModuleRegister.Module)
-            {
-                var asmInterface = Assembly.LoadFrom(conf.SourceDir + mod.InterfaceAssembly);
-                var asmConcrete = Assembly.LoadFrom(conf.SourceDir + mod.ConcreteClassAssembly);
-                var typeInterface = asmInterface.GetType(mod.Interface);
-                var typeClass = asmConcrete.GetType(mod.ConcreteClass);
-                services.AddScoped(typeInterface, typeClass);
-            }
+            if (conf.ModuleRegister != null && conf.ModuleRegister.Module != null)
+                foreach (var mod in conf.ModuleRegister.Module)
+                {
+                    var asmInterface = Assembly.LoadFrom(conf.SourceDir + mod.InterfaceAssembly);
+                    var asmConcrete = Assembly.LoadFrom(conf.SourceDir + mod.ConcreteClassAssembly);
+                    var typeInterface = asmInterface.GetType(mod.Interface);
+                    var typeClass = asmConcrete.GetType(mod.ConcreteClass);
+                    services.AddScoped(typeInterface, typeClass);
+                }
             //test for ci 
             //fix vstest
             //abc

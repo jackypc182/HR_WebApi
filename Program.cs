@@ -8,7 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Web;
 
-namespace HR_Api_Demo
+namespace HR_WebApi
 {
     public class Program
     {
