@@ -21,18 +21,21 @@ namespace HR_Api_Demo.Controllers
         private IEmployeeViewService _employeeViewService;
         private IDeptViewService _deptViewService;
         private IJobViewService _jobViewService;
+        private IOtherCodeViewService _otherCodeViewService;
 
         public EmployeeController(IEmployeeInfoService employeeService
             , IEmployeeListService employeeListService
             , IEmployeeViewService employeeViewService
             , IDeptViewService deptViewService
-            , IJobViewService jobViewService)
+            , IJobViewService jobViewService
+            ,IOtherCodeViewService otherCodeViewService)
         {
             _employeeService = employeeService;
             _employeeListService = employeeListService;
             _employeeViewService = employeeViewService;
             _deptViewService = deptViewService;
             _jobViewService = jobViewService;
+            _otherCodeViewService = otherCodeViewService;
         }
         [HttpPost]
         [Route("GetEmployeeInfo")]
