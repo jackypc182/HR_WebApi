@@ -11,17 +11,17 @@ namespace HR_WebApi.Controllers
     [ApiController]
     public class AttendanceController : ControllerBase
     {
-        public List<AttendDto> GetAttend(List<string> employeeList,DateTime checkDate)
+        public List<AttendanceDto> GetAttendance(List<string> employeeList,DateTime DateBegin,DateTime DateEnd)
         {
-
+            return new List<AttendanceDto>();
         }
-        public void GetAttendDept()
+        public List<AttendanceDto> GetAttendDept(List<string> roteList, DateTime DateBegin, DateTime DateEnd)
         {
-
+            return new List<AttendanceDto>();
         }
-        public void GetAttendManage()
+        public List<AttendanceDto> GetAttendManage()
         {
-
+            return new List<AttendanceDto>();
         }
         public void GetCalendar()
         {
@@ -35,30 +35,30 @@ namespace HR_WebApi.Controllers
         {
 
         }
-        public void GetRotechg()
+        public List<RoteChangeDto> GetRoteChange(List<string> employeeList, DateTime DateBegin, DateTime DateEnd)
         {
-
+            return new List<RoteChangeDto>();
         }
-        public void GetRotechgManage()
+        public List<RoteChangeDto> GetRotechangeManage()
         {
-
+            return new List<RoteChangeDto>();
         }
         public void GetPeopleAbnormal()
         {
 
         }
-        public void GetPeopleWork()
+        public void GetPeopleWork(List<string> employeeList, DateTime DateBegin, DateTime DateEnd)
         {
 
         }
 
-        public void GetHcode()
+        public List<HcodeDto> GetHcode()
         {
-
+            return new List<HcodeDto>();
         }
-        public void GetRote()
+        public List<RoteDto> GetRote()
         {
-
+            return new List<RoteDto>();
         }
         public void GetAttendCalendar()
         {

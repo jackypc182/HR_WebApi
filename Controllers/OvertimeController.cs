@@ -11,25 +11,25 @@ namespace HR_WebApi.Controllers
     [ApiController]
     public class OvertimeController : ControllerBase
     {
-        public void GetOt()
+        public List<OvertimeDto> GetOvertime(List<string> employeeList,  DateTime DateBegin, DateTime DateEnd)
         {
-
+            return new List<OvertimeDto>();
         }
-        public void GetOtManage()
+        public List<OvertimeDto> GetOvertimeManage()
         {
-
+            return new List<OvertimeDto>();
         }
-        public void GetPeopleOt()
+        public List<string> GetPeopleOvertime(List<string> employeeList, DateTime DateBegin, DateTime DateEnd)
         {
-
+            return new List<string>();
         }
-        public void GetOtType()
+        public List<OvertimeTypeDto> GetOvertimeType()
         {
-
+            return new List<OvertimeTypeDto>();
         }
-        public void GetOtReason()
+        public List<OvertimeReasonDto> GetOvertimeReason()
         {
-
+            return new List<OvertimeReasonDto>();
         }
     }
 }

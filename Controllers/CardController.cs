@@ -11,17 +11,17 @@ namespace HR_WebApi.Controllers
     [ApiController]
     public class CardController : ControllerBase
     {
-        public void GetCard()
+        public List<CardDto> GetCard(List<string> employeeList,DateTime DateBegin,DateTime DateEnd)
         {
-
+            return new List<CardDto>();
         }
-        public void GetCardManage()
+        public List<CardDto> GetCardManage()
         {
-
+            return new List<CardDto>();
         }
-        public void GetCardReason()
+        public List<CardReasonDto> GetCardReason()
         {
-
+            return new List<CardReasonDto>();
         }
     }
 }
