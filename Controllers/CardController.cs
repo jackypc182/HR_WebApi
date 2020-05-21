@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JBHRIS.Api.Dto.Attendance;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,15 +14,15 @@ namespace HR_WebApi.Controllers
     {
         public List<CardDto> GetCard(List<string> employeeList,DateTime DateBegin,DateTime DateEnd)
         {
-            return new List<CardDto>();
+            throw new NotImplementedException();
         }
         public List<CardDto> GetCardManage()
         {
-            return new List<CardDto>();
+            throw new NotImplementedException();
         }
         public List<CardReasonDto> GetCardReason()
         {
-            return new List<CardReasonDto>();
+            throw new NotImplementedException();
         }
     }
 }

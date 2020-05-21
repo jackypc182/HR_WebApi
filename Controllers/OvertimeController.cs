@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JBHRIS.Api.Dto.Attendance;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,23 +14,23 @@ namespace HR_WebApi.Controllers
     {
         public List<OvertimeDto> GetOvertime(List<string> employeeList,  DateTime DateBegin, DateTime DateEnd)
         {
-            return new List<OvertimeDto>();
+            throw new NotImplementedException();
         }
         public List<OvertimeDto> GetOvertimeManage()
         {
-            return new List<OvertimeDto>();
+            throw new NotImplementedException();
         }
         public List<string> GetPeopleOvertime(List<string> employeeList, DateTime DateBegin, DateTime DateEnd)
         {
-            return new List<string>();
+            throw new NotImplementedException();
         }
         public List<OvertimeTypeDto> GetOvertimeType()
         {
-            return new List<OvertimeTypeDto>();
+            throw new NotImplementedException();
         }
         public List<OvertimeReasonDto> GetOvertimeReason()
         {
-            return new List<OvertimeReasonDto>();
+            throw new NotImplementedException();
         }
     }
 }

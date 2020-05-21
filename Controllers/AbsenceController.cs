@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HR_WebApi.Api.Dto;
+using JBHRIS.Api.Dto.Attendance;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,37 +13,37 @@ namespace HR_WebApi.Controllers
     [ApiController]
     public class AbsenceController : ControllerBase
     {
-        public AbsenceDto GetAbs()
+        public List<AbsenceTakenDto> GetAbsenceTaken(List<string> employeeList)
         {
-
+            throw new NotImplementedException();
         }
-        public void GetAbsDept()
+        public List<AbsenceTakenDto> GetAbsenceTakenDept()
         {
-
+            throw new NotImplementedException();
         }
-        public void GetAbsManage()
+        public List<AbsenceTakenDto> GetAbsenceTakenManage()
         {
-
+            throw new NotImplementedException();
         }
-        public void GetAbsc()
+        public List<AbsenceCancelDto> GetAbsenceCancel()
         {
-
+            throw new NotImplementedException();
         }
-        public void GetAbscManage()
+        public List<AbsenceCancelDto> GetAbscManage()
         {
-
+            throw new NotImplementedException();
         }
-        public void GetAbsBalance()
+        public List<AbsenceBalanceDto> GetAbsBalance()
         {
-
+            throw new NotImplementedException();
         }
-        public void GetAbsBalanceManage()
+        public List<AbsenceBalanceDto> GetAbsBalanceManage()
         {
-
+            throw new NotImplementedException();
         }
-        public void GetPeopleAbs()
+        public List<string> GetPeopleAbs()
         {
-
+            throw new NotImplementedException();
         }
     }
 }
