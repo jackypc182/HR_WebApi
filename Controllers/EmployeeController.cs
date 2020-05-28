@@ -12,8 +12,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HR_Api_Demo.Controllers
 {
-    //[Route("[controller]")]
-    //[ApiController]
+    /// <summary>
+    /// 人事控制器
+    /// </summary>
+    [Route("[controller]")]
+    [ApiController]
     public class EmployeeController : ControllerBase
     {
         private IEmployeeInfoService _employeeService;
@@ -23,6 +26,15 @@ namespace HR_Api_Demo.Controllers
         private IJobViewService _jobViewService;
         private IOtherCodeViewService _otherCodeViewService;
 
+        /// <summary>
+        /// 建構子
+        /// </summary>
+        /// <param name="employeeService">員工基本服務</param>
+        /// <param name="employeeListService">員工清單服務</param>
+        /// <param name="employeeViewService">員工檢視表服務</param>
+        /// <param name="deptViewService">部門檢視表服務</param>
+        /// <param name="jobViewService">職稱檢視表服務</param>
+        /// <param name="otherCodeViewService">其他代碼服務</param>
         public EmployeeController(IEmployeeInfoService employeeService
             , IEmployeeListService employeeListService
             , IEmployeeViewService employeeViewService
@@ -37,90 +49,160 @@ namespace HR_Api_Demo.Controllers
             _jobViewService = jobViewService;
             _otherCodeViewService = otherCodeViewService;
         }
+        /// <summary>
+        /// 取得員工基本資料
+        /// </summary>
+        /// <param name="employeeList">工號清單</param>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetEmployeeInfo")]
         public List<EmployeeInfoDto> GetEmployeeInfo(List<string> employeeList)
         {
             return _employeeService.GetEmployeeInfo(employeeList);
         }
+        /// <summary>
+        /// 取得員工基本資料(依部門)
+        /// </summary>
+        /// <param name="employeeInfo_GetPeopleByDept_Entry"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetEmployeeInfoByDept")]
         public List<EmployeeInfoDto> GetEmployeeInfoByDept([FromBody]EmployeeInfo_GetPeopleByDept_Entry employeeInfo_GetPeopleByDept_Entry)
         {
             return _employeeService.GetEmployeeInfoByDept(employeeInfo_GetPeopleByDept_Entry.deptList, Convert.ToDateTime(employeeInfo_GetPeopleByDept_Entry.CheckDate));
         }
+        /// <summary>
+        /// 員工基本資料(無敏感資料)
+        /// </summary>
+        /// <param name="employeeInfo_GetPeopleByDept_Entry"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetEmployeeInfoByDeptWithMask")]
         public List<EmployeeInfoByDeptWithMaskDto> GetEmployeeInfoByDeptWithMask([FromBody]EmployeeInfo_GetPeopleByDept_Entry employeeInfo_GetPeopleByDept_Entry)
         {
             return _employeeService.GetEmployeeInfoByDeptWithMask(employeeInfo_GetPeopleByDept_Entry.deptList, Convert.ToDateTime(employeeInfo_GetPeopleByDept_Entry.CheckDate));
         }
+        /// <summary>
+        /// 取得人員名單(依部門)
+        /// </summary>
+        /// <param name="employeeInfo_GetPeopleByDept_Entry"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetPeopleByDept")]
         public List<string> GetPeopleByDept([FromBody]EmployeeInfo_GetPeopleByDept_Entry employeeInfo_GetPeopleByDept_Entry)
         {
             return _employeeListService.GetPeopleByDept(employeeInfo_GetPeopleByDept_Entry.deptList, Convert.ToDateTime(employeeInfo_GetPeopleByDept_Entry.CheckDate));
         }
+        /// <summary>
+        /// 取得員工檢視表
+        /// </summary>
+        /// <param name="employeeList"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetEmployeeView")]
         public List<EmployeeViewDto> GetEmployeeView(List<string> employeeList)
         {
             return _employeeViewService.GetEmployeeView(employeeList);
         }
+        /// <summary>
+        /// 取得員工檢視表(依部門)
+        /// </summary>
+        /// <param name="DeptList"></param>
+        /// <param name="CheckDate"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetEmployeeByDeptView")]
         public List<EmployeeViewDto> GetEmployeeByDeptView(List<string> DeptList, DateTime CheckDate)
         {
             return _employeeViewService.GetEmployeeByDeptView(DeptList, CheckDate);
         }
+        /// <summary>
+        /// 取得員工檢視表(依主管)
+        /// </summary>
+        /// <param name="DeptList"></param>
+        /// <param name="CheckDate"></param>
+        /// <param name="IncludeDown"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetEmployeeByManageView")]
         public List<EmployeeViewDto> GetEmployeeByManageView(List<string> DeptList, DateTime CheckDate, bool IncludeDown)
         {
             return _employeeViewService.GetEmployeeByManageView(DeptList, CheckDate, IncludeDown);
         }
+        /// <summary>
+        /// 更新員工密碼
+        /// </summary>
+        /// <param name="password_Entry"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("UpdateEmployeePassword")]
         public bool UpdateEmployeePassword([FromBody]Password_Entry password_Entry)
         {
             return _employeeService.UpdateEmployeePassword(password_Entry.OldPWD, password_Entry.NewPWD);
         }
+        /// <summary>
+        /// 取得編制部門
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetDept")]
         public List<DeptDto> GetDept()
         {
             return _deptViewService.GetDeptView();
-        }
+        }/// <summary>
+        /// 取得簽核部門
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetDepta")]
         public List<DeptDto> GetDepta()
         {
             return _deptViewService.GetDeptaView();
         }
+        /// <summary>
+        /// 取得成本部門
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetDepts")]
         public List<DeptDto> GetDeptas()
         {
             return _deptViewService.GetDeptsView();
         }
+        /// <summary>
+        /// 取得職稱
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetJob")]
         public List<JobDto> GetJob()
         {
             return _jobViewService.GetJob();
         }
+        /// <summary>
+        /// 取得職級
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetJobs")]
         public List<JobDto> GetJobs()
         {
             return _jobViewService.GetJobs();
         }
+        /// <summary>
+        /// 取得職等
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetJobl")]
         public List<JobDto> GetJobl()
         {
             return _jobViewService.GetJobl();
         }
+        /// <summary>
+        /// 取得職系
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetJobo")]
         public List<JobDto> GetJobo()
