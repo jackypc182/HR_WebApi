@@ -12,16 +12,28 @@ using Newtonsoft.Json.Linq;
 
 namespace HR_Api_Demo.Controllers
 {
+    /// <summary>
+    /// 排班檢核服務
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class WorkScheduleCheckController : ControllerBase
     {
         private JBHRIS.Api.Service.Attendance.IWorkScheduleCheckService _workScheduleCheckService;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="workScheduleCheckService"></param>
         public WorkScheduleCheckController(JBHRIS.Api.Service.Attendance.IWorkScheduleCheckService workScheduleCheckService)
         {
             _workScheduleCheckService = workScheduleCheckService;
         }
+        /// <summary>
+        /// 排班檢核
+        /// </summary>
+        /// <param name="workScheduleCheckEntry"></param>
+        /// <returns></returns>
         [Route("Check")]
         [HttpPost]
         public ActionResult<WorkScheduleCheckResult> Check([FromBody] WorkScheduleCheckEntry workScheduleCheckEntry)// Check(dynamic workScheduleCheckEntry)//
@@ -36,6 +48,11 @@ namespace HR_Api_Demo.Controllers
                 return result;
         }
 
+        /// <summary>
+        /// 輸入資料檢核
+        /// </summary>
+        /// <param name="workScheduleCheckEntry"></param>
+        /// <returns></returns>
         private WorkScheduleCheckResult DataCheck(WorkScheduleCheckEntry workScheduleCheckEntry)
         {
             WorkScheduleCheckResult result = new WorkScheduleCheckResult();
