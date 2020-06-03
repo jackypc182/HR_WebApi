@@ -61,28 +61,6 @@ namespace HR_Api_Demo.Controllers
             return _employeeService.GetEmployeeInfo(employeeList);
         }
         /// <summary>
-        /// 取得員工基本資料(依部門)
-        /// </summary>
-        /// <param name="employeeInfo_GetPeopleByDept_Entry"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("GetEmployeeInfoByDept")]
-        public List<EmployeeInfoDto> GetEmployeeInfoByDept([FromBody]EmployeeInfo_GetPeopleByDept_Entry employeeInfo_GetPeopleByDept_Entry)
-        {
-            return _employeeService.GetEmployeeInfoByDept(employeeInfo_GetPeopleByDept_Entry.deptList, Convert.ToDateTime(employeeInfo_GetPeopleByDept_Entry.CheckDate));
-        }
-        /// <summary>
-        /// 員工基本資料(無敏感資料)
-        /// </summary>
-        /// <param name="employeeInfo_GetPeopleByDept_Entry"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("GetEmployeeInfoByDeptWithMask")]
-        public List<EmployeeInfoByDeptWithMaskDto> GetEmployeeInfoByDeptWithMask([FromBody]EmployeeInfo_GetPeopleByDept_Entry employeeInfo_GetPeopleByDept_Entry)
-        {
-            return _employeeService.GetEmployeeInfoByDeptWithMask(employeeInfo_GetPeopleByDept_Entry.deptList, Convert.ToDateTime(employeeInfo_GetPeopleByDept_Entry.CheckDate));
-        }
-        /// <summary>
         /// 取得人員名單(依部門)
         /// </summary>
         /// <param name="employeeInfo_GetPeopleByDept_Entry"></param>
@@ -103,31 +81,6 @@ namespace HR_Api_Demo.Controllers
         public List<EmployeeViewDto> GetEmployeeView(List<string> employeeList)
         {
             return _employeeViewService.GetEmployeeView(employeeList);
-        }
-        /// <summary>
-        /// 取得員工檢視表(依部門)
-        /// </summary>
-        /// <param name="DeptList"></param>
-        /// <param name="CheckDate"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("GetEmployeeByDeptView")]
-        public List<EmployeeViewDto> GetEmployeeByDeptView(List<string> DeptList, DateTime CheckDate)
-        {
-            return _employeeViewService.GetEmployeeByDeptView(DeptList, CheckDate);
-        }
-        /// <summary>
-        /// 取得員工檢視表(依主管)
-        /// </summary>
-        /// <param name="DeptList"></param>
-        /// <param name="CheckDate"></param>
-        /// <param name="IncludeDown"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("GetEmployeeByManageView")]
-        public List<EmployeeViewDto> GetEmployeeByManageView(List<string> DeptList, DateTime CheckDate, bool IncludeDown)
-        {
-            return _employeeViewService.GetEmployeeByManageView(DeptList, CheckDate, IncludeDown);
         }
         /// <summary>
         /// 更新員工密碼

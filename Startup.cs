@@ -35,7 +35,7 @@ namespace HR_WebApi
             services.AddSingleton<NLog.ILogger>(NLog.LogManager.GetLogger("HR"));
             //var config = Configuration.GetSection("Moduleregister");
             services.AddDbContext<JBHRIS.Api.Dal.JBHR.JBHRContext>(options => options.UseSqlServer(Configuration["HrConnectionStrings:DefaultConnection"]));
-
+            JwtConfing.Configure(Configuration, services);
             IoCConfig.Configure(Configuration, services);
 
             var conf = Configuration.Get<ConfigurationDto>();
