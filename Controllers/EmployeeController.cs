@@ -24,7 +24,7 @@ namespace HR_Api_Demo.Controllers
         private IEmployeeViewService _employeeViewService;
         private IDeptViewService _deptViewService;
         private IJobViewService _jobViewService;
-        private IOtherCodeViewService _otherCodeViewService;
+        //private IOtherCodeViewService _otherCodeViewService;
 
         /// <summary>
         /// 建構子
@@ -34,20 +34,20 @@ namespace HR_Api_Demo.Controllers
         /// <param name="employeeViewService">員工檢視表服務</param>
         /// <param name="deptViewService">部門檢視表服務</param>
         /// <param name="jobViewService">職稱檢視表服務</param>
-        /// <param name="otherCodeViewService">其他代碼服務</param>
         public EmployeeController(IEmployeeInfoService employeeService
             , IEmployeeListService employeeListService
             , IEmployeeViewService employeeViewService
             , IDeptViewService deptViewService
             , IJobViewService jobViewService
-            ,IOtherCodeViewService otherCodeViewService)
+            //,IOtherCodeViewService otherCodeViewService
+            )
         {
             _employeeService = employeeService;
             _employeeListService = employeeListService;
             _employeeViewService = employeeViewService;
             _deptViewService = deptViewService;
             _jobViewService = jobViewService;
-            _otherCodeViewService = otherCodeViewService;
+            //_otherCodeViewService = otherCodeViewService;
         }
         /// <summary>
         /// 取得員工基本資料
