@@ -51,7 +51,7 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Dal.Employee.View.IEmployee_View_GetJobo, JBHRIS.Api.Dal.JBHR.Employee.View.Employee_View_GetJobo>();
             services.AddScoped<JBHRIS.Api.Dal.Employee.View.IEmployee_View_GetJobs, JBHRIS.Api.Dal.JBHR.Employee.View.Employee_View_GetJobs>();
 
-            services.AddScoped<JBHRIS.Api.Dal.Employee.Normal.IEmployee_Normal_EmployeePasswordRepository, JBHRIS.Api.Dal.Employee.Normal.Employee_Normal_EmployeePasswordRepository>();
+            services.AddScoped<JBHRIS.Api.Dal.Employee.Normal.IEmployee_Normal_EmployeePasswordRepository, JBHRIS.Api.Dal.JBHR.Employee.Normal.Employee_Normal_EmployeePasswordRepository>();
             services.AddScoped<JBHRIS.Api.Dal.Employee.Normal.IEmployee_Normal_GetPeopleByBirthday, JBHRIS.Api.Dal.JBHR.Employee.Employee_Normal_GetPeopleByBirthday>();
             services.AddScoped<JBHRIS.Api.Dal.Employee.View.IEmployee_View_GetEmployeeBirthday, JBHRIS.Api.Dal.JBHR.Employee.View.Employee_View_GetEmployeeBirthday>();
             
