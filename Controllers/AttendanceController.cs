@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using JBHRIS.Api.Dto.Attendance;
 using JBHRIS.Api.Dto.Attendance.Entry;
+using JBHRIS.Api.Service.Attendance.Normal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,12 @@ namespace HR_WebApi.Controllers
     [ApiController]
     public class AttendanceController : ControllerBase
     {
+        private IAttendanceService _attendanceService;
+
+        public AttendanceController(IAttendanceService attendanceService)
+        {
+            _attendanceService = attendanceService;
+        }
         /// <summary>
         /// 取得考勤資料
         /// </summary>
@@ -23,9 +30,9 @@ namespace HR_WebApi.Controllers
         /// <returns></returns>
         [Route("GetAttendance")]
         [HttpPost]
-        public List<AttendanceDto> GetAttendance(AttendanceRoteEntry attendanceEntry)
+        public List<AttendanceDto> GetAttendance([FromBody]AttendanceRoteEntry attendanceEntry)
         {
-            throw new NotImplementedException();
+            return _attendanceService.GetAttendance(attendanceEntry);
         }
         /// <summary>
         /// 取得行事曆資料(包含請假、加班、刷卡、班別資訊、異常資料)
@@ -43,9 +50,9 @@ namespace HR_WebApi.Controllers
         /// <returns></returns>
         [Route("GetRoteChange")]
         [HttpPost]
-        public List<RoteChangeDto> GetRoteChange(AttendanceRoteEntry attendanceEntry)
+        public List<RoteChangeDto> GetRoteChange([FromBody]AttendanceRoteEntry attendanceEntry)
         {
-            throw new NotImplementedException();
+            return _attendanceService.GetRoteChange(attendanceEntry);
         }
         /// <summary>
         /// 取得異常名單
@@ -53,9 +60,9 @@ namespace HR_WebApi.Controllers
         /// <param name="attendanceEntry"></param>
         [Route("GetPeopleAbnormal")]
         [HttpPost]
-        public void GetPeopleAbnormal(AttendanceRoteEntry attendanceEntry)
+        public List<string> GetPeopleAbnormal([FromBody]AttendanceRoteEntry attendanceEntry)
         {
-            throw new NotImplementedException();
+            return _attendanceService.GetPeopleAbnormal(attendanceEntry);
         }
         /// <summary>
         /// 取得工作名單
@@ -63,20 +70,11 @@ namespace HR_WebApi.Controllers
         /// <param name="attendanceEntry"></param>
         [Route("GetPeopleWork")]
         [HttpPost]
-        public void GetPeopleWork(AttendanceRoteEntry attendanceEntry)
+        public List<string> GetPeopleWork([FromBody]AttendanceRoteEntry attendanceEntry)
         {
-            throw new NotImplementedException();
+            return _attendanceService.GetPeopleWork(attendanceEntry);
         }
-        /// <summary>
-        /// 取得假別代碼
-        /// </summary>
-        /// <returns></returns>
-        [Route("GetHcode")]
-        [HttpPost]
-        public List<HcodeDto> GetHcode()
-        {
-            throw new NotImplementedException();
-        }
+        
         /// <summary>
         /// 取得班別代碼
         /// </summary>
@@ -85,7 +83,7 @@ namespace HR_WebApi.Controllers
         [HttpPost]
         public List<RoteDto> GetRote()
         {
-            throw new NotImplementedException();
+            return _attendanceService.GetRote();
         }
         /// <summary>
         /// 取得行事曆

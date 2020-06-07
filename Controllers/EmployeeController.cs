@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JBHRIS.Api.Dal.JBHR;
+using JBHRIS.Api.Dto.Attendance.Entry;
 using JBHRIS.Api.Dto.Employee.Normal;
 using JBHRIS.Api.Dto.Employee.View;
 using JBHRIS.Api.Service.Employee.Normal;
 using JBHRIS.Api.Service.Employee.View;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -61,17 +63,6 @@ namespace HR_Api_Demo.Controllers
             return _employeeService.GetEmployeeInfo(employeeList);
         }
         /// <summary>
-        /// 取得人員名單(依部門)
-        /// </summary>
-        /// <param name="employeeInfo_GetPeopleByDept_Entry"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("GetPeopleByDept")]
-        public List<string> GetPeopleByDept([FromBody]EmployeeInfo_GetPeopleByDept_Entry employeeInfo_GetPeopleByDept_Entry)
-        {
-            return _employeeListService.GetPeopleByDept(employeeInfo_GetPeopleByDept_Entry.deptList, Convert.ToDateTime(employeeInfo_GetPeopleByDept_Entry.CheckDate));
-        }
-        /// <summary>
         /// 取得員工檢視表
         /// </summary>
         /// <param name="employeeList"></param>
@@ -81,6 +72,17 @@ namespace HR_Api_Demo.Controllers
         public List<EmployeeViewDto> GetEmployeeView(List<string> employeeList)
         {
             return _employeeViewService.GetEmployeeView(employeeList);
+        }
+        /// <summary>
+        /// 取得生日名單
+        /// </summary>
+        /// <param name="employeeBirthdayEntry"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("GetPeopleBirthday")]
+        public List<string> GetPeopleBirthday(EmployeeBirthdayEntry employeeBirthdayEntry)
+        {
+            return _employeeListService.GetPeopleByBirthday(employeeBirthdayEntry.employeeList, employeeBirthdayEntry.months);
         }
         /// <summary>
         /// 更新員工密碼
@@ -103,9 +105,9 @@ namespace HR_Api_Demo.Controllers
         {
             return _deptViewService.GetDeptView();
         }/// <summary>
-        /// 取得簽核部門
-        /// </summary>
-        /// <returns></returns>
+         /// 取得簽核部門
+         /// </summary>
+         /// <returns></returns>
         [HttpPost]
         [Route("GetDepta")]
         public List<DeptDto> GetDepta()
@@ -118,7 +120,7 @@ namespace HR_Api_Demo.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("GetDepts")]
-        public List<DeptDto> GetDeptas()
+        public List<DeptDto> GetDepts()
         {
             return _deptViewService.GetDeptsView();
         }
@@ -126,6 +128,7 @@ namespace HR_Api_Demo.Controllers
         /// 取得職稱
         /// </summary>
         /// <returns></returns>
+        [Authorize]
         [HttpPost]
         [Route("GetJob")]
         public List<JobDto> GetJob()

@@ -18,16 +18,29 @@ using Microsoft.OpenApi.Models;
 
 namespace HR_WebApi
 {
+    /// <summary>
+    /// 啟動
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="configuration">設定檔</param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
+        /// <summary>
+        /// 設定檔
+        /// </summary>
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// 設定服務
+        /// </summary>
+        /// <param name="services">服務集合</param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -48,9 +61,6 @@ namespace HR_WebApi
                     var typeClass = asmConcrete.GetType(mod.ConcreteClass);
                     services.AddScoped(typeInterface, typeClass);
                 }
-            //test for ci 
-            //fix vstest
-            //abc
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });

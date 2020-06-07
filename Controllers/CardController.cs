@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using JBHRIS.Api.Dto.Attendance;
 using JBHRIS.Api.Dto.Attendance.Entry;
+using JBHRIS.Api.Service.Attendance.Normal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,16 @@ namespace HR_WebApi.Controllers
     [ApiController]
     public class CardController : ControllerBase
     {
+        private ICardService _cardService;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cardService"></param>
+        public CardController(ICardService cardService)
+        {
+            _cardService = cardService;
+        }
         /// <summary>
         /// 取得刷卡資料
         /// </summary>
@@ -23,9 +34,9 @@ namespace HR_WebApi.Controllers
         /// <returns></returns>
         [Route("GetCard")]
         [HttpPost]
-        public List<CardDto> GetCard(AttendanceEntry attendanceEntry)
+        public List<CardDto> GetCard([FromBody]AttendanceEntry attendanceEntry)
         {
-            throw new NotImplementedException();
+            return _cardService.GetCard(attendanceEntry);
         }
         /// <summary>
         /// 取得忘刷原因
@@ -35,7 +46,7 @@ namespace HR_WebApi.Controllers
         [HttpPost]
         public List<CardReasonDto> GetCardReason()
         {
-            throw new NotImplementedException();
+            return _cardService.GetCardReason();
         }
     }
 }

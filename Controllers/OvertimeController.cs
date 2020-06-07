@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JBHRIS.Api.Dto.Attendance;
+using JBHRIS.Api.Dto.Attendance.Entry;
+using JBHRIS.Api.Service.Attendance.Normal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,31 +17,36 @@ namespace HR_WebApi.Controllers
     [ApiController]
     public class OvertimeController : ControllerBase
     {
+        private IOvertimeService _overtimeService;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="overtimeService"></param>
+        public OvertimeController(IOvertimeService overtimeService)
+        {
+            _overtimeService = overtimeService ;
+        }
         /// <summary>
         /// 取得加班資料
         /// </summary>
-        /// <param name="employeeList"></param>
-        /// <param name="DateBegin"></param>
-        /// <param name="DateEnd"></param>
+        /// <param name="attendanceEntry"></param>
         /// <returns></returns>
         [Route("GetOvertime")]
         [HttpPost]
-        public List<OvertimeDto> GetOvertime(List<string> employeeList,  DateTime DateBegin, DateTime DateEnd)
+        public List<OvertimeDto> GetOvertime([FromBody]AttendanceEntry attendanceEntry)
         {
-            throw new NotImplementedException();
+            return _overtimeService.GetOvertime(attendanceEntry);
         }
         /// <summary>
         /// 加班名單
         /// </summary>
-        /// <param name="employeeList"></param>
-        /// <param name="DateBegin"></param>
-        /// <param name="DateEnd"></param>
+        /// <param name="attendanceEntry"></param>
         /// <returns></returns>
         [Route("GetPeopleOvertime")]
         [HttpPost]
-        public List<string> GetPeopleOvertime(List<string> employeeList, DateTime DateBegin, DateTime DateEnd)
+        public List<string> GetPeopleOvertime([FromBody]AttendanceEntry attendanceEntry)
         {
-            throw new NotImplementedException();
+            return _overtimeService.GetPeopleOvertime(attendanceEntry);
         }
         /// <summary>
         /// 取得加班類型?目前沒有
@@ -49,7 +56,7 @@ namespace HR_WebApi.Controllers
         [HttpPost]
         public List<OvertimeTypeDto> GetOvertimeType()
         {
-            throw new NotImplementedException();
+            return _overtimeService.GetOvertimeType();
         }
         /// <summary>
         /// 取得加班原因
@@ -59,7 +66,7 @@ namespace HR_WebApi.Controllers
         [HttpPost]
         public List<OvertimeReasonDto> GetOvertimeReason()
         {
-            throw new NotImplementedException();
+            return _overtimeService.GetOvertimeReason();
         }
     }
 }

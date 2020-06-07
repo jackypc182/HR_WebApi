@@ -14,6 +14,12 @@ namespace HR_WebApi
         {
 
         }
+        /// <summary>
+        /// 設定註冊服務
+        /// </summary>
+        /// <param name="Configuration">設定檔</param>
+        /// <param name="services">服務集合</param>
+        /// <returns></returns>
         public static IServiceCollection Configure(IConfiguration Configuration, IServiceCollection services)
         {
             services.AddSingleton<NLog.ILogger>(NLog.LogManager.GetLogger("HR"));
@@ -28,6 +34,7 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Service.Employee.View.IEmployeeViewService, JBHRIS.Api.Service.Employee.View.EmployeeViewService>();
             services.AddScoped<JBHRIS.Api.Service.Employee.View.IDeptViewService, JBHRIS.Api.Service.Employee.Normal.DeptViewService>();
             services.AddScoped<JBHRIS.Api.Service.Employee.View.IJobViewService, JBHRIS.Api.Service.Employee.View.JobViewService>();
+            
 
             //Dal
             services.AddScoped<JBHRIS.Api.Dal.Employee.IEmployee_Normal_GetEmployeeInfo, JBHRIS.Api.Dal.JBHR.Employee.Employee_Normal_GetEmployeeInfo>();
@@ -45,7 +52,7 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Dal.Employee.View.IEmployee_View_GetJobs, JBHRIS.Api.Dal.JBHR.Employee.View.Employee_View_GetJobs>();
 
             services.AddScoped<JBHRIS.Api.Dal.Employee.Normal.IEmployee_Normal_EmployeePasswordRepository, JBHRIS.Api.Dal.Employee.Normal.Employee_Normal_EmployeePasswordRepository>();
-            services.AddScoped<JBHRIS.Api.Dal.Employee.Normal.IEmployee_Normal_GetPeopleByBirthday, JBHRIS.Api.Dal.JBHR.Employee.Employee_Normail_GetPeopleByBirthday>();
+            services.AddScoped<JBHRIS.Api.Dal.Employee.Normal.IEmployee_Normal_GetPeopleByBirthday, JBHRIS.Api.Dal.JBHR.Employee.Employee_Normal_GetPeopleByBirthday>();
             services.AddScoped<JBHRIS.Api.Dal.Employee.View.IEmployee_View_GetEmployeeBirthday, JBHRIS.Api.Dal.JBHR.Employee.View.Employee_View_GetEmployeeBirthday>();
             
             services.AddScoped<JBHRIS.Api.Dal.JBHR.Repository.IUnitOfWork, JBHRIS.Api.Dal.JBHR.Repository.JbhrUnitOfWork>();

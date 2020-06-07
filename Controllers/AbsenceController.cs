@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using HR_WebApi.Api.Dto;
 using JBHRIS.Api.Dto.Attendance;
 using JBHRIS.Api.Dto.Attendance.Entry;
+using JBHRIS.Api.Service.Attendance.Normal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,12 @@ namespace HR_WebApi.Controllers
     [ApiController]
     public class AbsenceController : ControllerBase
     {
+        private IAbsenceService _absenceService;
+
+        public AbsenceController(IAbsenceService absenceService)
+        {
+            _absenceService = absenceService;
+        }
         /// <summary>
         /// 取得請假資料
         /// </summary>
@@ -24,9 +31,9 @@ namespace HR_WebApi.Controllers
         /// <returns></returns>
         [Route("GetAbsenceTaken")]
         [HttpPost]
-        public List<AbsenceTakenDto> GetAbsenceTaken(AbsenceEntryDto absenceEntryDto)
+        public List<AbsenceTakenDto> GetAbsenceTaken([FromBody]AbsenceEntryDto absenceEntryDto)
         {
-            throw new NotImplementedException();
+            return _absenceService.GetAbsenceTaken(absenceEntryDto);
         }
         /// <summary>
         /// 取得銷假資料
@@ -35,9 +42,9 @@ namespace HR_WebApi.Controllers
         /// <returns></returns>
         [Route("GetAbsenceCancel")]
         [HttpPost]
-        public List<AbsenceCancelDto> GetAbsenceCancel(AbsenceEntryDto absenceEntryDto)
+        public List<AbsenceCancelDto> GetAbsenceCancel([FromBody]AbsenceEntryDto absenceEntryDto)
         {
-            throw new NotImplementedException();
+            return _absenceService.GetAbsenceCancel(absenceEntryDto);
         }
         /// <summary>
         /// 取得剩餘時數
@@ -46,9 +53,9 @@ namespace HR_WebApi.Controllers
         /// <returns></returns>
         [Route("GetAbsBalance")]
         [HttpPost]
-        public List<AbsenceBalanceDto> GetAbsBalance(AbsenceEntryDto absenceEntryDto)
+        public List<AbsenceBalanceDto> GetAbsBalance([FromBody]AbsenceEntryDto absenceEntryDto)
         {
-            throw new NotImplementedException();
+            return _absenceService.GetAbsBalance(absenceEntryDto);
         }
         /// <summary>
         /// 請假名單
@@ -57,9 +64,19 @@ namespace HR_WebApi.Controllers
         /// <returns></returns>
         [Route("GetPeopleAbs")]
         [HttpPost]
-        public List<string> GetPeopleAbs(AbsenceEntryDto absenceEntryDto)
+        public List<string> GetPeopleAbs([FromBody]AbsenceEntryDto absenceEntryDto)
         {
-            throw new NotImplementedException();
+            return _absenceService.GetPeopleAbs(absenceEntryDto);
+        }
+        /// <summary>
+        /// 取得假別代碼
+        /// </summary>
+        /// <returns></returns>
+        [Route("GetHcode")]
+        [HttpPost]
+        public List<HcodeDto> GetHcode()
+        {
+            return _absenceService.GetHcode();
         }
     }
 }
