@@ -61,18 +61,18 @@ namespace HR_WebApi
                     var typeClass = asmConcrete.GetType(mod.ConcreteClass);
                     services.AddScoped(typeInterface, typeClass);
                 }
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-                // var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                // var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                // c.IncludeXmlComments(xmlPath);
-                
                 string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 string commentsFileName = Assembly.GetExecutingAssembly().GetName().Name + ".XML";
                 string commentsFile = Path.Combine(baseDirectory, commentsFileName);
                 c.IncludeXmlComments(commentsFile);
             });
+
+            // 允許 DefaultAuthorize(IAuthorizationFilter) 可以吃AllowAnonymousAttribute可以正確運作
+            services.AddMvcCore(o => o.EnableEndpointRouting = false);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
