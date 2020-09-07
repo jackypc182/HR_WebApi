@@ -64,7 +64,28 @@ namespace HR_WebApi
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "JBHR Web API", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please insert JWT with Bearer into field",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                                       {
+                                         new OpenApiSecurityScheme
+                                         {
+                                           Reference = new OpenApiReference
+                                           {
+                                             Type = ReferenceType.SecurityScheme,
+                                             Id = "Bearer"
+                                           }
+                                          },
+                                          new string[] { }
+                                        }
+                                      });
+
                 string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 string commentsFileName = Assembly.GetExecutingAssembly().GetName().Name + ".XML";
                 string commentsFile = Path.Combine(baseDirectory, commentsFileName);
@@ -95,12 +116,14 @@ namespace HR_WebApi
             app.UseAuthorization();
 
             app.UseSwagger();
+            app.UseStaticFiles();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("v1/swagger.json", "JBHR Web API V1");
+                //c.SwaggerEndpoint("/swagger.json", "JBHR Web API V1");
             });
 
             app.UseEndpoints(endpoints =>
