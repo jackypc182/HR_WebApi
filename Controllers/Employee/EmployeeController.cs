@@ -24,8 +24,8 @@ namespace HR_Api_Demo.Controllers
         private IEmployeeInfoService _employeeService;
         private IEmployeeListService _employeeListService;
         private IEmployeeViewService _employeeViewService;
-        private IDeptViewService _deptViewService;
-        private IJobViewService _jobViewService;
+        //private IDeptViewService _deptViewService;
+        //private IJobViewService _jobViewService;
         //private IOtherCodeViewService _otherCodeViewService;
 
         /// <summary>
@@ -34,21 +34,21 @@ namespace HR_Api_Demo.Controllers
         /// <param name="employeeService">員工基本服務</param>
         /// <param name="employeeListService">員工清單服務</param>
         /// <param name="employeeViewService">員工檢視表服務</param>
-        /// <param name="deptViewService">部門檢視表服務</param>
-        /// <param name="jobViewService">職稱檢視表服務</param>
+        ///// <param name="deptViewService">部門檢視表服務</param>
+        ///// <param name="jobViewService">職稱檢視表服務</param>
         public EmployeeController(IEmployeeInfoService employeeService
             , IEmployeeListService employeeListService
             , IEmployeeViewService employeeViewService
-            , IDeptViewService deptViewService
-            , IJobViewService jobViewService
+            //, IDeptViewService deptViewService
+            //, IJobViewService jobViewService
             //,IOtherCodeViewService otherCodeViewService
             )
         {
             _employeeService = employeeService;
             _employeeListService = employeeListService;
             _employeeViewService = employeeViewService;
-            _deptViewService = deptViewService;
-            _jobViewService = jobViewService;
+            //_deptViewService = deptViewService;
+            //_jobViewService = jobViewService;
             //_otherCodeViewService = otherCodeViewService;
         }
         /// <summary>
@@ -95,76 +95,76 @@ namespace HR_Api_Demo.Controllers
         {
             return _employeeService.UpdateEmployeePassword(password_Entry.OldPWD, password_Entry.NewPWD);
         }
-        /// <summary>
-        /// 取得編制部門
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("GetDept")]
-        public List<DeptDto> GetDept()
-        {
-            return _deptViewService.GetDeptView();
-        }/// <summary>
-         /// 取得簽核部門
-         /// </summary>
-         /// <returns></returns>
-        [HttpPost]
-        [Route("GetDepta")]
-        public List<DeptDto> GetDepta()
-        {
-            return _deptViewService.GetDeptaView();
-        }
-        /// <summary>
-        /// 取得成本部門
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("GetDepts")]
-        public List<DeptDto> GetDepts()
-        {
-            return _deptViewService.GetDeptsView();
-        }
-        /// <summary>
-        /// 取得職稱
-        /// </summary>
-        /// <returns></returns>
-        [Authorize]
-        [HttpPost]
-        [Route("GetJob")]
-        public List<JobDto> GetJob()
-        {
-            return _jobViewService.GetJob();
-        }
-        /// <summary>
-        /// 取得職級
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("GetJobs")]
-        public List<JobDto> GetJobs()
-        {
-            return _jobViewService.GetJobs();
-        }
-        /// <summary>
-        /// 取得職等
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("GetJobl")]
-        public List<JobDto> GetJobl()
-        {
-            return _jobViewService.GetJobl();
-        }
-        /// <summary>
-        /// 取得職系
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("GetJobo")]
-        public List<JobDto> GetJobo()
-        {
-            return _jobViewService.GetJobo();
-        }
+        ///// <summary>
+        ///// 取得編制部門
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpPost]
+        //[Route("GetDept")]
+        //public List<DeptDto> GetDept()
+        //{
+        //    return _deptViewService.GetDeptView();
+        //}/// <summary>
+        // /// 取得簽核部門
+        // /// </summary>
+        // /// <returns></returns>
+        //[HttpPost]
+        //[Route("GetDepta")]
+        //public List<DeptDto> GetDepta()
+        //{
+        //    return _deptViewService.GetDeptaView();
+        //}
+        ///// <summary>
+        ///// 取得成本部門
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpPost]
+        //[Route("GetDepts")]
+        //public List<DeptDto> GetDepts()
+        //{
+        //    return _deptViewService.GetDeptsView();
+        //}
+        ///// <summary>
+        ///// 取得職稱
+        ///// </summary>
+        ///// <returns></returns>
+        //[Authorize]
+        //[HttpPost]
+        //[Route("GetJob")]
+        //public List<JobDto> GetJob()
+        //{
+        //    return _jobViewService.GetJob();
+        //}
+        ///// <summary>
+        ///// 取得職級
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpPost]
+        //[Route("GetJobs")]
+        //public List<JobDto> GetJobs()
+        //{
+        //    return _jobViewService.GetJobs();
+        //}
+        ///// <summary>
+        ///// 取得職等
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpPost]
+        //[Route("GetJobl")]
+        //public List<JobDto> GetJobl()
+        //{
+        //    return _jobViewService.GetJobl();
+        //}
+        ///// <summary>
+        ///// 取得職系
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpPost]
+        //[Route("GetJobo")]
+        //public List<JobDto> GetJobo()
+        //{
+        //    return _jobViewService.GetJobo();
+        //}
     }
     /// <summary>
     /// 取得部門名單-查詢條件

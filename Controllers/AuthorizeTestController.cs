@@ -34,6 +34,7 @@ namespace HR_WebApi.Controllers
         /// 測試驗證角色為為test禁止呼叫
         /// </summary>
         /// <returns></returns>
+        /// <responses Code="401">驗證失敗</responses>
         [HttpGet]
         [Route(nameof(withAuthorize))]
         public IEnumerable<WeatherForecast> withAuthorize()

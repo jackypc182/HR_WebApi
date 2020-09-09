@@ -9,17 +9,25 @@ using JBHRIS.Api.Service.Attendance.Normal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HR_WebApi.Controllers
+namespace HR_WebApi.Controllers.Attendance
 {
     /// <summary>
     /// 請假服務
     /// </summary>
+    /// <description>
+    /// 請假服務的輔助說明
+    /// </description>
+    /// <remarks>測試123</remarks>    
     [Route("api/[controller]")]
     [ApiController]
     public class AbsenceController : ControllerBase
     {
         private IAbsenceService _absenceService;
 
+        /// <summary>
+        /// 請假控制器
+        /// </summary>
+        /// <param name="absenceService">請假服務</param>
         public AbsenceController(IAbsenceService absenceService)
         {
             _absenceService = absenceService;
@@ -28,7 +36,8 @@ namespace HR_WebApi.Controllers
         /// 取得請假資料
         /// </summary>
         /// <param name="absenceEntryDto"></param>
-        /// <returns></returns>
+        /// <returns>產生的結果</returns>
+        /// <remarks>請假服務的輔助說明</remarks>  
         [Route("GetAbsenceTaken")]
         [HttpPost]
         public List<AbsenceTakenDto> GetAbsenceTaken([FromBody]AbsenceEntryDto absenceEntryDto)

@@ -8,7 +8,7 @@ using JBHRIS.Api.Service.Attendance.Normal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HR_WebApi.Controllers
+namespace HR_WebApi.Controllers.Attendance
 {
     /// <summary>
     /// 刷卡服務

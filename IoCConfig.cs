@@ -34,6 +34,8 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Service.Employee.View.IEmployeeViewService, JBHRIS.Api.Service.Employee.View.EmployeeViewService>();
             services.AddScoped<JBHRIS.Api.Service.Employee.View.IDeptViewService, JBHRIS.Api.Service.Employee.Normal.DeptViewService>();
             services.AddScoped<JBHRIS.Api.Service.Employee.View.IJobViewService, JBHRIS.Api.Service.Employee.View.JobViewService>();
+            services.AddScoped<JBHRIS.Api.Service.UserInfoService, JBHRIS.Api.Service.UserInfoService> ();
+            services.AddScoped<JBHRIS.Api.Service.UserValidateService, JBHRIS.Api.Service.UserValidateService>();
             services.AddScoped<JBHRIS.Api.Service.Attendance.IWorkScheduleCheckService, JBHRIS.Api.Service.Attendance.WorkScheduleCheckService>();
 
 
