@@ -14,5 +14,9 @@ namespace HR_WebApi.Controllers.Home
     [ApiController]
     public class HomeController : ControllerBase
     {
+        public HomeInfoCardResultDto GetHomeInfoCard()
+        {
+
+        }
     }
 }
