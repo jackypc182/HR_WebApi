@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WebApiAuthDemo.Controllers
 {
@@ -58,6 +59,34 @@ namespace WebApiAuthDemo.Controllers
             {
                 return BadRequest();
             }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("~/claims")]
+        public IActionResult GetClaims()
+        {
+            return Ok(User.Claims.Select(p => new { p.Type, p.Value }));
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("~/username")]
+        public IActionResult GetUserName()
+        {
+            return Ok(User.Identity.Name);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("~/jwtid")]
+        public IActionResult GetUniqueId()
+        {
+            var jti = User.Claims.FirstOrDefault(p => p.Type == "jti");
+            return Ok(jti.Value);
         }
     }
  
