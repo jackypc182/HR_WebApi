@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HR_WebApi.Controllers.Attendance
+namespace JBHRIS.Api.Attendance
 {
     /// <summary>
     /// 調班

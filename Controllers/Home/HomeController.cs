@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JBHRIS.Api.Dto.Home;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,9 +15,15 @@ namespace HR_WebApi.Controllers.Home
     [ApiController]
     public class HomeController : ControllerBase
     {
-        public HomeInfoCardResultDto GetHomeInfoCard()
+        /// <summary>
+        /// 取得首頁資訊卡
+        /// </summary>
+        /// <returns></returns>
+        [Route("")]
+        [HttpGet]
+        public List<HomeInfoCardDto> GetHomeInfoCard()
         {
-
+            return null;
         }
     }
 }
