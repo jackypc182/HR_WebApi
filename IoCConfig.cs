@@ -37,9 +37,10 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Service.UserInfoService, JBHRIS.Api.Service.UserInfoService> ();
             services.AddScoped<JBHRIS.Api.Service.UserValidateService, JBHRIS.Api.Service.UserValidateService>();
             services.AddScoped<JBHRIS.Api.Service.Attendance.IWorkScheduleCheckService, JBHRIS.Api.Service.Attendance.WorkScheduleCheckService>();
-
+            services.AddScoped<JBHRIS.Api.Service.Attendance.Normal.ICardService, JBHRIS.Api.Service.Attendance.Normal.CardService>();
 
             //Dal
+
             services.AddScoped<JBHRIS.Api.Dal.Employee.IEmployee_Normal_GetEmployeeInfo, JBHRIS.Api.Dal.JBHR.Employee.Employee_Normal_GetEmployeeInfo>();
             services.AddScoped<JBHRIS.Api.Dal.Employee.IEmployee_Normal_GetPeopleByDept, JBHRIS.Api.Dal.JBHR.Employee.Employee_Normal_GetPeopleByDept>();
             services.AddScoped<JBHRIS.Api.Dal.Employee.Normal.IEmployee_Normal_EmployeeInfoRepository, JBHRIS.Api.Dal.JBHR.Employee.Normal.Employee_Normal_EmployeeInfoRepository>();
@@ -59,6 +60,8 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Dal.Employee.View.IEmployee_View_GetEmployeeBirthday, JBHRIS.Api.Dal.JBHR.Employee.View.Employee_View_GetEmployeeBirthday>();
             services.AddScoped<JBHRIS.Api.Dal.Attendance.IWorkscheduleCheck_ScheduleTypeRepository, JBHRIS.Api.Dal.JBHR.Attendance.WorkscheduleCheck_ScheduleTypeRepository>();
             services.AddScoped<JBHRIS.Api.Dal.Attendance.ICalendarHolidayRepository, JBHRIS.Api.Dal.JBHR.Attendance.CalendarHolidayRepository>();
+            services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.ICardReasonRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.CardReasonRepository>();
+            services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.ICardRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.CardRepository>();
 
             services.AddScoped<JBHRIS.Api.Service.Attendance.IWorkScheduleFactory, JBHRIS.Api.Service.Attendance.WorkScheduleFactory>();
 
