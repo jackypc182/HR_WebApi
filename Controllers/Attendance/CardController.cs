@@ -20,9 +20,9 @@ namespace HR_WebApi.Controllers.Attendance
         private ICardService _cardService;
 
         /// <summary>
-        /// 
+        /// 刷卡控制器
         /// </summary>
-        /// <param name="cardService"></param>
+        /// <param name="cardService">刷卡服務</param>
         public CardController(ICardService cardService)
         {
             _cardService = cardService;
