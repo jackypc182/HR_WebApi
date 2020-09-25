@@ -7,6 +7,7 @@ using JBHRIS.Api.Dto.Attendance.Entry;
 using JBHRIS.Api.Service.Attendance.Normal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
 
 namespace HR_WebApi.Controllers.Attendance
 {
@@ -18,14 +19,16 @@ namespace HR_WebApi.Controllers.Attendance
     public class CardController : ControllerBase
     {
         private ICardService _cardService;
-
+        private ILogger _logger;
         /// <summary>
         /// 刷卡控制器
         /// </summary>
         /// <param name="cardService">刷卡服務</param>
-        public CardController(ICardService cardService)
+        /// <param name="logger"></param>
+        public CardController(ICardService cardService ,ILogger logger)
         {
             _cardService = cardService;
+            _logger = logger;
         }
         /// <summary>
         /// 取得刷卡資料
@@ -36,6 +39,7 @@ namespace HR_WebApi.Controllers.Attendance
         [HttpPost]
         public List<CardDto> GetCard([FromBody]AttendanceEntry attendanceEntry)
         {
+            _logger.Info("開始呼叫CardService.GetCard");
             return _cardService.GetCard(attendanceEntry);
         }
         /// <summary>
@@ -46,6 +50,7 @@ namespace HR_WebApi.Controllers.Attendance
         [HttpPost]
         public List<CardReasonDto> GetCardReason()
         {
+            _logger.Info("開始呼叫CardService.GetCardReason");
             return _cardService.GetCardReason();
         }
     }
