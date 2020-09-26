@@ -8,6 +8,7 @@ using JBHRIS.Api.Dto.Attendance.Entry;
 using JBHRIS.Api.Service.Attendance.Normal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
 
 namespace HR_WebApi.Controllers.Attendance
 {
@@ -23,14 +24,16 @@ namespace HR_WebApi.Controllers.Attendance
     public class AbsenceController : ControllerBase
     {
         private IAbsenceService _absenceService;
-
+        private ILogger _logger;
         /// <summary>
         /// 請假控制器
         /// </summary>
         /// <param name="absenceService">請假服務</param>
-        public AbsenceController(IAbsenceService absenceService)
+        /// <param name="logger"></param>
+        public AbsenceController(IAbsenceService absenceService,ILogger logger)
         {
             _absenceService = absenceService;
+            _logger = logger;
         }
         /// <summary>
         /// 取得請假資料
@@ -40,8 +43,9 @@ namespace HR_WebApi.Controllers.Attendance
         /// <remarks>請假服務的輔助說明</remarks>  
         [Route("GetAbsenceTaken")]
         [HttpPost]
-        public List<AbsenceTakenDto> GetAbsenceTaken([FromBody]AbsenceEntryDto absenceEntryDto)
+        public List<AbsenceTakenDto> GetAbsenceTaken([FromBody]AbsenceEntry absenceEntryDto)
         {
+            _logger.Info("開始呼叫AbsenceService.GetAbsenceTaken");
             return _absenceService.GetAbsenceTaken(absenceEntryDto);
         }
         /// <summary>
@@ -51,7 +55,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetAbsenceCancel")]
         [HttpPost]
-        public List<AbsenceCancelDto> GetAbsenceCancel([FromBody]AbsenceEntryDto absenceEntryDto)
+        public List<AbsenceCancelDto> GetAbsenceCancel([FromBody]AbsenceEntry absenceEntryDto)
         {
             return _absenceService.GetAbsenceCancel(absenceEntryDto);
         }
@@ -62,7 +66,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetAbsBalance")]
         [HttpPost]
-        public List<AbsenceBalanceDto> GetAbsBalance([FromBody]AbsenceEntryDto absenceEntryDto)
+        public List<AbsenceBalanceDto> GetAbsBalance([FromBody]AbsenceEntry absenceEntryDto)
         {
             return _absenceService.GetAbsBalance(absenceEntryDto);
         }
@@ -73,7 +77,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetPeopleAbs")]
         [HttpPost]
-        public List<string> GetPeopleAbs([FromBody]AbsenceEntryDto absenceEntryDto)
+        public List<string> GetPeopleAbs([FromBody]AbsenceEntry absenceEntryDto)
         {
             return _absenceService.GetPeopleAbs(absenceEntryDto);
         }

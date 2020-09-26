@@ -40,6 +40,7 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Service.Attendance.IWorkScheduleCheckService, JBHRIS.Api.Service.Attendance.WorkScheduleCheckService>();
             services.AddScoped<JBHRIS.Api.Service.Attendance.Normal.ICardService, JBHRIS.Api.Service.Attendance.Normal.CardService>();
             services.AddScoped<JBHRIS.Api.Service.Attendance.Normal.IRoteChangeService, JBHRIS.Api.Service.Attendance.Normal.RoteChangeService>();
+            services.AddScoped<JBHRIS.Api.Service.Attendance.Normal.IAbsenceService, JBHRIS.Api.Service.Attendance.Normal.AbsenceService>();
 
             //Dal
 
@@ -66,6 +67,7 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.ICardReasonRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.CardReasonRepository>();
             services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.ICardRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.CardRepository>();
             services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.IRoteChangeRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.RoteChangeRepository>();
+            services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.IAbsenceRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.AbsenceRepository>();
 
             services.AddScoped<JBHRIS.Api.Dal.JBHR.Repository.IUnitOfWork, JBHRIS.Api.Dal.JBHR.Repository.JbhrUnitOfWork>();
             services.AddScoped<DbContext, JBHRIS.Api.Dal.JBHR.JBHRContext>();
