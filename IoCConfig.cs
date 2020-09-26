@@ -9,7 +9,6 @@ namespace HR_WebApi
 {
     public class IoCConfig
     {
-
         public IoCConfig()
         {
 
@@ -67,18 +66,12 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.ICardReasonRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.CardReasonRepository>();
             services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.ICardRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.CardRepository>();
             services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.IRoteChangeRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.RoteChangeRepository>();
-            services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.IAbsenceRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.AbsenceRepository>();
+            services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.IAbsenceTakenRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.AbsenceTakenRepository>();
+            services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.IAbsenceCancelRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.AbsenceCancelRepository>();
 
             services.AddScoped<JBHRIS.Api.Dal.JBHR.Repository.IUnitOfWork, JBHRIS.Api.Dal.JBHR.Repository.JbhrUnitOfWork>();
             services.AddScoped<DbContext, JBHRIS.Api.Dal.JBHR.JBHRContext>();
             return services;
         }
-
-
-
-        
-
-
-
     }
 }
