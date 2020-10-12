@@ -40,7 +40,12 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Service.Attendance.Normal.ICardService, JBHRIS.Api.Service.Attendance.Normal.CardService>();
             services.AddScoped<JBHRIS.Api.Service.Attendance.Normal.IRoteChangeService, JBHRIS.Api.Service.Attendance.Normal.RoteChangeService>();
             services.AddScoped<JBHRIS.Api.Service.Attendance.Normal.IAbsenceService, JBHRIS.Api.Service.Attendance.Normal.AbsenceService>();
-            services.AddScoped<JBHRIS.Api.Service.Attendance.Normal.IOvertimeService, JBHRIS.Api.Service.Attendance.Normal.OvertimeService>();
+            services.AddScoped<JBHRIS.Api.Service._System.View.ISysRoleViewService, JBHRIS.Api.Service._System.View.SysRoleViewService>();
+            services.AddScoped<JBHRIS.Api.Service._System.View.ISysRolePageService, JBHRIS.Api.Service._System.View.SysRolePageService>();
+            services.AddScoped<JBHRIS.Api.Service._System.View.ISysPageApiService, JBHRIS.Api.Service._System.View.SysPageApiService>();
+            services.AddScoped<JBHRIS.Api.Service._System.View.ISysPageApiVoidService, JBHRIS.Api.Service._System.View.SysPageApiVoidService>();
+            services.AddScoped<JBHRIS.Api.Service._System.View.ISysUserRoleViewService, JBHRIS.Api.Service._System.View.SysUserRoleViewService>();
+            services.AddScoped<JBHRIS.Api.Service._System.View.ISysApiVoidService, JBHRIS.Api.Service._System.View.SysApiVoidService>();
 
             //Dal
 
@@ -70,6 +75,13 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.IAbsenceTakenRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.AbsenceTakenRepository>();
             services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.IAbsenceCancelRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.AbsenceCancelRepository>();
             services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.IOverTimeRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.OverTimeRepository>();
+
+            services.AddScoped<JBHRIS.Api.Dal._System.View.ISystem_View_SysRole, JBHRIS.Api.Dal.JBHR._System.System_View_SysRole>();
+            services.AddScoped<JBHRIS.Api.Dal._System.View.ISystem_View_SysPage, JBHRIS.Api.Dal.JBHR._System.System_View_SysPage>();
+            services.AddScoped<JBHRIS.Api.Dal._System.View.ISystem_View_SysRolePage, JBHRIS.Api.Dal.JBHR._System.System_View_SysRolePage>();
+            services.AddScoped<JBHRIS.Api.Dal._System.View.ISystem_View_SysPageApiVoid, JBHRIS.Api.Dal.JBHR._System.System_View_SysPageApiVoid>();
+            services.AddScoped<JBHRIS.Api.Dal._System.View.ISystem_View_SysUserRole, JBHRIS.Api.Dal.JBHR._System.System_View_SysUserRole>();
+            services.AddScoped<JBHRIS.Api.Dal._System.View.ISystem_View_SysApiVoid, JBHRIS.Api.Dal.JBHR._System.System_View_SysApiVoid>();
 
             services.AddScoped<JBHRIS.Api.Dal.JBHR.Repository.IUnitOfWork, JBHRIS.Api.Dal.JBHR.Repository.JbhrUnitOfWork>();
             services.AddScoped<DbContext, JBHRIS.Api.Dal.JBHR.JBHRContext>();
