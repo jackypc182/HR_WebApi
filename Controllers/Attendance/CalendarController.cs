@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JBHRIS.Api.Attendance;
+using JBHRIS.Api.Dto.Attendance;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
