@@ -9,7 +9,17 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>D:\SVN\Customer\JBHR2\HR_WebApi\HR_WebApi\HR_WebApi.xml</DocumentationFile>
   </PropertyGroup>
+
   <ItemGroup>
+    <Compile Remove="Controllers\DemoController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.13" />
+    <PackageReference Include="Hangfire.Console" Version="1.4.2" />
+    <PackageReference Include="Hangfire.Core" Version="1.7.13" />
+    <PackageReference Include="Hangfire.Dashboard.Management" Version="1.7.9" />
+    <PackageReference Include="Hangfire.MemoryStorage" Version="1.7.0" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.13" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.4" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.10" />
