@@ -2,9 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Hangfire;
+using Hangfire.Console;
+using Hangfire.Dashboard.Management;
+using Hangfire.SqlServer;
 using JBHRIS.Api.Dto;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -49,10 +54,46 @@ namespace HR_WebApi
             services.AddControllers();
             services.Configure<ConfigurationDto>(Configuration);
             services.AddSingleton<NLog.ILogger>(NLog.LogManager.GetLogger("HR"));
+            services.AddMemoryCache();
             //var config = Configuration.GetSection("Moduleregister");
             services.AddDbContext<JBHRIS.Api.Dal.JBHR.JBHRContext>(options => options.UseSqlServer(Configuration["HrConnectionStrings:DefaultConnection"]));
             //JwtConfing.Configure(Configuration, services);
+            services.AddHangfire(configuration => configuration
+             .UseSimpleAssemblyNameTypeSerializer()
+                                   .UseRecommendedSerializerSettings()
+                                   .UseColouredConsoleLogProvider()
+                                   .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics.ServerCount)
+                                   .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics.RecurringJobCount)
+                                   .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics.RetriesCount)
 
+                                   //.UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics.EnqueuedCountOrNull)
+                                   //.UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics.FailedCountOrNull)
+                                   .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics
+                                                               .EnqueuedAndQueueCount)
+                                   .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics
+                                                               .ScheduledCount)
+                                   .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics
+                                                               .ProcessingCount)
+                                   .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics
+                                                               .SucceededCount)
+                                   .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics.FailedCount)
+                                   .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics.DeletedCount)
+                                   .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics
+                                                               .AwaitingCount)
+                                   .UseConsole()
+                                   .UseNLogLogProvider()
+             .UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection"), new SqlServerStorageOptions
+             {
+                 CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                 SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                 QueuePollInterval = TimeSpan.Zero,
+                 UseRecommendedIsolationLevel = true,
+                 DisableGlobalLocks = true
+             })
+             .UseManagementPages(p => p.AddJobs(() => GetModuleTypes()))
+             );
+            // Add the processing server as IHostedService
+            services.AddHangfireServer();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                     {
@@ -103,7 +144,7 @@ namespace HR_WebApi
             {
                 var contact = new OpenApiContact();
                 contact.Email = "stanley@jbjob.com.tw";
-                contact.Name = "ªL§Ó¿³";
+                contact.Name = "ªL§Ó¿³";                
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "JBHR Web API",
@@ -143,6 +184,43 @@ namespace HR_WebApi
             services.AddMvcCore(o => o.EnableEndpointRouting = false);
         }
 
+        private Type[] GetModuleTypes()
+        {
+            var assemblies = new[] { this.GetType().Assembly };
+            //var assemblies = new[] { typeof(JBHRIS.Api.Service.Attendance.Normal.CardMachineService).Assembly };
+            var moduleTypes = assemblies.SelectMany(f =>
+            {
+                try
+                {
+                    return f.GetTypes();
+                }
+                catch (Exception)
+                {
+                    return new Type[] { };
+                }
+            }
+                                                   )
+                                        .ToArray();
+
+            assemblies = new[] { typeof(JBHRIS.Api.Service.Attendance.Normal.CardMachineService).Assembly };
+            //var assemblies = new[] { typeof(JBHRIS.Api.Service.Attendance.Normal.CardMachineService).Assembly };
+            var moduleTypes1 = assemblies.SelectMany(f =>
+            {
+                try
+                {
+                    return f.GetTypes();
+                }
+                catch (Exception)
+                {
+                    return new Type[] { };
+                }
+            }
+                                                   )
+                                        .ToArray();
+
+            return moduleTypes.Union(moduleTypes1).ToArray();
+        }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -155,7 +233,7 @@ namespace HR_WebApi
             {
                 app.UseExceptionHandler("/Error");
             }
-
+            app.UseHangfireDashboard();
             //app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseRouting();
@@ -176,6 +254,7 @@ namespace HR_WebApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHangfireDashboard();
             });
         }
     }
