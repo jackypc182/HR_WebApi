@@ -1,4 +1,5 @@
 ﻿using HR_WebApi.Helpers;
+using JBHRIS.Api.Dto.Login;
 using JBHRIS.Api.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -44,22 +45,60 @@ namespace WebApiAuthDemo.Controllers
         /// <returns></returns>
         [Route("Signin")]
         [HttpPost]
-        public ActionResult<string> SignIn(string UserId, string Password)
+        public TokenResultDto SignIn(string UserId, string Password)
         {
             // 以下變數值應該透過 IConfiguration 取得
             var issuer = _configuration["JWT:issuer"].ToString(); //"JwtAuthDemo";
             var signKey = _configuration["JWT:signKey"].ToString(); // 請換成至少 16 字元以上的安全亂碼
             var expires = Convert.ToInt32(_configuration["JWT:expires"]); // 單位: 分鐘
 
+            TokenResultDto tokenResultDto;
             if (_userValidateService.ValidateUser(UserId,Password))
             {
-                return JwtHelpers.GenerateToken(issuer, signKey, UserId, expires, _userInfoService.GetApiRoles(UserId), JsonConvert.SerializeObject(_userInfoService.GetUserInfo(UserId)));
+                tokenResultDto = new TokenResultDto()
+                {
+                    State = true,
+                    accessToken = JwtHelpers.GenerateToken(issuer, signKey, UserId, expires, _userInfoService.GetApiRoles(UserId), JsonConvert.SerializeObject(_userInfoService.GetUserInfo(UserId))),
+                    refreshToken = Guid.NewGuid().ToString()
+                };
+                return tokenResultDto;
             }
             else
             {
-                return BadRequest();
+                tokenResultDto = new TokenResultDto()
+                {
+                    State = false,
+                    Message = "帳號密碼輸入錯誤"
+                };
+                return tokenResultDto;
+                //return BadRequest();
             }
         }
+
+        /// <summary>
+        /// 重新取得Token
+        /// </summary>
+        /// <param name="refreshToken">refreshToken</param>
+        /// <returns></returns>
+        [Route("RefreshToken")]
+        [HttpPost]
+        public TokenResultDto RefreshToken(string refreshToken)
+        {
+            // 以下變數值應該透過 IConfiguration 取得
+            var issuer = _configuration["JWT:issuer"].ToString(); //"JwtAuthDemo";
+            var signKey = _configuration["JWT:signKey"].ToString(); // 請換成至少 16 字元以上的安全亂碼
+            var expires = Convert.ToInt32(_configuration["JWT:expires"]); // 單位: 分鐘
+            string UserId = "";
+            TokenResultDto tokenResultDto;
+            tokenResultDto = new TokenResultDto()
+            {
+                State = true,
+                accessToken = JwtHelpers.GenerateToken(issuer, signKey, UserId, expires, _userInfoService.GetApiRoles(UserId), JsonConvert.SerializeObject(_userInfoService.GetUserInfo(UserId))),
+                refreshToken = Guid.NewGuid().ToString()
+            };
+            return tokenResultDto;
+        }
+
         /// <summary>
         /// 
         /// </summary>

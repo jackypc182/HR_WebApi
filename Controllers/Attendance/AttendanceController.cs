@@ -39,9 +39,29 @@ namespace HR_WebApi.Controllers.Attendance
         /// </summary>
         [Route("GetCalendar")]
         [HttpPost]
-        public void GetCalendar()
+        public List<AttendanceCalendarDto> GetCalendar(AttendanceCalendarEntry attendanceCalendarEntry)   
         {
-            throw new NotImplementedException();
+            List<AttendanceCalendarDto> attendanceCalendarDtos = new List<AttendanceCalendarDto>();
+            List<CalendarDto> AttendData = new List<CalendarDto>();
+            AttendData.Add(new CalendarDto()
+            {
+                
+                CalendarDate = Convert.ToDateTime(attendanceCalendarEntry.DateBegin),
+                CalendarType = "請假",
+                Color = "0289ff",
+                BeginTime = Convert.ToDateTime(attendanceCalendarEntry.DateBegin),
+                EndTime = Convert.ToDateTime(attendanceCalendarEntry.DateBegin),
+                EmployeeId = attendanceCalendarEntry.EmployeeList[0],
+                Remark = null
+            });
+            attendanceCalendarDtos.Add(new AttendanceCalendarDto()
+            {
+                EmployeeId = attendanceCalendarEntry.EmployeeList[0],
+                AttendData = AttendData,
+                CalendarDate = Convert.ToDateTime(attendanceCalendarEntry.DateBegin),
+                State = true
+            });
+            return attendanceCalendarDtos;
         }
         /// <summary>
         /// 取得調班資料
@@ -93,6 +113,43 @@ namespace HR_WebApi.Controllers.Attendance
         public void GetAttendCalendar()
         {
             throw new NotImplementedException();
+        }
+
+
+        /// <summary>
+        /// 出勤明細表
+        /// </summary>
+        [Route("GetAttendDetail")]
+        [HttpPost]
+        public List<AttendanceDetailDto> GetAttendDetail(AttendanceDetailEntry attendanceDetailEntry)
+        {
+            List<AttendanceDetailDto> attendanceDetailDtos = new List<AttendanceDetailDto>();
+            List<CalendarDto> AttendData = new List<CalendarDto>();
+            AttendData.Add(new CalendarDto()
+            {
+                CalendarDate = Convert.ToDateTime(attendanceDetailEntry.DateBegin),
+                CalendarType = "請假",
+                Color = "0289ff",
+                BeginTime = Convert.ToDateTime(attendanceDetailEntry.DateBegin),
+                EndTime = Convert.ToDateTime(attendanceDetailEntry.DateBegin),
+                EmployeeId = attendanceDetailEntry.EmployeeList[0],
+                Remark = null
+            });
+            attendanceDetailDtos.Add(new AttendanceDetailDto()
+            {
+                EmployeeId = attendanceDetailEntry.EmployeeList[0],
+                EmployeeName = "",
+                AttendDate = attendanceDetailEntry.DateBegin,
+                RoteCode = "0800A",
+                RoteName = "常日班",
+                RoteDateTimeB = DateTime.Now,
+                RoteDateTimeE = Convert.ToDateTime(DateTime.Now.AddHours(8).ToString()),
+                CardDateTimeB = DateTime.Now,
+                CardDateTimeE = Convert.ToDateTime(DateTime.Now.AddHours(8).ToString()),
+                AttendData = AttendData,
+                State = true
+            });
+            return attendanceDetailDtos;
         }
     }
 }

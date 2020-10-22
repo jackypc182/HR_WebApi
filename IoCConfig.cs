@@ -47,7 +47,8 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysPageApiVoidService, JBHRIS.Api.Service._System.View.SysPageApiVoidService>();
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysUserRoleViewService, JBHRIS.Api.Service._System.View.SysUserRoleViewService>();
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysApiVoidService, JBHRIS.Api.Service._System.View.SysApiVoidService>();
-
+            services.AddScoped<JBHRIS.Api.Service.Attendance.Normal.IAttendanceService, JBHRIS.Api.Service.Attendance.Normal.AttendanceService>();
+            
             //Dal
 
             services.AddScoped<JBHRIS.Api.Dal.Employee.IEmployee_Normal_GetEmployeeInfo, JBHRIS.Api.Dal.JBHR.Employee.Employee_Normal_GetEmployeeInfo>();
@@ -64,7 +65,6 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Dal.Employee.View.IEmployee_View_GetJobo, JBHRIS.Api.Dal.JBHR.Employee.View.Employee_View_GetJobo>();
             services.AddScoped<JBHRIS.Api.Dal.Employee.View.IEmployee_View_GetJobs, JBHRIS.Api.Dal.JBHR.Employee.View.Employee_View_GetJobs>();
             services.AddScoped<JBHRIS.Api.Dal._System.IUserValidateDal, JBHRIS.Api.Dal.JBHR._System.UserValidateDal>();
-            services.AddScoped<EmployeeRoleService, EmployeeRoleService>();
             services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.ICard_Normal_GetCardApply, JBHRIS.Api.Dal.JBHR.Attendance.Normal.Card_Normal_GetCardApply>();
             services.AddScoped<EmployeeRoleService, EmployeeRoleService>();
 
