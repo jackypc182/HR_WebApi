@@ -6,10 +6,10 @@ using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-//using Hangfire;
-//using Hangfire.Console;
-//using Hangfire.Dashboard.Management;
-//using Hangfire.SqlServer;
+using Hangfire;
+using Hangfire.Console;
+using Hangfire.Dashboard.Management;
+using Hangfire.SqlServer;
 using JBHRIS.Api.Dto;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -58,42 +58,42 @@ namespace HR_WebApi
             //var config = Configuration.GetSection("Moduleregister");
             services.AddDbContext<JBHRIS.Api.Dal.JBHR.JBHRContext>(options => options.UseSqlServer(Configuration["HrConnectionStrings:DefaultConnection"]));
             //JwtConfing.Configure(Configuration, services);
-            //services.AddHangfire(configuration => configuration
-            // .UseSimpleAssemblyNameTypeSerializer()
-            //                       .UseRecommendedSerializerSettings()
-            //                       .UseColouredConsoleLogProvider()
-            //                       .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics.ServerCount)
-            //                       .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics.RecurringJobCount)
-            //                       .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics.RetriesCount)
+            services.AddHangfire(configuration => configuration
+             .UseSimpleAssemblyNameTypeSerializer()
+                                   .UseRecommendedSerializerSettings()
+                                   .UseColouredConsoleLogProvider()
+                                   .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics.ServerCount)
+                                   .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics.RecurringJobCount)
+                                   .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics.RetriesCount)
 
-            //                       //.UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics.EnqueuedCountOrNull)
-            //                       //.UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics.FailedCountOrNull)
-            //                       .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics
-            //                                                   .EnqueuedAndQueueCount)
-            //                       .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics
-            //                                                   .ScheduledCount)
-            //                       .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics
-            //                                                   .ProcessingCount)
-            //                       .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics
-            //                                                   .SucceededCount)
-            //                       .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics.FailedCount)
-            //                       .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics.DeletedCount)
-            //                       .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics
-            //                                                   .AwaitingCount)
-            //                       .UseConsole()
-            //                       .UseNLogLogProvider()
-            // .UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection"), new SqlServerStorageOptions
-            // {
-            //     CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
-            //     SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
-            //     QueuePollInterval = TimeSpan.Zero,
-            //     UseRecommendedIsolationLevel = true,
-            //     DisableGlobalLocks = true
-            // })
-            // .UseManagementPages(p => p.AddJobs(() => GetModuleTypes()))
-            // );
+                                   //.UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics.EnqueuedCountOrNull)
+                                   //.UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics.FailedCountOrNull)
+                                   .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics
+                                                               .EnqueuedAndQueueCount)
+                                   .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics
+                                                               .ScheduledCount)
+                                   .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics
+                                                               .ProcessingCount)
+                                   .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics
+                                                               .SucceededCount)
+                                   .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics.FailedCount)
+                                   .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics.DeletedCount)
+                                   .UseDashboardMetric(Hangfire.Dashboard.DashboardMetrics
+                                                               .AwaitingCount)
+                                   .UseConsole()
+                                   .UseNLogLogProvider()
+             .UseSqlServerStorage(Configuration.GetConnectionString("HangfireConnection"), new SqlServerStorageOptions
+             {
+                 CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                 SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                 QueuePollInterval = TimeSpan.Zero,
+                 UseRecommendedIsolationLevel = true,
+                 DisableGlobalLocks = true
+             })
+             .UseManagementPages(p => p.AddJobs(() => GetModuleTypes()))
+             );
             // Add the processing server as IHostedService
-            //services.AddHangfireServer();
+            services.AddHangfireServer();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                     {
@@ -128,12 +128,12 @@ namespace HR_WebApi
                     });
 
             IoCConfig.Configure(Configuration, services);
-
             var conf = Configuration.Get<ConfigurationDto>();
+            var sourceDir = conf.SourceDir.Trim().Length == 0 ? AppDomain.CurrentDomain.BaseDirectory : conf.SourceDir;
             if (conf.ModuleRegister != null && conf.ModuleRegister.Module != null)
                 foreach (var mod in conf.ModuleRegister.Module)
                 {
-                    var asmInterface = Assembly.LoadFrom(conf.SourceDir + mod.InterfaceAssembly);
+                    var asmInterface = Assembly.LoadFrom(sourceDir + mod.InterfaceAssembly);
                     var asmConcrete = Assembly.LoadFrom(conf.SourceDir + mod.ConcreteClassAssembly);
                     var typeInterface = asmInterface.GetType(mod.Interface);
                     var typeClass = asmConcrete.GetType(mod.ConcreteClass);
@@ -233,7 +233,7 @@ namespace HR_WebApi
             {
                 app.UseExceptionHandler("/Error");
             }
-            //app.UseHangfireDashboard();
+            app.UseHangfireDashboard();
             //app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseRouting();
@@ -254,7 +254,7 @@ namespace HR_WebApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                //endpoints.MapHangfireDashboard();
+                endpoints.MapHangfireDashboard();
             });
         }
     }
