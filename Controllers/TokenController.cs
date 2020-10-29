@@ -98,7 +98,6 @@ namespace WebApiAuthDemo.Controllers
             };
             return tokenResultDto;
         }
-
         /// <summary>
         /// 
         /// </summary>
@@ -107,6 +106,15 @@ namespace WebApiAuthDemo.Controllers
         public IActionResult GetClaims()
         {
             return Ok(User.Claims.Select(p => new { p.Type, p.Value }));
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("~/userdata")]
+        public IActionResult GetUserData()
+        {
+            return Ok(User.Claims.Where(p=>p.Type.Contains("userdata")).FirstOrDefault().Value);
         }
         /// <summary>
         /// 
