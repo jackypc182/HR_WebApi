@@ -24,6 +24,8 @@ namespace HR_Api_Demo.Controllers
         private IEmployeeInfoService _employeeService;
         private IEmployeeListService _employeeListService;
         private IEmployeeViewService _employeeViewService;
+        private IEmployeeRoleService _employeeRoleService;
+
         //private IDeptViewService _deptViewService;
         //private IJobViewService _jobViewService;
         //private IOtherCodeViewService _otherCodeViewService;
@@ -38,7 +40,8 @@ namespace HR_Api_Demo.Controllers
         ///// <param name="jobViewService">職稱檢視表服務</param>
         public EmployeeController(IEmployeeInfoService employeeService
             , IEmployeeListService employeeListService
-            , IEmployeeViewService employeeViewService
+            , IEmployeeViewService employeeViewService,
+           IEmployeeRoleService employeeRoleService
             //, IDeptViewService deptViewService
             //, IJobViewService jobViewService
             //,IOtherCodeViewService otherCodeViewService
@@ -47,9 +50,23 @@ namespace HR_Api_Demo.Controllers
             _employeeService = employeeService;
             _employeeListService = employeeListService;
             _employeeViewService = employeeViewService;
+            _employeeRoleService = employeeRoleService;
             //_deptViewService = deptViewService;
             //_jobViewService = jobViewService;
             //_otherCodeViewService = otherCodeViewService;
+        }
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="deptList"></param>
+      /// <param name="checkDate"></param>
+      /// <returns></returns>
+        [HttpPost]
+        [Route("GetPeopleByDept")]
+        public List<string> GetPeopleByDept([FromBody]List<string> deptList,DateTime checkDate)
+        {
+            var employeeList = _employeeRoleService.GetAllowEmloyeeList(User);
+            return _employeeListService.GetPeopleByDept(employeeList, deptList, checkDate);
         }
         /// <summary>
         /// 取得員工基本資料
