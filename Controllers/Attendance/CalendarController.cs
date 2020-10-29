@@ -25,9 +25,9 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("")]
         [HttpPost]
-        public List<CalendarDto> GetCalendars([FromBody] List<string> employeeList,DateTime dateBegin,DateTime dateEnd)
+        public List<CalendarResultDto> GetCalendars([FromBody] List<string> employeeList,DateTime dateBegin,DateTime dateEnd)
         {
-            return new List<CalendarDto>();
+            return new List<CalendarResultDto>();
         }
     }
 }

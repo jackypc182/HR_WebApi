@@ -1,4 +1,5 @@
 ﻿using HR_WebApi.Helpers;
+using JBHRIS.Api.Dal.JBHR;
 using JBHRIS.Api.Dto.Login;
 using JBHRIS.Api.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,7 @@ namespace WebApiAuthDemo.Controllers
         private IConfiguration _configuration;
         private UserValidateService _userValidateService;
         private UserInfoService _userInfoService;
+        private JBHRContext _context;
 
         /// <summary>
         /// 建構子
@@ -31,8 +33,9 @@ namespace WebApiAuthDemo.Controllers
         /// <param name="configuration"></param>
         /// <param name="userValidateService"></param>
         /// <param name="userInfoService"></param>
-        public TokenController(IConfiguration configuration, UserValidateService userValidateService, UserInfoService userInfoService)
+        public TokenController(JBHRContext context,IConfiguration configuration, UserValidateService userValidateService, UserInfoService userInfoService)
         {
+            _context = context;
             _configuration = configuration;
             _userValidateService = userValidateService;
             _userInfoService = userInfoService;
@@ -55,11 +58,23 @@ namespace WebApiAuthDemo.Controllers
             TokenResultDto tokenResultDto;
             if (_userValidateService.ValidateUser(UserId,Password))
             {
+                var refreshToken = Guid.NewGuid().ToString();
+                _context.RefreshToken.Add(new RefreshToken() 
+                {
+                    RefreshToken1= refreshToken,
+                    Nobr = UserId,
+                    DueDate = DateTime.Now.AddDays(1),
+                    Valid = "",
+                    Lock = 0,
+                    UpdateTime = DateTime.Now
+                });
+                _context.SaveChanges();
+
                 tokenResultDto = new TokenResultDto()
                 {
                     State = true,
                     accessToken = JwtHelpers.GenerateToken(issuer, signKey, UserId, expires, _userInfoService.GetApiRoles(UserId), JsonConvert.SerializeObject(_userInfoService.GetUserInfo(UserId))),
-                    refreshToken = Guid.NewGuid().ToString()
+                    refreshToken = refreshToken
                 };
                 return tokenResultDto;
             }
@@ -84,18 +99,39 @@ namespace WebApiAuthDemo.Controllers
         [HttpPost]
         public TokenResultDto RefreshToken(string refreshToken)
         {
-            // 以下變數值應該透過 IConfiguration 取得
-            var issuer = _configuration["JWT:issuer"].ToString(); //"JwtAuthDemo";
-            var signKey = _configuration["JWT:signKey"].ToString(); // 請換成至少 16 字元以上的安全亂碼
-            var expires = Convert.ToInt32(_configuration["JWT:expires"]); // 單位: 分鐘
-            string UserId = "";
+            var refdata = from r in _context.RefreshToken
+                          where r.RefreshToken1 == refreshToken &&
+                          DateTime.Now < r.DueDate &&
+                          r.Lock == 0
+                          select r;
+
+            var entity = refdata.FirstOrDefault(item => item.RefreshToken1 == refreshToken);
+
             TokenResultDto tokenResultDto;
             tokenResultDto = new TokenResultDto()
             {
-                State = true,
-                accessToken = JwtHelpers.GenerateToken(issuer, signKey, UserId, expires, _userInfoService.GetApiRoles(UserId), JsonConvert.SerializeObject(_userInfoService.GetUserInfo(UserId))),
-                refreshToken = Guid.NewGuid().ToString()
+                State = false
             };
+
+            if (entity != null)
+            {
+                // 以下變數值應該透過 IConfiguration 取得
+                var issuer = _configuration["JWT:issuer"].ToString(); //"JwtAuthDemo";
+                var signKey = _configuration["JWT:signKey"].ToString(); // 請換成至少 16 字元以上的安全亂碼
+                var expires = Convert.ToInt32(_configuration["JWT:expires"]); // 單位: 分鐘
+                string UserId = entity.Nobr.ToString();
+                tokenResultDto = new TokenResultDto()
+                {
+                    State = true,
+                    accessToken = JwtHelpers.GenerateToken(issuer, signKey, UserId, expires, _userInfoService.GetApiRoles(UserId), JsonConvert.SerializeObject(_userInfoService.GetUserInfo(UserId))),
+                    refreshToken = entity.RefreshToken1.ToString()
+                };
+
+                entity.UpdateTime = DateTime.Now;
+                entity.DueDate = entity.DueDate.AddDays(1);
+                _context.SaveChanges();
+            }
+
             return tokenResultDto;
         }
         /// <summary>

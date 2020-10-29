@@ -48,6 +48,7 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysUserRoleViewService, JBHRIS.Api.Service._System.View.SysUserRoleViewService>();
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysApiVoidService, JBHRIS.Api.Service._System.View.SysApiVoidService>();
             services.AddScoped<JBHRIS.Api.Service.Attendance.Normal.IAttendanceService, JBHRIS.Api.Service.Attendance.Normal.AttendanceService>();
+            services.AddScoped<JBHRIS.Api.Service.Attendance.Normal.IOvertimeService, JBHRIS.Api.Service.Attendance.Normal.OvertimeService>();
             services.AddScoped<JBHRIS.Api.Service.Employee.Normal.IEmployeeRoleService, JBHRIS.Api.Service.Employee.Normal.EmployeeRoleService>();
 
             //Dal
