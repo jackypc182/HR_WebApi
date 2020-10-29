@@ -51,7 +51,7 @@ namespace HR_WebApi.Controllers.Menu
             });
             sysMenus.ForEach(m =>
             {
-                m.SidePath = repeatSite(sysMenus, m);
+                m.SidePath = repeatSite(sysMenus, m , "");
             });
             GetMenuResultDto getMenuResultDto = new GetMenuResultDto();
             getMenuResultDto.result = sysMenus;
@@ -60,20 +60,27 @@ namespace HR_WebApi.Controllers.Menu
             return getMenuResultDto;
         }
 
-        private static string repeatSite(List<SysMenuDto> listMenus, SysMenuDto r)
+        private static string repeatSite(List<SysMenuDto> listMenus, SysMenuDto r ,string outPut)
         {
             IEnumerable<SysMenuDto> parentSql;
             parentSql = from listm in listMenus
                         where listm.Code == r.SParentKey
                         select listm;
             List<SysMenuDto> parents = parentSql.ToList();
+            if (string.IsNullOrEmpty(outPut))
+            {
+                outPut = r.Code;
+            }
             if (parents.Count > 0)
             {
                 SysMenuDto p = parents[0];
-                r.SidePath = p.Code + "/" + r.Code + "/" + p.SidePath;
-                repeatSite(parents, p);
+                outPut = r.SParentKey + "/" + outPut;
+                return repeatSite(listMenus, p, outPut);
             }
-            return r.SidePath;
+            else
+            {
+                return outPut;
+            }
         }
     }
 }
