@@ -77,6 +77,7 @@ namespace HR_WebApi
             
             services.AddScoped<JBHRIS.Api.Dal.Attendance.IWorkscheduleCheck_ScheduleTypeRepository, JBHRIS.Api.Dal.JBHR.Attendance.WorkscheduleCheck_ScheduleTypeRepository>();
             services.AddScoped<JBHRIS.Api.Dal.Attendance.ICalendarHolidayRepository, JBHRIS.Api.Dal.JBHR.Attendance.CalendarHolidayRepository>();
+            services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.ICard_Normal_GetAttCard, JBHRIS.Api.Dal.JBHR.Attendance.Normal.Card_Normal_GetAttCard>();
             services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.ICardReasonRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.CardReasonRepository>();
             services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.ICardRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.CardRepository>();
             services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.IRoteChangeRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.RoteChangeRepository>();
@@ -84,6 +85,8 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.IAbsenceCancelRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.AbsenceCancelRepository>();
             services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.IOverTimeRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.OverTimeRepository>();
             services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.ICardMachineSettingDal, JBHRIS.Api.Dal.JBHR.Attendance.Normal.CardMachineSettingDal>();
+            services.AddScoped<JBHRIS.Api.Dal.Attendance.View.IAttend_View_GetAttendRote, JBHRIS.Api.Dal.JBHR.Attendance.View.Attend_View_GetAttendRote>();
+            services.AddScoped<JBHRIS.Api.Dal.Attendance.View.IAttend_View_Abnormal, JBHRIS.Api.Dal.JBHR.Attendance.View.Attend_View_Abnormal>();
             services.AddScoped<JBHRIS.Api.Dal._System.ISystem_UserDal, JBHRIS.Api.Dal.JBHR._System.System_UserDal>();
             services.AddScoped<JBHRIS.Api.Dal._System.ISystem_UserDataRole, JBHRIS.Api.Dal.JBHR._System.System_UserDataRole>();
 
