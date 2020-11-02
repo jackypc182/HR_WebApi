@@ -36,7 +36,7 @@ namespace HR_WebApi.Controllers._System
         /// <returns>使用者角色資料</returns>
         [Route("GetUserRole")]
         [HttpGet]
-        public List<SysUserRoleDto> GetUserRole(string nobr)
+        public ApiResult<List<SysUserRoleDto>> GetUserRole(string nobr)
         {
             return _sysUserRoleViewService.GetUserRoleView(nobr);
         }
@@ -46,7 +46,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("InsertUserRole")]
         [HttpPost]
-        public StatusResultDto InsertUserRole(SysUserRoleDto sysUserRoleDto)
+        public ApiResult<List<SysUserRoleDto>> InsertUserRole(SysUserRoleDto sysUserRoleDto)
         {
             return _sysUserRoleViewService.InsertUserRoleView(sysUserRoleDto);
         }
@@ -57,7 +57,7 @@ namespace HR_WebApi.Controllers._System
         /// <param name="id">Autokey</param>
         [Route("DeleteUserRole")]
         [HttpDelete]
-        public StatusResultDto DeleteUserRoleView(int id)
+        public ApiResult<List<SysUserRoleDto>> DeleteUserRoleView(int id)
         {
             return _sysUserRoleViewService.DeleteUserRoleView(id);
         }

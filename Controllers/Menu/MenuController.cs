@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Hangfire.Annotations;
 using JBHRIS.Api.Dal.JBHR;
+using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto._System.View;
-using JBHRIS.Api.Dto.Menu;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,7 +26,7 @@ namespace HR_WebApi.Controllers.Menu
         /// </summary>
         [Route("GetMenu")]
         [HttpGet]
-        public GetMenuResultDto GetMenu()
+        public ApiResult<List<SysMenuDto>> GetMenu()
         {
             var MenuSql = from f in _context.FileStructure
                           select f;
@@ -53,8 +53,8 @@ namespace HR_WebApi.Controllers.Menu
             {
                 m.SidePath = repeatSite(sysMenus, m , "");
             });
-            GetMenuResultDto getMenuResultDto = new GetMenuResultDto();
-            getMenuResultDto.result = sysMenus;
+            ApiResult<List<SysMenuDto>> getMenuResultDto = new ApiResult<List<SysMenuDto>>();
+            getMenuResultDto.Result = sysMenus;
             getMenuResultDto.State = true;
 
             return getMenuResultDto;

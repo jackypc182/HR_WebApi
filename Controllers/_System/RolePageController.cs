@@ -36,7 +36,7 @@ namespace HR_WebApi.Controllers._System
         /// <param name="RoleCode">角色key</param>
         [Route("GetRolePageView")]
         [HttpGet]
-        public List<SysRolePageDto> GetRolePageView(string RoleCode)
+        public ApiResult<List<SysRolePageDto>> GetRolePageView(string RoleCode)
         {
             return _sysRolePageService.GetRolePageView(RoleCode);
         }
@@ -46,7 +46,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("InsertRolePage")]
         [HttpPost]
-        public StatusResultDto InsertRolePage(SysRolePageDto sysRolePageDto)
+        public ApiResult<List<SysRolePageDto>> InsertRolePage(SysRolePageDto sysRolePageDto)
         {
             return _sysRolePageService.InsertRolePageView(sysRolePageDto);
         }
@@ -56,7 +56,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("DeleteRolePage")]
         [HttpDelete]
-        public StatusResultDto DeleteRolePage(int id)
+        public ApiResult<List<SysRolePageDto>> DeleteRolePage(int id)
         {
             return _sysRolePageService.DeleteRolePageView(id);
         }

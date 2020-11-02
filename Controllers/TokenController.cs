@@ -1,7 +1,9 @@
 ﻿using HR_WebApi.Helpers;
 using JBHRIS.Api.Dal.JBHR;
+using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto.Login;
 using JBHRIS.Api.Service;
+using JBHRIS.Api.Service.Token;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -25,7 +27,7 @@ namespace WebApiAuthDemo.Controllers
         private IConfiguration _configuration;
         private UserValidateService _userValidateService;
         private UserInfoService _userInfoService;
-        private JBHRContext _context;
+        private IRefreshTokenService _refreshTokenService;
 
         /// <summary>
         /// 建構子
@@ -33,12 +35,15 @@ namespace WebApiAuthDemo.Controllers
         /// <param name="configuration"></param>
         /// <param name="userValidateService"></param>
         /// <param name="userInfoService"></param>
-        public TokenController(JBHRContext context,IConfiguration configuration, UserValidateService userValidateService, UserInfoService userInfoService)
+        public TokenController(IConfiguration configuration,
+            UserValidateService userValidateService,
+            UserInfoService userInfoService,
+            IRefreshTokenService refreshTokenService)
         {
-            _context = context;
             _configuration = configuration;
             _userValidateService = userValidateService;
             _userInfoService = userInfoService;
+            _refreshTokenService = refreshTokenService;
         }
         /// <summary>
         /// 登入並取得Token
@@ -48,7 +53,7 @@ namespace WebApiAuthDemo.Controllers
         /// <returns></returns>
         [Route("Signin")]
         [HttpPost]
-        public TokenResultDto SignIn(string UserId, string Password)
+        public ApiResult<TokenResultDto>  SignIn(string UserId, string Password)
         {
             // 以下變數值應該透過 IConfiguration 取得
             var issuer = _configuration["JWT:issuer"].ToString(); //"JwtAuthDemo";
@@ -56,38 +61,28 @@ namespace WebApiAuthDemo.Controllers
             var expires = Convert.ToInt32(_configuration["JWT:expires"]); // 單位: 分鐘
 
             TokenResultDto tokenResultDto;
+            ApiResult<TokenResultDto> status = new ApiResult<TokenResultDto>();
+            status.State = false;
             if (_userValidateService.ValidateUser(UserId,Password))
             {
                 var refreshToken = Guid.NewGuid().ToString();
-                _context.RefreshToken.Add(new RefreshToken() 
-                {
-                    RefreshToken1= refreshToken,
-                    Nobr = UserId,
-                    DueDate = DateTime.Now.AddDays(1),
-                    Valid = "",
-                    Lock = 0,
-                    UpdateTime = DateTime.Now
-                });
-                _context.SaveChanges();
+                _refreshTokenService.InsertRefreshToken(UserId, refreshToken);
 
                 tokenResultDto = new TokenResultDto()
                 {
-                    State = true,
                     accessToken = JwtHelpers.GenerateToken(issuer, signKey, UserId, expires, _userInfoService.GetApiRoles(UserId), JsonConvert.SerializeObject(_userInfoService.GetUserInfo(UserId))),
                     refreshToken = refreshToken
                 };
-                return tokenResultDto;
+
+                status.State = true;
+                status.Result = tokenResultDto;
             }
             else
             {
-                tokenResultDto = new TokenResultDto()
-                {
-                    State = false,
-                    Message = "帳號密碼輸入錯誤"
-                };
-                return tokenResultDto;
-                //return BadRequest();
+                status.Message = "帳號密碼輸入錯誤";
             }
+
+            return status;
         }
 
         /// <summary>
@@ -97,42 +92,31 @@ namespace WebApiAuthDemo.Controllers
         /// <returns></returns>
         [Route("RefreshToken")]
         [HttpPost]
-        public TokenResultDto RefreshToken(string refreshToken)
+        public ApiResult<TokenResultDto> RefreshToken(string refreshToken)
         {
-            var refdata = from r in _context.RefreshToken
-                          where r.RefreshToken1 == refreshToken &&
-                          DateTime.Now < r.DueDate &&
-                          r.Lock == 0
-                          select r;
-
-            var entity = refdata.FirstOrDefault(item => item.RefreshToken1 == refreshToken);
 
             TokenResultDto tokenResultDto;
-            tokenResultDto = new TokenResultDto()
-            {
-                State = false
-            };
-
-            if (entity != null)
+            ApiResult<TokenResultDto> status = new ApiResult<TokenResultDto>();
+            status.State = false;
+            var refreshTokenState = _refreshTokenService.UpdateRefreshToken(refreshToken);
+            if (refreshTokenState.State)
             {
                 // 以下變數值應該透過 IConfiguration 取得
                 var issuer = _configuration["JWT:issuer"].ToString(); //"JwtAuthDemo";
                 var signKey = _configuration["JWT:signKey"].ToString(); // 請換成至少 16 字元以上的安全亂碼
                 var expires = Convert.ToInt32(_configuration["JWT:expires"]); // 單位: 分鐘
-                string UserId = entity.Nobr.ToString();
+                string UserId = refreshTokenState.Result.Nobr.ToString();
                 tokenResultDto = new TokenResultDto()
                 {
-                    State = true,
                     accessToken = JwtHelpers.GenerateToken(issuer, signKey, UserId, expires, _userInfoService.GetApiRoles(UserId), JsonConvert.SerializeObject(_userInfoService.GetUserInfo(UserId))),
-                    refreshToken = entity.RefreshToken1.ToString()
+                    refreshToken = refreshToken
                 };
 
-                entity.UpdateTime = DateTime.Now;
-                entity.DueDate = entity.DueDate.AddDays(1);
-                _context.SaveChanges();
+                status.State = true;
+                status.Result = tokenResultDto;
             }
 
-            return tokenResultDto;
+            return status;
         }
         /// <summary>
         /// 

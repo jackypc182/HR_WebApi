@@ -36,7 +36,7 @@ namespace HR_WebApi.Controllers._System
         /// <param name="PageCode">頁面key</param>
         [Route("GetPageApiVoidView")]
         [HttpGet]
-        public List<SysPageApiVoidDto> GetPageApiVoidView(string PageCode)
+        public ApiResult<List<SysPageApiVoidDto>> GetPageApiVoidView(string PageCode)
         {
             return _sysPageApiVoidService.GetPageApiVoidView(PageCode);
         }
@@ -58,7 +58,7 @@ namespace HR_WebApi.Controllers._System
         /// </remarks>
         [Route("InsertPageApiVoid")]
         [HttpPost]
-        public StatusResultDto InsertPageApiVoid(SysPageApiVoidDto sysPageApiVoidDto)
+        public ApiResult<List<SysPageApiVoidDto>> InsertPageApiVoid(SysPageApiVoidDto sysPageApiVoidDto)
         {
             return _sysPageApiVoidService.InsertPageApiVoidView(sysPageApiVoidDto);
         }
@@ -68,7 +68,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("DeleteRole")]
         [HttpDelete]
-        public StatusResultDto DeletePageApiVoid(int id)
+        public ApiResult<List<SysPageApiVoidDto>> DeletePageApiVoid(int id)
         {
             return _sysPageApiVoidService.DeletePageApiVoidView(id);
         }

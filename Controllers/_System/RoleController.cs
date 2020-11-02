@@ -35,7 +35,7 @@ namespace HR_WebApi.Controllers._System
         /// <returns>角色清單</returns>
         [Route("GetRole")]
         [HttpGet]
-        public List<SysRoleDto> GetRole()
+        public ApiResult<List<SysRoleDto>> GetRole()
         {
             return _sysRoleViewService.GetRoleView();
         }
@@ -57,7 +57,7 @@ namespace HR_WebApi.Controllers._System
         /// </remarks>
         [Route("InsertRole")]
         [HttpPost]
-        public StatusResultDto InsertRole(SysRoleDto sysRoleDto)
+        public ApiResult<List<SysRoleDto>> InsertRole(SysRoleDto sysRoleDto)
         {
             return _sysRoleViewService.InsertRoleView(sysRoleDto);
         }
@@ -68,7 +68,7 @@ namespace HR_WebApi.Controllers._System
         /// <param name="sysRoleDto">角色key</param>
         [Route("UpdateRole")]
         [HttpPut]
-        public StatusResultDto UpdateRole(SysRoleDto sysRoleDto)
+        public ApiResult<List<SysRoleDto>> UpdateRole(SysRoleDto sysRoleDto)
         {
             return _sysRoleViewService.UpdateRoleView(sysRoleDto);
         }
@@ -79,7 +79,7 @@ namespace HR_WebApi.Controllers._System
         /// <param name="Code">角色key</param>
         [Route("DeleteRole")]
         [HttpDelete]
-        public StatusResultDto DeleteRole(string Code)
+        public ApiResult<List<SysRoleDto>> DeleteRole(string Code)
         {
             return _sysRoleViewService.DeleteRoleView(Code);
         }

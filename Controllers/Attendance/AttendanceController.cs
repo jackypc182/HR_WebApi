@@ -1,7 +1,7 @@
 ﻿using JBHRIS.Api.Dal.JBHR;
+using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto.Attendance;
 using JBHRIS.Api.Dto.Attendance.Entry;
-using JBHRIS.Api.Dto.Attendance.Result;
 using JBHRIS.Api.Dto.Attendance.View;
 using JBHRIS.Api.Service.Attendance.Normal;
 using Microsoft.AspNetCore.Mvc;
@@ -55,7 +55,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// </remarks>
         [Route("GetCalendar")]
         [HttpPost]
-        public CalendarResultDto GetCalendar(AttendanceCalendarEntry attendanceCalendarEntry)   
+        public ApiResult<List<CalendarDto>> GetCalendar(AttendanceCalendarEntry attendanceCalendarEntry)   
         {
             return _attendanceService.GetCalendar(attendanceCalendarEntry);
         }
@@ -116,7 +116,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// </summary>
         [Route("GetAttendType")]
         [HttpGet]
-        public AttendanceTypeResultDto GetAttendType()
+        public ApiResult<List<AttendanceTypeDto>> GetAttendType()
         {
             List<AttendanceTypeDto> attendanceTypes = new List<AttendanceTypeDto>() 
             {
@@ -126,8 +126,8 @@ namespace HR_WebApi.Controllers.Attendance
                 new AttendanceTypeDto(){Code = "AttendType_Ot", Name = "加班",Sort = 4,Display = true},
                 new AttendanceTypeDto(){Code = "AttendType_Abnormal", Name = "異常",Sort = 5,Display = true},
             };
-            AttendanceTypeResultDto attendanceTypeResultDto = new AttendanceTypeResultDto();
-            attendanceTypeResultDto.result = attendanceTypes;
+            ApiResult<List<AttendanceTypeDto>> attendanceTypeResultDto = new ApiResult<List<AttendanceTypeDto>>();
+            attendanceTypeResultDto.Result = attendanceTypes;
             attendanceTypeResultDto.State = true;
 
             return attendanceTypeResultDto;
@@ -149,7 +149,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// </remarks>
         [Route("GetAttendDetail")]
         [HttpPost]
-        public AttendanceDetailResultDto GetAttendDetail(AttendanceDetailEntry attendanceDetailEntry)
+        public ApiResult<List<AttendanceDetailDto>> GetAttendDetail(AttendanceDetailEntry attendanceDetailEntry)
         {
             return _attendanceService.GetAttendDetail(attendanceDetailEntry);
         }

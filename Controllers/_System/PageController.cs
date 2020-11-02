@@ -36,7 +36,7 @@ namespace HR_WebApi.Controllers._System
         /// <param name="PageCode">頁面key</param>
         [Route("GetPage")]
         [HttpGet]
-        public List<SysPageDto> GetPage(string PageCode)
+        public ApiResult<List<SysPageDto>> GetPage(string PageCode)
         {
             return _sysPageService.GetPageView(PageCode);
         }
@@ -46,7 +46,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("InsertPage")]
         [HttpPost]
-        public StatusResultDto InsertPage(SysPageDto sysPage)
+        public ApiResult<List<SysPageDto>> InsertPage(SysPageDto sysPage)
         {
             return _sysPageService.InsertPageView(sysPage);
         }
@@ -57,7 +57,7 @@ namespace HR_WebApi.Controllers._System
         /// <param name="sysPageDto">頁面key</param>
         [Route("UpdateRole")]
         [HttpPut]
-        public StatusResultDto UpdateRole(SysPageDto sysPageDto)
+        public ApiResult<List<SysPageDto>> UpdateRole(SysPageDto sysPageDto)
         {
             return _sysPageService.UpdatePageView(sysPageDto);
         }
@@ -67,7 +67,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("DeletePage")]
         [HttpDelete]
-        public StatusResultDto DeletePage(string Code)
+        public ApiResult<List<SysPageDto>> DeletePage(string Code)
         {
             return _sysPageService.DeletePageView(Code);
         }
