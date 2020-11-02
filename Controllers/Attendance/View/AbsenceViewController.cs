@@ -6,6 +6,7 @@ using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto.Attendance;
 using JBHRIS.Api.Dto.Attendance.Entry;
 using JBHRIS.Api.Dto.Attendance.View;
+using JBHRIS.Api.Service.Attendance.View;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,34 +19,60 @@ namespace HR_WebApi.Controllers.Attendance.View
     [ApiController]
     public class AbsenceViewController : ControllerBase
     {
+        IAbsenceTakenViewService _absenceTakenViewService;
+        IAbsenceEntitleViewService _absenceEntitleViewService;
         /// <summary>
         /// 
         /// </summary>
-        public AbsenceViewController()
+        public AbsenceViewController(
+        IAbsenceTakenViewService absenceTakenViewService,
+        IAbsenceEntitleViewService absenceEntitleViewService)
         {
-
+            _absenceTakenViewService = absenceTakenViewService;
+            _absenceEntitleViewService = absenceEntitleViewService;
         }
         /// <summary>
-        /// 得假查詢\
+        /// 得假查詢
         /// </summary>
+        /// <remarks>
+        /// {
+        ///  "employeeList": [
+        ///    "A1357","A0793"
+        ///  ],
+        ///  "leaveCodeList": [
+        ///  ],
+        ///  "dateBegin": "2020-09-05",
+        ///  "dateEnd": "2020-09-09"
+        /// }
+        /// </remarks>
         /// <param name="abseneceEntitleViewEntry"></param>
         /// <returns></returns>
         [HttpPost("GetAbsenceEntitleView")]
         public ApiResult<List<AbsenceEntitleViewDto>> GetAbsenceEntitleView(AbseneceEntitleViewEntry  abseneceEntitleViewEntry)
         {
-            ApiResult<List<AbsenceEntitleViewDto>> result = new ApiResult<List<AbsenceEntitleViewDto>>();
-            return result;
+            return _absenceEntitleViewService.GetAbsenceEntitleView(abseneceEntitleViewEntry);
         }
+
         /// <summary>
         /// 請假查詢
         /// </summary>
+        /// <remarks>
+        /// {
+        ///  "employeeList": [
+        ///    "A1357","A0793"
+        ///  ],
+        ///  "leaveCodeList": [
+        ///  ],
+        ///  "dateBegin": "2020-09-05",
+        ///  "dateEnd": "2020-09-09"
+        /// }
+        /// </remarks>
         /// <param name="abseneceTakenViewEntry"></param>
         /// <returns></returns>
         [HttpPost("GetAbsenceTakenView")]
         public ApiResult<List<AbsenceTakenViewDto>> GetAbsenceTakenView(AbsenceTakenViewEntry abseneceTakenViewEntry)
         {
-            ApiResult<List<AbsenceTakenViewDto>> result = new ApiResult<List<AbsenceTakenViewDto>>();
-            return result;
+            return _absenceTakenViewService.GetAbsenceTakenView(abseneceTakenViewEntry);
         }
     }
 }

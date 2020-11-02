@@ -31,6 +31,7 @@ namespace HR_WebApi
             //Service
             services.AddScoped<JBHRIS.Api.Service.Employee.Normal.IEmployeeInfoService, JBHRIS.Api.Service.Employee.Normal.EmployeeInfoService>();
             services.AddScoped<JBHRIS.Api.Service.Employee.Normal.IEmployeeListService, JBHRIS.Api.Service.Employee.Normal.EmployeeListService>();
+            services.AddScoped<JBHRIS.Api.Service.Employee.Normal.IEmployeeRoleService, JBHRIS.Api.Service.Employee.Normal.EmployeeRoleService>();
             services.AddScoped<JBHRIS.Api.Service.Employee.View.IEmployeeViewService, JBHRIS.Api.Service.Employee.View.EmployeeViewService>();
             services.AddScoped<JBHRIS.Api.Service.Employee.View.IDeptViewService, JBHRIS.Api.Service.Employee.Normal.DeptViewService>();
             services.AddScoped<JBHRIS.Api.Service.Employee.View.IJobViewService, JBHRIS.Api.Service.Employee.View.JobViewService>();
@@ -41,15 +42,16 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Service.Attendance.Normal.ICardService, JBHRIS.Api.Service.Attendance.Normal.CardService>();
             services.AddScoped<JBHRIS.Api.Service.Attendance.Normal.IRoteChangeService, JBHRIS.Api.Service.Attendance.Normal.RoteChangeService>();
             services.AddScoped<JBHRIS.Api.Service.Attendance.Normal.IAbsenceService, JBHRIS.Api.Service.Attendance.Normal.AbsenceService>();
+            services.AddScoped<JBHRIS.Api.Service.Attendance.Normal.IAttendanceService, JBHRIS.Api.Service.Attendance.Normal.AttendanceService>();
+            services.AddScoped<JBHRIS.Api.Service.Attendance.Normal.IOvertimeService, JBHRIS.Api.Service.Attendance.Normal.OvertimeService>();
+            services.AddScoped<JBHRIS.Api.Service.Attendance.View.IAbsenceEntitleViewService, JBHRIS.Api.Service.Attendance.View.AbsenceEntitleViewService>();
+            services.AddScoped<JBHRIS.Api.Service.Attendance.View.IAbsenceTakenViewService, JBHRIS.Api.Service.Attendance.View.AbsenceTakenViewService>();
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysRoleViewService, JBHRIS.Api.Service._System.View.SysRoleViewService>();
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysRolePageService, JBHRIS.Api.Service._System.View.SysRolePageService>();
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysPageApiService, JBHRIS.Api.Service._System.View.SysPageApiService>();
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysPageApiVoidService, JBHRIS.Api.Service._System.View.SysPageApiVoidService>();
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysUserRoleViewService, JBHRIS.Api.Service._System.View.SysUserRoleViewService>();
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysApiVoidService, JBHRIS.Api.Service._System.View.SysApiVoidService>();
-            services.AddScoped<JBHRIS.Api.Service.Attendance.Normal.IAttendanceService, JBHRIS.Api.Service.Attendance.Normal.AttendanceService>();
-            services.AddScoped<JBHRIS.Api.Service.Attendance.Normal.IOvertimeService, JBHRIS.Api.Service.Attendance.Normal.OvertimeService>();
-            services.AddScoped<JBHRIS.Api.Service.Employee.Normal.IEmployeeRoleService, JBHRIS.Api.Service.Employee.Normal.EmployeeRoleService>();
             services.AddScoped<JBHRIS.Api.Service.Token.IRefreshTokenService, JBHRIS.Api.Service.Token.RefreshTokenService>();
 
             //Dal
@@ -91,7 +93,8 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Dal._System.ISystem_UserDal, JBHRIS.Api.Dal.JBHR._System.System_UserDal>();
             services.AddScoped<JBHRIS.Api.Dal._System.ISystem_UserDataRole, JBHRIS.Api.Dal.JBHR._System.System_UserDataRole>();
             services.AddScoped<JBHRIS.Api.Dal.Token.IRefreshToken_View, JBHRIS.Api.Dal.JBHR.Token.RefreshToken_View>();
-            
+            services.AddScoped<JBHRIS.Api.Dal.Attendance.View.IAttend_View_GetAbsenceEntitleView, JBHRIS.Api.Dal.JBHR.Attendance.View.Attend_View_GetAbsenceEntitleView>();
+            services.AddScoped<JBHRIS.Api.Dal.Attendance.View.IAttend_View_GetAbsenceTakenView, JBHRIS.Api.Dal.JBHR.Attendance.View.Attend_View_GetAbsenceTakenView>();
             //bll
 
             services.AddScoped<JBHRIS.Api.Dal._System.View.ISystem_View_SysRole, JBHRIS.Api.Dal.JBHR._System.System_View_SysRole>();
