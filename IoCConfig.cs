@@ -46,6 +46,9 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Service.Attendance.Normal.IOvertimeService, JBHRIS.Api.Service.Attendance.Normal.OvertimeService>();
             services.AddScoped<JBHRIS.Api.Service.Attendance.View.IAbsenceEntitleViewService, JBHRIS.Api.Service.Attendance.View.AbsenceEntitleViewService>();
             services.AddScoped<JBHRIS.Api.Service.Attendance.View.IAbsenceTakenViewService, JBHRIS.Api.Service.Attendance.View.AbsenceTakenViewService>();
+            services.AddScoped<JBHRIS.Api.Service.Attendance.View.IOverTimeViewService, JBHRIS.Api.Service.Attendance.View.OverTimeViewService>();
+            services.AddScoped<JBHRIS.Api.Service.Attendance.View.ICardViewService, JBHRIS.Api.Service.Attendance.View.CardViewService>();
+            services.AddScoped<JBHRIS.Api.Service.Attendance.View.IAbnormalViewService, JBHRIS.Api.Service.Attendance.View.AbnormalViewService>();
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysRoleViewService, JBHRIS.Api.Service._System.View.SysRoleViewService>();
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysRolePageService, JBHRIS.Api.Service._System.View.SysRolePageService>();
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysPageApiService, JBHRIS.Api.Service._System.View.SysPageApiService>();
@@ -90,11 +93,14 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.ICardMachineSettingDal, JBHRIS.Api.Dal.JBHR.Attendance.Normal.CardMachineSettingDal>();
             services.AddScoped<JBHRIS.Api.Dal.Attendance.View.IAttend_View_GetAttendRote, JBHRIS.Api.Dal.JBHR.Attendance.View.Attend_View_GetAttendRote>();
             services.AddScoped<JBHRIS.Api.Dal.Attendance.View.IAttend_View_Abnormal, JBHRIS.Api.Dal.JBHR.Attendance.View.Attend_View_Abnormal>();
+            services.AddScoped<JBHRIS.Api.Dal.Attendance.View.IAttend_View_GetAbsenceEntitleView, JBHRIS.Api.Dal.JBHR.Attendance.View.Attend_View_GetAbsenceEntitleView>();
+            services.AddScoped<JBHRIS.Api.Dal.Attendance.View.IAttend_View_GetAbsenceTakenView, JBHRIS.Api.Dal.JBHR.Attendance.View.Attend_View_GetAbsenceTakenView>();
+            services.AddScoped<JBHRIS.Api.Dal.Attendance.View.IAttend_View_GetOvertimeSearch, JBHRIS.Api.Dal.JBHR.Attendance.View.Attend_View_GetOvertimeSearch>();
+            services.AddScoped<JBHRIS.Api.Dal.Attendance.View.IAttend_View_GetCardSearch, JBHRIS.Api.Dal.JBHR.Attendance.View.Attend_View_GetCardSearch>();
+            services.AddScoped<JBHRIS.Api.Dal.Attendance.View.IAttend_View_GetAbnormalSearch, JBHRIS.Api.Dal.JBHR.Attendance.View.Attend_View_GetAbnormalSearch>();
             services.AddScoped<JBHRIS.Api.Dal._System.ISystem_UserDal, JBHRIS.Api.Dal.JBHR._System.System_UserDal>();
             services.AddScoped<JBHRIS.Api.Dal._System.ISystem_UserDataRole, JBHRIS.Api.Dal.JBHR._System.System_UserDataRole>();
             services.AddScoped<JBHRIS.Api.Dal.Token.IRefreshToken_View, JBHRIS.Api.Dal.JBHR.Token.RefreshToken_View>();
-            services.AddScoped<JBHRIS.Api.Dal.Attendance.View.IAttend_View_GetAbsenceEntitleView, JBHRIS.Api.Dal.JBHR.Attendance.View.Attend_View_GetAbsenceEntitleView>();
-            services.AddScoped<JBHRIS.Api.Dal.Attendance.View.IAttend_View_GetAbsenceTakenView, JBHRIS.Api.Dal.JBHR.Attendance.View.Attend_View_GetAbsenceTakenView>();
             //bll
 
             services.AddScoped<JBHRIS.Api.Dal._System.View.ISystem_View_SysRole, JBHRIS.Api.Dal.JBHR._System.System_View_SysRole>();

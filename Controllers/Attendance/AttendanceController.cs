@@ -40,8 +40,6 @@ namespace HR_WebApi.Controllers.Attendance
         /// 取得行事曆資料(包含請假、加班、刷卡、班別資訊、異常資料)
         /// </summary>
         /// <remarks>
-        /// update
-        /// Sample request:
         ///{
         ///  "employeeList": [
         ///    "A1357","A0793"
@@ -137,7 +135,6 @@ namespace HR_WebApi.Controllers.Attendance
         /// 出勤明細表
         /// </summary>
         /// <remarks>
-        /// Sample request:
         ///{
         ///  "employeeList": [
         ///    "A1357","A0793"

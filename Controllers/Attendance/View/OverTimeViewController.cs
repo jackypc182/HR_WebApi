@@ -20,14 +20,23 @@ namespace HR_WebApi.Controllers.Attendance.View
     [ApiController]
     public class OverTimeViewController
     {
-        public OverTimeViewController()
+
+        IOverTimeViewService _overTimeViewService;
+        public OverTimeViewController(IOverTimeViewService overTimeViewService)
         {
+            _overTimeViewService = overTimeViewService;
         }
 
+        /// <summary>
+        /// 加班查詢
+        /// </summary>
+        /// <remarks>
+        /// { "employeeList": [ "A1357","A0793" ], "dateBegin": "2020-09-05", "dateEnd": "2020-09-09" }
+        /// </remarks>
         [HttpPost("OverTimeSearchView")]
         public ApiResult<List<OverTimeSearchViewDto>> GetOverTimeSearchView(OverTimeSearchViewEntry overTimeSearchViewEntry)
         {
-            return new ApiResult<List<OverTimeSearchViewDto>>();
+            return _overTimeViewService.GetOverTimeSearchView(overTimeSearchViewEntry);
         }
     }
 }

@@ -19,12 +19,22 @@ namespace HR_WebApi.Controllers.Attendance.View
     [ApiController]
     public class AbnormalViewController
     {
-        public AbnormalViewController() { }
+        IAbnormalViewService _abnormalViewService;
+        public AbnormalViewController(IAbnormalViewService abnormalViewService) 
+        {
+            _abnormalViewService = abnormalViewService;
+        }
 
+        /// <summary>
+        /// 異常查詢
+        /// </summary>
+        /// <remarks>        
+        /// { "employeeList": [ "A1357","A0793" ],"dateBegin": "2020-09-01", "dateEnd": "2020-09-05","isCheck":true }
+        /// </remarks>
         [HttpPost("AbnormalSearchView")]
         public ApiResult<List<AbnormalSearchViewDto>> GetAbnormalSearchView(AbnormalSearchViewEntry abnormalSearchViewEntry)
         {
-            return new ApiResult<List<AbnormalSearchViewDto>>();
+            return _abnormalViewService.GetAbnormalSearchView(abnormalSearchViewEntry);
         }
     }
 }

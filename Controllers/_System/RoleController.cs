@@ -44,9 +44,6 @@ namespace HR_WebApi.Controllers._System
         /// 新增角色資料
         /// </summary>
         /// <remarks>
-        /// Sample request:
-        ///
-        ///     POST /Todo
         ///     {
         ///        "code": "test",
         ///        "name": "測試角色",

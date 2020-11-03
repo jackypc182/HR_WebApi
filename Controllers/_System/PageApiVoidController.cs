@@ -45,9 +45,6 @@ namespace HR_WebApi.Controllers._System
         /// 新增頁面權限資料
         /// </summary>
         /// <remarks>
-        /// Sample request:
-        ///
-        ///  POST /Todo
         ///  {
         ///    "pageCode": "string",
         ///    "apiVoidCode": "string",

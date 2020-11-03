@@ -19,12 +19,23 @@ namespace HR_WebApi.Controllers.Attendance.View
     [ApiController]
     public class CardViewController
     {
-        public  CardViewController(){}
+        ICardViewService _cardViewService;
 
+        public  CardViewController(ICardViewService cardViewService) 
+        {
+            _cardViewService = cardViewService;
+        }
+
+        /// <summary>
+        /// 刷卡查詢
+        /// </summary>
+        /// <remarks>
+        /// { "employeeList": [ "A1357","A0793" ],"dateBegin": "2020-09-05", "dateEnd": "2020-09-05","isForget":true }
+        /// </remarks>
         [HttpPost("CardSearchView")]
         public ApiResult<List<CardSearchViewDto>> GetCardSearchView(CardSearchViewEntry cardSearchViewEntry)
         {
-            return new ApiResult<List<CardSearchViewDto>>();
+            return _cardViewService.GetCardSearchView(cardSearchViewEntry);
         }
     }
 }
