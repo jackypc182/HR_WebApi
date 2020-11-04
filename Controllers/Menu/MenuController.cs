@@ -43,7 +43,7 @@ namespace HR_WebApi.Controllers.Menu
                     SParentKey = m.SParentKey,
                     SidePath = "",
                     IconName = m.SIconName,
-                    Tag = m.NoticeTitle,
+                    Tag = m.NoticeContent,
                     IOrder = m.IOrder,
                     KeyMan = m.SKeyMan,
                     KeyDate = m.DKeyDate,
