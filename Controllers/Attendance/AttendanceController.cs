@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NLog;
 
 namespace HR_WebApi.Controllers.Attendance
 {
@@ -19,10 +20,12 @@ namespace HR_WebApi.Controllers.Attendance
     public class AttendanceController : ControllerBase
     {
         private IAttendanceService _attendanceService;
+        private ILogger _logger;
 
-        public AttendanceController(IAttendanceService attendanceService)
+        public AttendanceController(IAttendanceService attendanceService, ILogger logger)
         {
             _attendanceService = attendanceService;
+            _logger = logger;
         }
         /// <summary>
         /// 取得考勤資料
@@ -31,9 +34,21 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetAttendance")]
         [HttpPost]
-        public List<AttendanceDto> GetAttendance([FromBody]AttendanceRoteEntry attendanceEntry)
+        public ApiResult<List<AttendanceDto>> GetAttendance(AttendanceRoteEntry attendanceEntry)
         {
-            return _attendanceService.GetAttendance(attendanceEntry);
+            _logger.Info("開始呼叫AttendanceService.GetAttendance");
+            ApiResult<List<AttendanceDto>> apiResult = new ApiResult<List<AttendanceDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _attendanceService.GetAttendance(attendanceEntry);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
 
         /// <summary>
@@ -64,9 +79,21 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetRoteChange")]
         [HttpPost]
-        public List<RoteChangeDto> GetRoteChange([FromBody]AttendanceRoteEntry attendanceEntry)
+        public ApiResult<List<RoteChangeDto>> GetRoteChange(AttendanceRoteEntry attendanceEntry)
         {
-            return _attendanceService.GetRoteChange(attendanceEntry);
+            _logger.Info("開始呼叫AttendanceService.GetRoteChange");
+            ApiResult<List<RoteChangeDto>> apiResult = new ApiResult<List<RoteChangeDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _attendanceService.GetRoteChange(attendanceEntry);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
         /// <summary>
         /// 取得異常名單
@@ -74,9 +101,21 @@ namespace HR_WebApi.Controllers.Attendance
         /// <param name="attendanceEntry"></param>
         [Route("GetPeopleAbnormal")]
         [HttpPost]
-        public List<string> GetPeopleAbnormal([FromBody]AttendanceRoteEntry attendanceEntry)
+        public ApiResult<List<string>> GetPeopleAbnormal(AttendanceRoteEntry attendanceEntry)
         {
-            return _attendanceService.GetPeopleAbnormal(attendanceEntry);
+            _logger.Info("開始呼叫AttendanceService.GetPeopleAbnormal");
+            ApiResult<List<string>> apiResult = new ApiResult<List<string>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _attendanceService.GetPeopleAbnormal(attendanceEntry);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
         /// <summary>
         /// 取得工作名單
@@ -84,9 +123,21 @@ namespace HR_WebApi.Controllers.Attendance
         /// <param name="attendanceEntry"></param>
         [Route("GetPeopleWork")]
         [HttpPost]
-        public List<string> GetPeopleWork([FromBody]AttendanceRoteEntry attendanceEntry)
+        public ApiResult<List<string>> GetPeopleWork(AttendanceRoteEntry attendanceEntry)
         {
-            return _attendanceService.GetPeopleWork(attendanceEntry);
+            _logger.Info("開始呼叫AttendanceService.GetPeopleWork");
+            ApiResult<List<string>> apiResult = new ApiResult<List<string>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _attendanceService.GetPeopleWork(attendanceEntry);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
         
         /// <summary>
@@ -95,18 +146,21 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetRote")]
         [HttpPost]
-        public List<RoteDto> GetRote()
+        public ApiResult<List<RoteDto>> GetRote()
         {
-            return _attendanceService.GetRote();
-        }
-        /// <summary>
-        /// 取得行事曆
-        /// </summary>
-        [Route("GetAttendCalendar")]
-        [HttpPost]
-        public void GetAttendCalendar()
-        {
-            throw new NotImplementedException();
+            _logger.Info("開始呼叫AttendanceService.GetRote");
+            ApiResult<List<RoteDto>> apiResult = new ApiResult<List<RoteDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _attendanceService.GetRote();
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
 
         /// <summary>

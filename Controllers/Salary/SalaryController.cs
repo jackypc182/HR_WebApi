@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto.Salary.Payroll;
 using JBHRIS.Api.Service.Salary.Payroll;
 using Microsoft.AspNetCore.Http;
@@ -31,7 +32,7 @@ namespace HR_Api_Demo.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public SalaryCalculationResult Calculate()
+        public ApiResult<string> Calculate()
         {
             var result = _salaryCalculationService.Calculate(new JBHRIS.Api.Dto.Salary.Payroll.SalaryCalculationEntry { ModuleTypes=new List<string> {"Test" } });
             return result;

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JBHRIS.Api.Dal.JBHR;
+using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto.Attendance.Entry;
+using JBHRIS.Api.Dto.Employee.Entry;
 using JBHRIS.Api.Dto.Employee.Normal;
 using JBHRIS.Api.Dto.Employee.View;
 using JBHRIS.Api.Service.Employee.Normal;
@@ -11,6 +13,7 @@ using JBHRIS.Api.Service.Employee.View;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
 
 namespace HR_Api_Demo.Controllers
 {
@@ -25,6 +28,7 @@ namespace HR_Api_Demo.Controllers
         private IEmployeeListService _employeeListService;
         private IEmployeeViewService _employeeViewService;
         private IEmployeeRoleService _employeeRoleService;
+        private ILogger _logger;
 
         //private IDeptViewService _deptViewService;
         //private IJobViewService _jobViewService;
@@ -41,7 +45,8 @@ namespace HR_Api_Demo.Controllers
         public EmployeeController(IEmployeeInfoService employeeService
             , IEmployeeListService employeeListService
             , IEmployeeViewService employeeViewService,
-           IEmployeeRoleService employeeRoleService
+           IEmployeeRoleService employeeRoleService,
+           ILogger logger
             //, IDeptViewService deptViewService
             //, IJobViewService jobViewService
             //,IOtherCodeViewService otherCodeViewService
@@ -51,6 +56,7 @@ namespace HR_Api_Demo.Controllers
             _employeeListService = employeeListService;
             _employeeViewService = employeeViewService;
             _employeeRoleService = employeeRoleService;
+            _logger = logger;
             //_deptViewService = deptViewService;
             //_jobViewService = jobViewService;
             //_otherCodeViewService = otherCodeViewService;
@@ -58,15 +64,25 @@ namespace HR_Api_Demo.Controllers
       /// <summary>
       /// 
       /// </summary>
-      /// <param name="deptList"></param>
-      /// <param name="checkDate"></param>
       /// <returns></returns>
         [HttpPost]
         [Route("GetPeopleByDept")]
-        public List<string> GetPeopleByDept([FromBody]List<string> deptList,DateTime checkDate)
+        public ApiResult<List<string>> GetPeopleByDept(GetPeopleByDeptEntry getPeopleByDeptEntry)
         {
-            var employeeList = _employeeRoleService.GetAllowEmloyeeList(User);
-            return _employeeListService.GetPeopleByDept(employeeList, deptList, checkDate);
+            _logger.Info("開始呼叫EmployeeInfoService.GetPeopleByDept");
+            ApiResult<List<string>> apiResult = new ApiResult<List<string>>();
+            apiResult.State = false;
+            try
+            {
+                var employeeList = _employeeRoleService.GetAllowEmloyeeList(User);
+                apiResult.Result = _employeeListService.GetPeopleByDept(employeeList, getPeopleByDeptEntry.deptList, getPeopleByDeptEntry.checkDate);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
         /// <summary>
         /// 取得員工基本資料
@@ -75,9 +91,21 @@ namespace HR_Api_Demo.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("GetEmployeeInfo")]
-        public List<EmployeeInfoDto> GetEmployeeInfo(List<string> employeeList)
+        public ApiResult<List<EmployeeInfoDto>> GetEmployeeInfo(List<string> employeeList)
         {
-            return _employeeService.GetEmployeeInfo(employeeList);
+            _logger.Info("開始呼叫EmployeeInfoService.GetEmployeeInfo");
+            ApiResult<List<EmployeeInfoDto>> apiResult = new ApiResult<List<EmployeeInfoDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _employeeService.GetEmployeeInfo(employeeList);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
         /// <summary>
         /// 取得員工檢視表
@@ -86,9 +114,21 @@ namespace HR_Api_Demo.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("GetEmployeeView")]
-        public List<EmployeeViewDto> GetEmployeeView(List<string> employeeList)
+        public ApiResult<List<EmployeeViewDto>> GetEmployeeView(List<string> employeeList)
         {
-            return _employeeViewService.GetEmployeeView(employeeList);
+            _logger.Info("開始呼叫EmployeeInfoService.GetEmployeeView");
+            ApiResult<List<EmployeeViewDto>> apiResult = new ApiResult<List<EmployeeViewDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _employeeViewService.GetEmployeeView(employeeList);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
         /// <summary>
         /// 取得生日名單
@@ -97,9 +137,21 @@ namespace HR_Api_Demo.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("GetPeopleBirthday")]
-        public List<string> GetPeopleBirthday(EmployeeBirthdayEntry employeeBirthdayEntry)
+        public ApiResult<List<string>> GetPeopleBirthday(EmployeeBirthdayEntry employeeBirthdayEntry)
         {
-            return _employeeListService.GetPeopleByBirthday(employeeBirthdayEntry.employeeList, employeeBirthdayEntry.months);
+            _logger.Info("開始呼叫EmployeeInfoService.GetPeopleBirthday");
+            ApiResult<List<string>> apiResult = new ApiResult<List<string>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _employeeListService.GetPeopleByBirthday(employeeBirthdayEntry.employeeList, employeeBirthdayEntry.months);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
         /// <summary>
         /// 更新員工密碼
@@ -108,9 +160,21 @@ namespace HR_Api_Demo.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("UpdateEmployeePassword")]
-        public bool UpdateEmployeePassword([FromBody]Password_Entry password_Entry)
+        public ApiResult<bool> UpdateEmployeePassword(Password_Entry password_Entry)
         {
-            return _employeeService.UpdateEmployeePassword(password_Entry.OldPWD, password_Entry.NewPWD);
+            _logger.Info("開始呼叫EmployeeInfoService.GetPeopleBirthday");
+            ApiResult<bool> apiResult = new ApiResult<bool>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _employeeService.UpdateEmployeePassword(password_Entry.OldPWD, password_Entry.NewPWD);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
         ///// <summary>
         ///// 取得編制部門

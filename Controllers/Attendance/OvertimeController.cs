@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto.Attendance;
 using JBHRIS.Api.Dto.Attendance.Entry;
 using JBHRIS.Api.Service.Attendance.Normal;
@@ -38,10 +39,21 @@ namespace HR_WebApi.Controllers.Attendance
         /// <remarks></remarks>
         [Route("GetOvertime")]
         [HttpPost]
-        public List<OvertimeDto> GetOvertime([FromBody]AttendanceEntry attendanceEntry)
+        public ApiResult<List<OvertimeDto>> GetOvertime(AttendanceEntry attendanceEntry)
         {
             _logger.Info("開始呼叫OvertimeService.GetOvertime");
-            return _overtimeService.GetOvertime(attendanceEntry);
+            ApiResult<List<OvertimeDto>> apiResult = new ApiResult<List<OvertimeDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _overtimeService.GetOvertime(attendanceEntry);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
         /// <summary>
         /// 加班名單
@@ -50,9 +62,21 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetPeopleOvertime")]
         [HttpPost]
-        public List<string> GetPeopleOvertime([FromBody]AttendanceEntry attendanceEntry)
+        public ApiResult<List<string>> GetPeopleOvertime(AttendanceEntry attendanceEntry)
         {
-            return _overtimeService.GetPeopleOvertime(attendanceEntry);
+            _logger.Info("開始呼叫OvertimeService.GetPeopleOvertime");
+            ApiResult<List<string>> apiResult = new ApiResult<List<string>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _overtimeService.GetPeopleOvertime(attendanceEntry);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
         /// <summary>
         /// 取得加班類型?目前沒有
@@ -60,9 +84,21 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetOvertimeType")]
         [HttpPost]
-        public List<OvertimeTypeDto> GetOvertimeType()
+        public ApiResult<List<OvertimeTypeDto>> GetOvertimeType()
         {
-            return _overtimeService.GetOvertimeType();
+            _logger.Info("開始呼叫OvertimeService.GetOvertimeType");
+            ApiResult<List<OvertimeTypeDto>> apiResult = new ApiResult<List<OvertimeTypeDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _overtimeService.GetOvertimeType();
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
         /// <summary>
         /// 取得加班原因
@@ -70,9 +106,21 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetOvertimeReason")]
         [HttpPost]
-        public List<OvertimeReasonDto> GetOvertimeReason()
+        public ApiResult<List<OvertimeReasonDto>> GetOvertimeReason()
         {
-            return _overtimeService.GetOvertimeReason();
+            _logger.Info("開始呼叫OvertimeService.GetOvertimeReason");
+            ApiResult<List<OvertimeReasonDto>> apiResult = new ApiResult<List<OvertimeReasonDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _overtimeService.GetOvertimeReason();
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
     }
 }

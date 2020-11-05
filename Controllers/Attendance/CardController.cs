@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto.Attendance;
 using JBHRIS.Api.Dto.Attendance.Entry;
 using JBHRIS.Api.Service.Attendance.Normal;
@@ -37,10 +38,21 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetCard")]
         [HttpPost]
-        public List<CardDto> GetCard([FromBody]AttendanceEntry attendanceEntry)
+        public ApiResult<List<CardDto>> GetCard(AttendanceEntry attendanceEntry)
         {
             _logger.Info("開始呼叫CardService.GetCard");
-            return _cardService.GetCard(attendanceEntry);
+            ApiResult<List<CardDto>> apiResult = new ApiResult<List<CardDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _cardService.GetCard(attendanceEntry);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
         /// <summary>
         /// 取得忘刷原因
@@ -48,10 +60,21 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetCardReason")]
         [HttpPost]
-        public List<CardReasonDto> GetCardReason()
+        public ApiResult<List<CardReasonDto>> GetCardReason()
         {
             _logger.Info("開始呼叫CardService.GetCardReason");
-            return _cardService.GetCardReason();
+            ApiResult<List<CardReasonDto>> apiResult = new ApiResult<List<CardReasonDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _cardService.GetCardReason();
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
     }
 }

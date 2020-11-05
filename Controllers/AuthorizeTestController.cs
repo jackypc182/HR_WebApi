@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HR_WebApi.Infrastructure;
+using JBHRIS.Api.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+//using Microsoft.Extensions.Logging;
+using NLog;
 
 namespace HR_WebApi.Controllers
 {
@@ -23,9 +25,9 @@ namespace HR_WebApi.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<AuthorizeTestController> _logger;
+        private ILogger _logger;
 
-        public AuthorizeTestController(ILogger<AuthorizeTestController> logger)
+        public AuthorizeTestController(ILogger logger)
         {
             _logger = logger;
         }
@@ -37,31 +39,57 @@ namespace HR_WebApi.Controllers
         /// <responses Code="401">驗證失敗</responses>
         [HttpGet]
         [Route(nameof(withAuthorize))]
-        public IEnumerable<WeatherForecast> withAuthorize()
+        public ApiResult<IEnumerable<WeatherForecast>>withAuthorize()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            _logger.Info("開始呼叫AuthorizeTestController.withAuthorize");
+            ApiResult<IEnumerable<WeatherForecast>> apiResult = new ApiResult<IEnumerable<WeatherForecast>>();
+            apiResult.State = false;
+            try
+            {
+                var rng = new Random();
+                var Result = Enumerable.Range(1, 5).Select(index => new WeatherForecast
                 {
                     Date = DateTime.Now.AddDays(index),
                     TemperatureC = rng.Next(-20, 55),
                     Summary = Summaries[rng.Next(Summaries.Length)]
                 })
                 .ToArray();
+                apiResult.Result = Result;
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
 
         [HttpGet]
         [AllowAnonymous]
         [Route(nameof(withoutAuthorize))]
-        public IEnumerable<WeatherForecast> withoutAuthorize()
+        public ApiResult<IEnumerable<WeatherForecast>> withoutAuthorize()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            _logger.Info("開始呼叫AuthorizeTestController.withoutAuthorize");
+            ApiResult<IEnumerable<WeatherForecast>> apiResult = new ApiResult<IEnumerable<WeatherForecast>>();
+            apiResult.State = false;
+            try
+            {
+                var rng = new Random();
+                var Result = Enumerable.Range(1, 5).Select(index => new WeatherForecast
                 {
                     Date = DateTime.Now.AddDays(index),
                     TemperatureC = rng.Next(-20, 55),
                     Summary = Summaries[rng.Next(Summaries.Length)]
                 })
                 .ToArray();
+                apiResult.Result = Result;
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
     }
 

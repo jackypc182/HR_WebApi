@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HR_WebApi.Api.Dto;
+using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto.Attendance;
 using JBHRIS.Api.Dto.Attendance.Entry;
 using JBHRIS.Api.Service.Attendance.Normal;
@@ -43,10 +44,21 @@ namespace HR_WebApi.Controllers.Attendance
         /// <remarks>請假服務的輔助說明</remarks>  
         [Route("GetAbsenceTaken")]
         [HttpPost]
-        public List<AbsenceTakenDto> GetAbsenceTaken([FromBody]AbsenceEntry absenceEntryDto)
+        public ApiResult<List<AbsenceTakenDto>> GetAbsenceTaken(AbsenceEntry absenceEntryDto)
         {
             _logger.Info("開始呼叫AbsenceService.GetAbsenceTaken");
-            return _absenceService.GetAbsenceTaken(absenceEntryDto);
+            ApiResult<List<AbsenceTakenDto>> apiResult = new ApiResult<List<AbsenceTakenDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _absenceService.GetAbsenceTaken(absenceEntryDto);
+                apiResult.State = true;
+            }
+            catch(Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
         /// <summary>
         /// 取得銷假資料
@@ -55,9 +67,21 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetAbsenceCancel")]
         [HttpPost]
-        public List<AbsenceCancelDto> GetAbsenceCancel([FromBody]AbsenceEntry absenceEntryDto)
+        public ApiResult<List<AbsenceCancelDto>> GetAbsenceCancel(AbsenceEntry absenceEntryDto)
         {
-            return _absenceService.GetAbsenceCancel(absenceEntryDto);
+            _logger.Info("開始呼叫AbsenceService.GetAbsenceCancel");
+            ApiResult<List<AbsenceCancelDto>> apiResult = new ApiResult<List<AbsenceCancelDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _absenceService.GetAbsenceCancel(absenceEntryDto);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
         /// <summary>
         /// 取得剩餘時數
@@ -66,9 +90,21 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetAbsBalance")]
         [HttpPost]
-        public List<AbsenceBalanceDto> GetAbsBalance([FromBody]AbsenceEntry absenceEntryDto)
+        public ApiResult<List<AbsenceBalanceDto>> GetAbsBalance(AbsenceEntry absenceEntryDto)
         {
-            return _absenceService.GetAbsBalance(absenceEntryDto);
+            _logger.Info("開始呼叫AbsenceService.GetAbsBalance");
+            ApiResult<List<AbsenceBalanceDto>> apiResult = new ApiResult<List<AbsenceBalanceDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _absenceService.GetAbsBalance(absenceEntryDto);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
         /// <summary>
         /// 請假名單
@@ -77,9 +113,21 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetPeopleAbs")]
         [HttpPost]
-        public List<string> GetPeopleAbs([FromBody]AbsenceEntry absenceEntryDto)
+        public ApiResult<List<string>> GetPeopleAbs(AbsenceEntry absenceEntryDto)
         {
-            return _absenceService.GetPeopleAbs(absenceEntryDto);
+            _logger.Info("開始呼叫AbsenceService.GetPeopleAbs");
+            ApiResult<List<string>> apiResult = new ApiResult<List<string>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _absenceService.GetPeopleAbs(absenceEntryDto);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
         /// <summary>
         /// 取得假別代碼
@@ -87,9 +135,21 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetHcode")]
         [HttpPost]
-        public List<HcodeDto> GetHcode()
+        public ApiResult<List<HcodeDto>> GetHcode()
         {
-            return _absenceService.GetHcode();
+            _logger.Info("開始呼叫AbsenceService.GetHcode");
+            ApiResult<List<HcodeDto>> apiResult = new ApiResult<List<HcodeDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _absenceService.GetHcode();
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
     }
 }

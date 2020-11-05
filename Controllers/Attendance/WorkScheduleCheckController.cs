@@ -42,7 +42,7 @@ namespace HR_Api_Demo.Controllers
         /// <returns></returns>
         [Route("Check")]
         [HttpPost]
-        public ActionResult<WorkScheduleCheckResult> Check([FromBody] WorkScheduleCheckEntry workScheduleCheckEntry)// Check(dynamic workScheduleCheckEntry)//
+        public ApiResult<List<WorkScheduleIssueDto>> Check(WorkScheduleCheckEntry workScheduleCheckEntry)// Check(dynamic workScheduleCheckEntry)//
         {
             //WorkScheduleCheckEntry workScheduleCheckEntry = new WorkScheduleCheckEntry();
             //workScheduleCheckEntry.CheckTypes.Add("CW7");
@@ -61,7 +61,7 @@ namespace HR_Api_Demo.Controllers
         /// <returns></returns>
         [Route("CheckWithQuery")]
         [HttpPost]
-        public ActionResult<WorkScheduleCheckResult> CheckWithQuery([FromBody] WorkScheduleCheckEntry workScheduleCheckEntry)// Check(dynamic workScheduleCheckEntry)//
+        public ApiResult<List<WorkScheduleIssueDto>> CheckWithQuery(WorkScheduleCheckEntry workScheduleCheckEntry)// Check(dynamic workScheduleCheckEntry)//
         {
             _logger.Info("開始呼叫WorkScheduleCheck.CheckWithQuery");
             return _workScheduleCheckService.CheckWithQuery(workScheduleCheckEntry);            
@@ -72,12 +72,23 @@ namespace HR_Api_Demo.Controllers
         /// <returns></returns>
         [Route("GetScheduleTypes")]
         [HttpPost]
-        public string GetScheduleTypes()
+        public ApiResult<string> GetScheduleTypes()
         {
             _logger.Info("開始呼叫WorkScheduleCheck.GetScheduleTypes");
-            List<ScheduleTypeDto> result = new List<ScheduleTypeDto>();
-            result = _workScheduleCheckService.GetScheduleTypeList();
-            return JsonConvert.SerializeObject(result);
+            ApiResult<string> apiResult = new ApiResult<string>();
+            apiResult.State = false;
+            try
+            {
+                List<ScheduleTypeDto> result = new List<ScheduleTypeDto>();
+                result = _workScheduleCheckService.GetScheduleTypeList();
+                apiResult.Result = JsonConvert.SerializeObject(result);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
         /// <summary>
         /// 
@@ -86,12 +97,23 @@ namespace HR_Api_Demo.Controllers
         /// <returns></returns>
         [Route("GetWorkschedules")]
         [HttpPost]
-        public string GetWorkschedules([FromBody]WorkschedulecheckEntry workschedulecheckEntry  )
+        public ApiResult<string> GetWorkschedules(WorkschedulecheckEntry workschedulecheckEntry  )
         {
             _logger.Info("開始呼叫WorkScheduleCheck.GetWorkschedules");
-            Dictionary<string, List<WorkScheduleDto>> workSchedulecheckDic = new Dictionary<string, List<WorkScheduleDto>>();
-            workSchedulecheckDic = _workScheduleCheckService.GetWorkScheduleList(workschedulecheckEntry);
-            return JsonConvert.SerializeObject(workSchedulecheckDic);
+            ApiResult<string> apiResult = new ApiResult<string>();
+            apiResult.State = false;
+            try
+            {
+                Dictionary<string, List<WorkScheduleDto>> workSchedulecheckDic = new Dictionary<string, List<WorkScheduleDto>>();
+                workSchedulecheckDic = _workScheduleCheckService.GetWorkScheduleList(workschedulecheckEntry);
+                apiResult.Result = JsonConvert.SerializeObject(workSchedulecheckDic);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
 
         /// <summary>

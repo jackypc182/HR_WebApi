@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JBHRIS.Api.Dto;
 using JBHRIS.Api.Home;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,9 +22,9 @@ namespace HR_WebApi.Controllers.Home
         /// <returns></returns>
         [Route("")]
         [HttpPost]
-        public List<BillboardDto> GetBillboards()
+        public ApiResult<List<BillboardDto>> GetBillboards()
         {
-            return new List<BillboardDto>();
+            return new ApiResult<List<BillboardDto>>();
         }
         /// <summary>
         /// 新增公佈欄
@@ -32,9 +33,9 @@ namespace HR_WebApi.Controllers.Home
         /// <returns></returns>
         [Route("Add")]
         [HttpPost]
-        public BillboardResultDto AddBillboard([FromBody] BillboardDto billboardDto)
+        public ApiResult<BillboardResultDto> AddBillboard([FromBody] BillboardDto billboardDto)
         {
-            return new BillboardResultDto();
+            return new ApiResult<BillboardResultDto>();
         }
         /// <summary>
         /// 更新公佈欄
@@ -43,9 +44,9 @@ namespace HR_WebApi.Controllers.Home
         /// <returns></returns>
         [Route("Update")]
         [HttpPut]
-        public BillboardResultDto UpdateBillboard([FromBody] BillboardDto billboardDto)
+        public ApiResult<BillboardResultDto> UpdateBillboard([FromBody] BillboardDto billboardDto)
         {
-            return new BillboardResultDto();
+            return new ApiResult<BillboardResultDto>();
         }
         /// <summary>
         /// 刪除公佈欄
@@ -54,9 +55,9 @@ namespace HR_WebApi.Controllers.Home
         /// <returns></returns>
         [Route("Delete")]
         [HttpDelete]
-        public BillboardResultDto DeleteBillboard([FromBody] BillboardDto billboardDto)
+        public ApiResult<BillboardResultDto>  DeleteBillboard([FromBody] BillboardDto billboardDto)
         {
-            return new BillboardResultDto();
+            return new ApiResult<BillboardResultDto>();
         }
     }
 }

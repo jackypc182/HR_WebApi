@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto.Home;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,7 @@ namespace HR_WebApi.Controllers.Home
         /// <returns></returns>
         [Route("")]
         [HttpGet]
-        public List<HomeInfoCardDto> GetHomeInfoCard()
+        public ApiResult<List<HomeInfoCardDto>> GetHomeInfoCard()
         {
             return null;
         }

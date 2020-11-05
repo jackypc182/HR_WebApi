@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto.Attendance;
 using JBHRIS.Api.Dto.Attendance.Entry;
 using JBHRIS.Api.Service.Attendance.Normal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
 
 namespace JBHRIS.Api.Attendance
 {
@@ -18,14 +20,16 @@ namespace JBHRIS.Api.Attendance
     public class RoteChangeController : ControllerBase
     {
         private IRoteChangeService _roteChangeService;
+        private ILogger _logger;
 
         /// <summary>
         /// 調班控制器
         /// </summary>
         /// <param name="roteChangeService">調班服務</param>
-        public RoteChangeController (IRoteChangeService roteChangeService)
+        public RoteChangeController (IRoteChangeService roteChangeService, ILogger logger)
         {
             _roteChangeService = roteChangeService;
+            _logger = logger;
         }
 
         /// <summary>
@@ -35,9 +39,21 @@ namespace JBHRIS.Api.Attendance
         /// <returns></returns>
         [Route("GetRoteChange")]
         [HttpPost]
-        public List<RoteChangeDto> GetRoteChange(AttendanceEntry attendacneEntry)
+        public ApiResult<List<RoteChangeDto>> GetRoteChange(AttendanceEntry attendacneEntry)
         {
-            return _roteChangeService.GetRoteChange(attendacneEntry);
+            _logger.Info("開始呼叫RoteChangeService.GetRoteChange");
+            ApiResult<List<RoteChangeDto>> apiResult = new ApiResult<List<RoteChangeDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _roteChangeService.GetRoteChange(attendacneEntry);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
     }
 }

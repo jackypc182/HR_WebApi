@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JBHRIS.Api.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,9 +20,9 @@ namespace HR_WebApi.Controllers.Attendance
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public List<EmployeeShiftImportDto> GetEmployeeShifts()
+        public ApiResult<List<EmployeeShiftImportDto>> GetEmployeeShifts()
         {
-            return new List<EmployeeShiftImportDto>();
+            return new ApiResult<List<EmployeeShiftImportDto>>();
         }
 
     }
