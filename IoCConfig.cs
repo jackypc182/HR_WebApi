@@ -91,6 +91,8 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.IAbsenceCancelRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.AbsenceCancelRepository>();
             services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.IOverTimeRepository, JBHRIS.Api.Dal.JBHR.Attendance.Normal.OverTimeRepository>();
             services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.ICardMachineSettingDal, JBHRIS.Api.Dal.JBHR.Attendance.Normal.CardMachineSettingDal>();
+            services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.IAbsence_Normal_GetHcodeTypes, JBHRIS.Api.Dal.JBHR.Attendance.Normal.Absence_Normal_GetHcodeTypes>();
+            services.AddScoped<JBHRIS.Api.Dal.Attendance.Normal.IAbsence_Normal_GetHcodeTypesByHcode, JBHRIS.Api.Dal.JBHR.Attendance.Normal.Absence_Normal_GetHcodeTypesByHcode>(); 
             services.AddScoped<JBHRIS.Api.Dal.Attendance.View.IAttend_View_GetAttendRote, JBHRIS.Api.Dal.JBHR.Attendance.View.Attend_View_GetAttendRote>();
             services.AddScoped<JBHRIS.Api.Dal.Attendance.View.IAttend_View_Abnormal, JBHRIS.Api.Dal.JBHR.Attendance.View.Attend_View_Abnormal>();
             services.AddScoped<JBHRIS.Api.Dal.Attendance.View.IAttend_View_GetAbsenceEntitleView, JBHRIS.Api.Dal.JBHR.Attendance.View.Attend_View_GetAbsenceEntitleView>();

@@ -151,5 +151,51 @@ namespace HR_WebApi.Controllers.Attendance
             }
             return apiResult;
         }
+
+        /// <summary>
+        /// 取得假別類別
+        /// </summary>
+        /// <returns></returns>
+        [Route("GetHcodeTypes")]
+        [HttpGet]
+        public ApiResult<List<HcodeTypeDto>> GetHcodeTypes()
+        {
+            _logger.Info("開始呼叫AbsenceService.GetHcodeTypes");
+            ApiResult<List<HcodeTypeDto>> apiResult = new ApiResult<List<HcodeTypeDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _absenceService.GetHcodeTypes();
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
+        }
+
+        /// <summary>
+        /// 取得請假類別假別代碼
+        /// </summary>
+        /// <returns></returns>
+        [Route("GetHcodeTypesByHcode")]
+        [HttpPost]
+        public ApiResult<List<HcodeDto>> GetHcodeTypesByHcode(HcodeTypesByHcodeEntry hcodeTypesByHcodeEntry)
+        {
+            _logger.Info("開始呼叫AbsenceService.GetHcodeTypes");
+            ApiResult<List<HcodeDto>> apiResult = new ApiResult<List<HcodeDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _absenceService.GetHcodeTypesByHcode(hcodeTypesByHcodeEntry);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
+        }
     }
 }
