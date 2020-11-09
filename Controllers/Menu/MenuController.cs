@@ -38,7 +38,7 @@ namespace HR_WebApi.Controllers.Menu
                 {
                     Code = m.Code,
                     SPath = m.SPath,
-                    SFileName = m.SIconName,
+                    SFileName = m.SFileName,
                     SFileTitle = m.SFileTitle,
                     SParentKey = m.SParentKey,
                     SidePath = "",
