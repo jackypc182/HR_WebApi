@@ -108,6 +108,32 @@ namespace HR_Api_Demo.Controllers
             return apiResult;
         }
         /// <summary>
+        /// 取得員工基本資料(前端)
+        /// </summary>
+        /// <remarks>
+        /// ["A0003","A0017"]
+        /// </remarks>
+        /// <param name="employeeList">工號清單</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("GetEmployeeInfoView")]
+        public ApiResult<List<EmployeeInfoViewDto>> GetEmployeeInfoView(List<string> employeeList)
+        {
+            _logger.Info("開始呼叫EmployeeInfoService.GetEmployeeInfoView");
+            ApiResult<List<EmployeeInfoViewDto>> apiResult = new ApiResult<List<EmployeeInfoViewDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _employeeService.GetEmployeeInfoView(employeeList);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
+        }
+        /// <summary>
         /// 取得員工檢視表
         /// </summary>
         /// <param name="employeeList"></param>
