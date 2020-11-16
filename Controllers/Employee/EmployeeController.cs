@@ -111,7 +111,7 @@ namespace HR_Api_Demo.Controllers
         /// 取得員工基本資料(前端)
         /// </summary>
         /// <remarks>
-        /// ["A0003","A0017"]
+        /// ["A0003","A0017","A1423"]
         /// </remarks>
         /// <param name="employeeList">工號清單</param>
         /// <returns></returns>
