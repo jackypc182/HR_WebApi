@@ -55,6 +55,7 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysPageApiVoidService, JBHRIS.Api.Service._System.View.SysPageApiVoidService>();
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysUserRoleViewService, JBHRIS.Api.Service._System.View.SysUserRoleViewService>();
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysApiVoidService, JBHRIS.Api.Service._System.View.SysApiVoidService>();
+            services.AddScoped<JBHRIS.Api.Service._System.View.ISysNewsService, JBHRIS.Api.Service._System.View.SysNewsService>();
             services.AddScoped<JBHRIS.Api.Service.Token.IRefreshTokenService, JBHRIS.Api.Service.Token.RefreshTokenService>();
 
             //Dal
@@ -111,6 +112,7 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Dal._System.View.ISystem_View_SysPageApiVoid, JBHRIS.Api.Dal.JBHR._System.System_View_SysPageApiVoid>();
             services.AddScoped<JBHRIS.Api.Dal._System.View.ISystem_View_SysUserRole, JBHRIS.Api.Dal.JBHR._System.System_View_SysUserRole>();
             services.AddScoped<JBHRIS.Api.Dal._System.View.ISystem_View_SysApiVoid, JBHRIS.Api.Dal.JBHR._System.System_View_SysApiVoid>();
+            services.AddScoped<JBHRIS.Api.Dal._System.View.ISystem_View_SysNews, JBHRIS.Api.Dal.JBHR._System.View.System_View_SysNews>();
             services.AddScoped<JBHRIS.Api.Bll.Attendance.Normal.ICardTextRecordConvertBll, JBHRIS.Api.Bll.Attendance.CardTextRecordConvertBll>();
             services.AddScoped<JBHRIS.Api.Service.Attendance.IWorkScheduleFactory, JBHRIS.Api.Service.Attendance.WorkScheduleFactory>();
 
