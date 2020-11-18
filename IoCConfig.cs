@@ -103,6 +103,7 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Dal.Attendance.View.IAttend_View_GetAbnormalSearch, JBHRIS.Api.Dal.JBHR.Attendance.View.Attend_View_GetAbnormalSearch>();
             services.AddScoped<JBHRIS.Api.Dal._System.ISystem_UserDal, JBHRIS.Api.Dal.JBHR._System.System_UserDal>();
             services.AddScoped<JBHRIS.Api.Dal._System.ISystem_UserDataRole, JBHRIS.Api.Dal.JBHR._System.System_UserDataRole>();
+            services.AddScoped<JBHRIS.Api.Dal._System.View.ISystem_View_SysRelcode, JBHRIS.Api.Dal.JBHR._System.View.System_View_SysRelcode>();
             services.AddScoped<JBHRIS.Api.Dal.Token.IRefreshToken_View, JBHRIS.Api.Dal.JBHR.Token.RefreshToken_View>();
             //bll
 

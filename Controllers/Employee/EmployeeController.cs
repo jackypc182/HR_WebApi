@@ -202,6 +202,53 @@ namespace HR_Api_Demo.Controllers
             }
             return apiResult;
         }
+
+        /// <summary>
+        /// 更新員工基本資料
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("UpdateEmployeeInfo")]
+        public ApiResult<bool> UpdateEmployeeInfo(UpdateEmployeeInfoViewDto empInfo)
+        {
+            _logger.Info("開始呼叫EmployeeInfoService.UpdateEmployeeInfo");
+            ApiResult<bool> apiResult = new ApiResult<bool>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _employeeService.UpdateEmployeeInfo(empInfo);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
+        }
+
+        /// <summary>
+        /// 取得親屬關係
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetRelcodeView")]
+        public ApiResult<List<RelcodeDto>> GetRelcodeView()
+        {
+            _logger.Info("開始呼叫EmployeeInfoService.GetRelcodeView");
+            ApiResult<List<RelcodeDto>> apiResult = new ApiResult<List<RelcodeDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _employeeService.GetRelcodeView();
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
+        }
+
         ///// <summary>
         ///// 取得編制部門
         ///// </summary>
