@@ -179,29 +179,6 @@ namespace HR_Api_Demo.Controllers
             }
             return apiResult;
         }
-        /// <summary>
-        /// 更新員工密碼
-        /// </summary>
-        /// <param name="password_Entry"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("UpdateEmployeePassword")]
-        public ApiResult<bool> UpdateEmployeePassword(Password_Entry password_Entry)
-        {
-            _logger.Info("開始呼叫EmployeeInfoService.GetPeopleBirthday");
-            ApiResult<bool> apiResult = new ApiResult<bool>();
-            apiResult.State = false;
-            try
-            {
-                apiResult.Result = _employeeService.UpdateEmployeePassword(password_Entry.OldPWD, password_Entry.NewPWD);
-                apiResult.State = true;
-            }
-            catch (Exception ex)
-            {
-                apiResult.Message = ex.ToString();
-            }
-            return apiResult;
-        }
 
         /// <summary>
         /// 更新員工基本資料
@@ -333,10 +310,5 @@ namespace HR_Api_Demo.Controllers
         /// 檢核日期
         /// </summary>
         public string CheckDate { get; set; }
-    }
-    public class Password_Entry
-    {
-        public string OldPWD { get; set; }
-        public string NewPWD { get; set; }
     }
 }
