@@ -27,6 +27,7 @@ namespace HR_WebApi.Controllers.Menu
         /// <summary>
         /// 取得選單功能
         /// </summary>
+        /// <param name="code">根節點(Menu)</param>
         [Route("GetMenu")]
         [HttpGet]
         public ApiResult<List<SysMenuDto>> GetMenu(string code)
@@ -37,6 +38,30 @@ namespace HR_WebApi.Controllers.Menu
             try
             {
                 apiResult.Result = _menuService.GetMenu(code);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
+        }
+
+        /// <summary>
+        /// 搜尋選單功能
+        /// </summary>
+        /// <param name="code">根節點(Menu)</param>
+        /// <param name="keyword">查詢字</param>
+        [Route("GetFeatures")]
+        [HttpGet]
+        public ApiResult<List<SysMenuDto>> GetFeatures(string code,string keyword)
+        {
+            _logger.Info("開始呼叫MenuService.GetFeatures");
+            ApiResult<List<SysMenuDto>> apiResult = new ApiResult<List<SysMenuDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _menuService.GetFeatures(code,keyword);
                 apiResult.State = true;
             }
             catch (Exception ex)
