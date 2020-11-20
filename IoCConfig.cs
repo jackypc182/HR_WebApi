@@ -58,6 +58,7 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysApiVoidService, JBHRIS.Api.Service._System.View.SysApiVoidService>();
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysNewsService, JBHRIS.Api.Service._System.View.SysNewsService>();
             services.AddScoped<JBHRIS.Api.Service.Token.IRefreshTokenService, JBHRIS.Api.Service.Token.RefreshTokenService>();
+            services.AddScoped<JBHRIS.Api.Service.Menu.View.IMenuService, JBHRIS.Api.Service.Menu.View.MenuService>();
 
             //Dal
 
@@ -106,6 +107,7 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Dal._System.ISystem_UserDataRole, JBHRIS.Api.Dal.JBHR._System.System_UserDataRole>();
             services.AddScoped<JBHRIS.Api.Dal._System.View.ISystem_View_SysRelcode, JBHRIS.Api.Dal.JBHR._System.View.System_View_SysRelcode>();
             services.AddScoped<JBHRIS.Api.Dal.Token.IRefreshToken_View, JBHRIS.Api.Dal.JBHR.Token.RefreshToken_View>();
+            services.AddScoped<JBHRIS.Api.Dal.Menu.View.IMenu_View_GetMenu, JBHRIS.Api.Dal.JBHR.Menu.View.Menu_View_GetMenu>();
             //bll
 
             services.AddScoped<JBHRIS.Api.Dal._System.View.ISystem_View_SysRole, JBHRIS.Api.Dal.JBHR._System.System_View_SysRole>();
