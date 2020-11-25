@@ -71,5 +71,68 @@ namespace HR_WebApi.Controllers.Menu
             return apiResult;
         }
 
+        /// <summary>
+        /// 新增選單功能
+        /// </summary>
+        [Route("InsertMenu")]
+        [HttpPost]
+        public ApiResult<string> InsertMenu(SysMenuDto sysMenuDto)
+        {
+            _logger.Info("開始呼叫MenuService.InsertMenu");
+            ApiResult<string> apiResult = new ApiResult<string>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.State = _menuService.InsertMenu(sysMenuDto);
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
+        }
+
+        /// <summary>
+        /// 更新選單功能
+        /// </summary>
+        [Route("UpdateMenu")]
+        [HttpPut]
+        public ApiResult<string> UpdateMenu(SysMenuDto sysMenuDto)
+        {
+            _logger.Info("開始呼叫MenuService.UpdateMenu");
+            ApiResult<string> apiResult = new ApiResult<string>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.State = _menuService.UpdateMenu(sysMenuDto);
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
+        }
+
+        /// <summary>
+        /// 刪除選單功能
+        /// </summary>
+        [Route("DeleteMenu")]
+        [HttpDelete]
+        public ApiResult<string> DeleteMenu(string code)
+        {
+            _logger.Info("開始呼叫MenuService.DeleteMenu");
+            ApiResult<string> apiResult = new ApiResult<string>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.State = _menuService.DeleteMenu(code);
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
+        }
+
     }
 }

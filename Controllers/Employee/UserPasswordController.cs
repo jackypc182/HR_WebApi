@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto.Employee.Entry;
 using JBHRIS.Api.Service.Employee.View;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
@@ -63,6 +64,32 @@ namespace HR_WebApi.Controllers.Employee
             try
             {
                 apiResult.State = _userPasswordService.UpdatePassword(updatePasswordEntry);
+            }
+            catch (Exception ex)
+            {
+                apiResult.State = false;
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
+        }
+
+        /// <summary>
+        /// 更改密碼
+        /// </summary>
+        /// <param name="changePasswordEntry"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Authorize]
+        [Route("ChangePassword")]
+        public ApiResult<string> ChangePassword(ChangePasswordEntry changePasswordEntry)
+        {
+            _logger.Info("開始呼叫UserPasswordService.ChangePassword");
+            ApiResult<string> apiResult = new ApiResult<string>();
+            apiResult.State = false;
+            try
+            {
+                var Nobr = User.Identity.Name;
+                apiResult.State = _userPasswordService.ChangePassword(Nobr,changePasswordEntry);
             }
             catch (Exception ex)
             {
