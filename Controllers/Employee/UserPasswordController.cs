@@ -50,20 +50,20 @@ namespace HR_WebApi.Controllers.Employee
         }
 
         /// <summary>
-        /// 修改密碼
+        /// 更改密碼(忘記密碼)
         /// </summary>
-        /// <param name="verifyIdentityEntry"></param>
+        /// <param name="changePasswordEntry"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("UpdatePassword")]
-        public ApiResult<string> UpdatePassword(UpdatePasswordEntry updatePasswordEntry)
+        [Route("ChangePassword")]
+        public ApiResult<string>  ChangePassword(ChangePasswordEntry changePasswordEntry)
         {
-            _logger.Info("開始呼叫UserPasswordService.UpdatePassword");
+            _logger.Info("開始呼叫UserPasswordService.ChangePassword");
             ApiResult<string> apiResult = new ApiResult<string>();
             apiResult.State = false;
             try
             {
-                apiResult.State = _userPasswordService.UpdatePassword(updatePasswordEntry);
+                apiResult.State = _userPasswordService.ChangePassword(changePasswordEntry);
             }
             catch (Exception ex)
             {
@@ -74,22 +74,22 @@ namespace HR_WebApi.Controllers.Employee
         }
 
         /// <summary>
-        /// 更改密碼
+        /// 修改密碼
         /// </summary>
-        /// <param name="changePasswordEntry"></param>
+        /// <param name="updatePasswordEntry"></param>
         /// <returns></returns>
         [HttpPost]
         [Authorize]
-        [Route("ChangePassword")]
-        public ApiResult<string> ChangePassword(ChangePasswordEntry changePasswordEntry)
+        [Route("UpdatePassword")]
+        public ApiResult<string> UpdatePassword(UpdatePasswordEntry updatePasswordEntry)
         {
-            _logger.Info("開始呼叫UserPasswordService.ChangePassword");
+            _logger.Info("開始呼叫UserPasswordService.UpdatePassword");
             ApiResult<string> apiResult = new ApiResult<string>();
             apiResult.State = false;
             try
             {
                 var Nobr = User.Identity.Name;
-                apiResult.State = _userPasswordService.ChangePassword(Nobr,changePasswordEntry);
+                apiResult.State = _userPasswordService.UpdatePassword(Nobr, updatePasswordEntry);
             }
             catch (Exception ex)
             {
