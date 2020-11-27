@@ -52,7 +52,6 @@ namespace HR_WebApi
             services.AddScoped<JBHRIS.Api.Service.Attendance.View.IAbnormalViewService, JBHRIS.Api.Service.Attendance.View.AbnormalViewService>();
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysRoleViewService, JBHRIS.Api.Service._System.View.SysRoleViewService>();
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysRolePageService, JBHRIS.Api.Service._System.View.SysRolePageService>();
-            services.AddScoped<JBHRIS.Api.Service._System.View.ISysPageApiService, JBHRIS.Api.Service._System.View.SysPageApiService>();
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysPageApiVoidService, JBHRIS.Api.Service._System.View.SysPageApiVoidService>();
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysUserRoleViewService, JBHRIS.Api.Service._System.View.SysUserRoleViewService>();
             services.AddScoped<JBHRIS.Api.Service._System.View.ISysApiVoidService, JBHRIS.Api.Service._System.View.SysApiVoidService>();
@@ -111,7 +110,6 @@ namespace HR_WebApi
             //bll
 
             services.AddScoped<JBHRIS.Api.Dal._System.View.ISystem_View_SysRole, JBHRIS.Api.Dal.JBHR._System.System_View_SysRole>();
-            services.AddScoped<JBHRIS.Api.Dal._System.View.ISystem_View_SysPage, JBHRIS.Api.Dal.JBHR._System.System_View_SysPage>();
             services.AddScoped<JBHRIS.Api.Dal._System.View.ISystem_View_SysRolePage, JBHRIS.Api.Dal.JBHR._System.System_View_SysRolePage>();
             services.AddScoped<JBHRIS.Api.Dal._System.View.ISystem_View_SysPageApiVoid, JBHRIS.Api.Dal.JBHR._System.System_View_SysPageApiVoid>();
             services.AddScoped<JBHRIS.Api.Dal._System.View.ISystem_View_SysUserRole, JBHRIS.Api.Dal.JBHR._System.System_View_SysUserRole>();

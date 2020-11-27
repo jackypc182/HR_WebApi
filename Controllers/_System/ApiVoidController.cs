@@ -35,13 +35,23 @@ namespace HR_WebApi.Controllers._System
         /// <summary>
         /// 取得頁面權限資料
         /// </summary>
-        /// <param name="voidName">方法名稱</param>
         [Route("GetApiVoid")]
         [HttpGet]
-        public ApiResult<List<SysApiVoidDto>> GetApiVoidView(string voidName)
+        public ApiResult<List<SysApiVoidDto>> GetApiVoidView()
         {
             _logger.Info("開始呼叫SysApiVoidService.GetApiVoidView");
-            return _sysApiVoidService.GetApiVoidView(voidName);
+            ApiResult<List<SysApiVoidDto>> apiResult = new ApiResult<List<SysApiVoidDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _sysApiVoidService.GetApiVoidView();
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
 
         /// <summary>
@@ -49,8 +59,9 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("InsertApiVoid")]
         [HttpPost]
-        public ApiResult<List<SysApiVoidDto>> InsertApiVoidView(SysApiVoidDto sysApiVoidDto)
+        public ApiResult<string> InsertApiVoidView(SysApiVoidDto sysApiVoidDto)
         {
+            _logger.Info("開始呼叫SysApiVoidService.InsertApiVoidView");
             return _sysApiVoidService.InsertApiVoidView(sysApiVoidDto);
         }
 
@@ -59,8 +70,9 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("UpdateApiVoid")]
         [HttpPut]
-        public ApiResult<List<SysApiVoidDto>> UpdateApiVoidView(SysApiVoidDto sysApiVoidDto)
+        public ApiResult<string> UpdateApiVoidView(SysApiVoidDto sysApiVoidDto)
         {
+            _logger.Info("開始呼叫SysApiVoidService.UpdateApiVoidView");
             return _sysApiVoidService.UpdateApiVoidView(sysApiVoidDto);
         }
 
@@ -69,8 +81,9 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("DeleteApiVoid")]
         [HttpDelete]
-        public ApiResult<List<SysApiVoidDto>> DeleteApiVoidView(int id)
+        public ApiResult<string> DeleteApiVoidView(int id)
         {
+            _logger.Info("開始呼叫SysApiVoidService.DeleteApiVoidView");
             return _sysApiVoidService.DeleteApiVoidView(id);
         }
     }

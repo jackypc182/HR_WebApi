@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using JBHRIS.Api.Dal._System.View;
 using JBHRIS.Api.Dto;
+using JBHRIS.Api.Dto._System.Entry;
 using JBHRIS.Api.Dto._System.View;
 using JBHRIS.Api.Service._System.View;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
 
 namespace HR_WebApi.Controllers._System
 {
@@ -19,45 +21,53 @@ namespace HR_WebApi.Controllers._System
     public class PageApiVoidController : ControllerBase
     {
         private ISysPageApiVoidService _sysPageApiVoidService;
+        private ILogger _logger;
 
         /// <summary>
         /// 建構子
         /// </summary>
         /// <param name="sysPageApiVoidService">頁面權限</param>
-        public PageApiVoidController(ISysPageApiVoidService sysPageApiVoidService
+        public PageApiVoidController(ISysPageApiVoidService sysPageApiVoidService,
+            ILogger logger
             )
         {
             _sysPageApiVoidService = sysPageApiVoidService;
+            _logger = logger;
         }
 
         /// <summary>
-        /// 取得頁面權限資料
+        /// 取得頁面包含api權限
         /// </summary>
-        /// <param name="PageCode">頁面key</param>
-        [Route("GetPageApiVoidView")]
+        [Route("GetPageToApiVoidView")]
         [HttpGet]
-        public ApiResult<List<SysPageApiVoidDto>> GetPageApiVoidView(string PageCode)
+        public ApiResult<List<SysPageToApiVoidDto>> GetPageToApiVoidView()
         {
-            return _sysPageApiVoidService.GetPageApiVoidView(PageCode);
+            _logger.Info("開始呼叫SysPageApiVoidService.GetPageToApiVoidView");
+            ApiResult<List<SysPageToApiVoidDto>> apiResult = new ApiResult<List<SysPageToApiVoidDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _sysPageApiVoidService.GetPageToApiVoidView();
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
 
         /// <summary>
         /// 新增頁面權限資料
         /// </summary>
-        /// <remarks>
-        ///  {
-        ///    "pageCode": "string",
-        ///    "apiVoidCode": "string",
-        ///    "keyDate": "2020-10-08T04:35:37.469Z",
-        ///    "keyName": "string"
-        ///  }
-        ///
-        /// </remarks>
         [Route("InsertPageApiVoid")]
         [HttpPost]
-        public ApiResult<List<SysPageApiVoidDto>> InsertPageApiVoid(SysPageApiVoidDto sysPageApiVoidDto)
+        public ApiResult<string> InsertPageApiVoid(SysPageApiVoidEntry sysPageApiVoidEntry)
         {
-            return _sysPageApiVoidService.InsertPageApiVoidView(sysPageApiVoidDto);
+            _logger.Info("開始呼叫SysPageApiVoidService.InsertPageApiVoid");
+            var KeyMan = User.Identity.Name;
+            if (KeyMan == null) KeyMan = "";
+            return _sysPageApiVoidService.InsertPageApiVoidView(sysPageApiVoidEntry, KeyMan);
         }
 
         /// <summary>
@@ -65,9 +75,10 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("DeleteRole")]
         [HttpDelete]
-        public ApiResult<List<SysPageApiVoidDto>> DeletePageApiVoid(int id)
+        public ApiResult<string> DeletePageApiVoid(SysPageApiVoidEntry sysPageApiVoidEntry)
         {
-            return _sysPageApiVoidService.DeletePageApiVoidView(id);
+            _logger.Info("開始呼叫SysPageApiVoidService.DeletePageApiVoid");
+            return _sysPageApiVoidService.DeletePageApiVoidView(sysPageApiVoidEntry);
         }
     }
 }

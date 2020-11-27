@@ -7,6 +7,7 @@ using JBHRIS.Api.Dto._System.View;
 using JBHRIS.Api.Service._System.View;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
 
 namespace HR_WebApi.Controllers._System
 {
@@ -18,14 +19,17 @@ namespace HR_WebApi.Controllers._System
     public class RoleController : ControllerBase
     {
         private ISysRoleViewService _sysRoleViewService;
+        private ILogger _logger;
 
         /// <summary>
         /// 建構子
         /// </summary>
         /// <param name="sysRoleViewService">角色資料</param>
-        public RoleController(ISysRoleViewService sysRoleViewService
+        public RoleController(ISysRoleViewService sysRoleViewService,
+            ILogger logger
             )
         {
+            _logger = logger;
             _sysRoleViewService = sysRoleViewService;
         }
 
@@ -37,7 +41,19 @@ namespace HR_WebApi.Controllers._System
         [HttpGet]
         public ApiResult<List<SysRoleDto>> GetRole()
         {
-            return _sysRoleViewService.GetRoleView();
+            _logger.Info("開始呼叫SysRoleViewService.GetRole");
+            ApiResult<List<SysRoleDto>> apiResult = new ApiResult<List<SysRoleDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _sysRoleViewService.GetRoleView();
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
 
         /// <summary>
