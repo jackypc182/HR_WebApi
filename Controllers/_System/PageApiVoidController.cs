@@ -73,7 +73,7 @@ namespace HR_WebApi.Controllers._System
         /// <summary>
         /// 刪除頁面權限資料
         /// </summary>
-        [Route("DeleteRole")]
+        [Route("DeletePageApiVoid")]
         [HttpDelete]
         public ApiResult<string> DeletePageApiVoid(SysPageApiVoidEntry sysPageApiVoidEntry)
         {
