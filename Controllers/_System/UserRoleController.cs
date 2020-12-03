@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JBHRIS.Api.Dto;
+using JBHRIS.Api.Dto._System.Entry;
 using JBHRIS.Api.Dto._System.View;
 using JBHRIS.Api.Service._System.View;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
 
 namespace HR_WebApi.Controllers._System
 {
@@ -18,15 +20,18 @@ namespace HR_WebApi.Controllers._System
     public class UserRoleController : ControllerBase
     {
         private ISysUserRoleViewService _sysUserRoleViewService;
+        private ILogger _logger;
 
         /// <summary>
         /// 建構子
         /// </summary>
         /// <param name="sysUserRoleViewService">角色資料</param>
-        public UserRoleController(ISysUserRoleViewService sysUserRoleViewService
+        public UserRoleController(ISysUserRoleViewService sysUserRoleViewService,
+           ILogger logger
             )
         {
             _sysUserRoleViewService = sysUserRoleViewService;
+            _logger = logger;
         }
 
         /// <summary>
@@ -36,9 +41,21 @@ namespace HR_WebApi.Controllers._System
         /// <returns>使用者角色資料</returns>
         [Route("GetUserRole")]
         [HttpGet]
-        public ApiResult<List<SysUserRoleDto>> GetUserRole(string nobr)
+        public ApiResult<List<SysUserRoleDto>> GetUserRole(List<string> nobr)
         {
-            return _sysUserRoleViewService.GetUserRoleView(nobr);
+            _logger.Info("開始呼叫SysUserRoleViewService.GetUserRoleView");
+            ApiResult<List<SysUserRoleDto>> apiResult = new ApiResult<List<SysUserRoleDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _sysUserRoleViewService.GetUserRoleView(nobr);
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
         }
 
         /// <summary>
@@ -46,9 +63,10 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("InsertUserRole")]
         [HttpPost]
-        public ApiResult<List<SysUserRoleDto>> InsertUserRole(SysUserRoleDto sysUserRoleDto)
+        public ApiResult<string> InsertUserRole(SysUserRoleEntry sysUserRoleEntry)
         {
-            return _sysUserRoleViewService.InsertUserRoleView(sysUserRoleDto);
+            _logger.Info("開始呼叫SysUserRoleViewService.InsertUserRole");
+            return _sysUserRoleViewService.InsertUserRoleView(sysUserRoleEntry);
         }
 
         /// <summary>
@@ -57,9 +75,10 @@ namespace HR_WebApi.Controllers._System
         /// <param name="id">Autokey</param>
         [Route("DeleteUserRole")]
         [HttpDelete]
-        public ApiResult<List<SysUserRoleDto>> DeleteUserRoleView(int id)
+        public ApiResult<string> DeleteUserRoleView(SysUserRoleEntry sysUserRoleEntry)
         {
-            return _sysUserRoleViewService.DeleteUserRoleView(id);
+            _logger.Info("開始呼叫SysUserRoleViewService.DeleteUserRoleView");
+            return _sysUserRoleViewService.DeleteUserRoleView(sysUserRoleEntry);
         }
     }
 }

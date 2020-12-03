@@ -72,6 +72,7 @@ namespace HR_WebApi.Controllers._System
         [HttpPost]
         public ApiResult<List<SysRoleDto>> InsertRole(SysRoleDto sysRoleDto)
         {
+            _logger.Info("開始呼叫SysRoleViewService.InsertRole");
             return _sysRoleViewService.InsertRoleView(sysRoleDto);
         }
 
@@ -83,6 +84,7 @@ namespace HR_WebApi.Controllers._System
         [HttpPut]
         public ApiResult<List<SysRoleDto>> UpdateRole(SysRoleDto sysRoleDto)
         {
+            _logger.Info("開始呼叫SysRoleViewService.UpdateRole");
             return _sysRoleViewService.UpdateRoleView(sysRoleDto);
         }
 
@@ -94,6 +96,7 @@ namespace HR_WebApi.Controllers._System
         [HttpDelete]
         public ApiResult<List<SysRoleDto>> DeleteRole(string Code)
         {
+            _logger.Info("開始呼叫SysRoleViewService.DeleteRole");
             return _sysRoleViewService.DeleteRoleView(Code);
         }
     }
