@@ -91,6 +91,7 @@ namespace HR_Api_Demo.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("GetEmployeeInfo")]
+        [Authorize(Roles= "GetEmployeeInfo")]
         public ApiResult<List<EmployeeInfoDto>> GetEmployeeInfo(List<string> employeeList)
         {
             _logger.Info("開始呼叫EmployeeInfoService.GetEmployeeInfo");

@@ -81,10 +81,10 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("DeleteApiVoid")]
         [HttpDelete]
-        public ApiResult<string> DeleteApiVoidView(int id)
+        public ApiResult<string> DeleteApiVoidView(string Code)
         {
             _logger.Info("開始呼叫SysApiVoidService.DeleteApiVoidView");
-            return _sysApiVoidService.DeleteApiVoidView(id);
+            return _sysApiVoidService.DeleteApiVoidView(Code);
         }
     }
 }
