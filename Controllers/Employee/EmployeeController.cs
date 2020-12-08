@@ -61,10 +61,33 @@ namespace HR_Api_Demo.Controllers
             //_jobViewService = jobViewService;
             //_otherCodeViewService = otherCodeViewService;
         }
-      /// <summary>
-      /// 
-      /// </summary>
-      /// <returns></returns>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetPeople")]
+        public ApiResult<List<EmployeeViewDto>> GetPeople()
+        {
+            _logger.Info("開始呼叫EmployeeListService.GetPeople");
+            ApiResult<List<EmployeeViewDto>> apiResult = new ApiResult<List<EmployeeViewDto>>();
+            apiResult.State = false;
+            try
+            {
+                apiResult.Result = _employeeListService.GetPeople();
+                apiResult.State = true;
+            }
+            catch (Exception ex)
+            {
+                apiResult.Message = ex.ToString();
+            }
+            return apiResult;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [Route("GetPeopleByDept")]
         public ApiResult<List<string>> GetPeopleByDept(GetPeopleByDeptEntry getPeopleByDeptEntry)
@@ -91,7 +114,7 @@ namespace HR_Api_Demo.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("GetEmployeeInfo")]
-        [Authorize(Roles= "GetEmployeeInfo")]
+        [Authorize(Roles = "Employee/GetEmployeeInfo")]
         public ApiResult<List<EmployeeInfoDto>> GetEmployeeInfo(List<string> employeeList)
         {
             _logger.Info("開始呼叫EmployeeInfoService.GetEmployeeInfo");
