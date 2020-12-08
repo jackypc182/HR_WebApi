@@ -40,7 +40,7 @@ namespace HR_WebApi.Controllers._System
         /// <param name="nobr">員工號</param>
         /// <returns>使用者角色資料</returns>
         [Route("GetUserRole")]
-        [HttpGet]
+        [HttpPost]
         public ApiResult<List<SysUserRoleDto>> GetUserRole(List<string> nobr)
         {
             _logger.Info("開始呼叫SysUserRoleViewService.GetUserRoleView");
