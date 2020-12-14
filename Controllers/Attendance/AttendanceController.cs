@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NLog;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HR_WebApi.Controllers.Attendance
 {
@@ -34,6 +35,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetAttendance")]
         [HttpPost]
+        [Authorize(Roles = "Attendance/GetAttendance,Admin")]
         public ApiResult<List<AttendanceDto>> GetAttendance(AttendanceRoteEntry attendanceEntry)
         {
             _logger.Info("開始呼叫AttendanceService.GetAttendance");
@@ -68,6 +70,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// </remarks>
         [Route("GetCalendar")]
         [HttpPost]
+        [Authorize(Roles = "Attendance/GetCalendar,Admin")]
         public ApiResult<List<CalendarDto>> GetCalendar(AttendanceCalendarEntry attendanceCalendarEntry)   
         {
             return _attendanceService.GetCalendar(attendanceCalendarEntry);
@@ -79,6 +82,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetRoteChange")]
         [HttpPost]
+        [Authorize(Roles = "Attendance/GetRoteChange,Admin")]
         public ApiResult<List<RoteChangeDto>> GetRoteChange(AttendanceRoteEntry attendanceEntry)
         {
             _logger.Info("開始呼叫AttendanceService.GetRoteChange");
@@ -101,6 +105,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// <param name="attendanceEntry"></param>
         [Route("GetPeopleAbnormal")]
         [HttpPost]
+        [Authorize(Roles = "Attendance/GetPeopleAbnormal,Admin")]
         public ApiResult<List<string>> GetPeopleAbnormal(AttendanceRoteEntry attendanceEntry)
         {
             _logger.Info("開始呼叫AttendanceService.GetPeopleAbnormal");
@@ -123,6 +128,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// <param name="attendanceEntry"></param>
         [Route("GetPeopleWork")]
         [HttpPost]
+        [Authorize(Roles = "Attendance/GetPeopleWork,Admin")]
         public ApiResult<List<string>> GetPeopleWork(AttendanceRoteEntry attendanceEntry)
         {
             _logger.Info("開始呼叫AttendanceService.GetPeopleWork");
@@ -146,6 +152,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetRote")]
         [HttpPost]
+        [Authorize(Roles = "Attendance/GetRote,Admin")]
         public ApiResult<List<RoteDto>> GetRote()
         {
             _logger.Info("開始呼叫AttendanceService.GetRote");
@@ -168,6 +175,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// </summary>
         [Route("GetAttendType")]
         [HttpGet]
+        [Authorize(Roles = "Attendance/GetAttendType,Admin")]
         public ApiResult<List<AttendanceTypeDto>> GetAttendType()
         {
             List<AttendanceTypeDto> attendanceTypes = new List<AttendanceTypeDto>() 
@@ -200,6 +208,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// </remarks>
         [Route("GetAttendDetail")]
         [HttpPost]
+        [Authorize(Roles = "Attendance/GetAttendDetail,Admin")]
         public ApiResult<List<AttendanceDetailDto>> GetAttendDetail(AttendanceDetailEntry attendanceDetailEntry)
         {
             return _attendanceService.GetAttendDetail(attendanceDetailEntry);

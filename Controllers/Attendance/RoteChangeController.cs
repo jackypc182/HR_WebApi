@@ -6,6 +6,7 @@ using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto.Attendance;
 using JBHRIS.Api.Dto.Attendance.Entry;
 using JBHRIS.Api.Service.Attendance.Normal;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
@@ -39,6 +40,7 @@ namespace JBHRIS.Api.Attendance
         /// <returns></returns>
         [Route("GetRoteChange")]
         [HttpPost]
+        [Authorize(Roles = "RoteChange/GetRoteChange,Admin")]
         public ApiResult<List<RoteChangeDto>> GetRoteChange(AttendanceEntry attendacneEntry)
         {
             _logger.Info("開始呼叫RoteChangeService.GetRoteChange");

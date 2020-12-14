@@ -7,6 +7,7 @@ using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto._System.Entry;
 using JBHRIS.Api.Dto._System.View;
 using JBHRIS.Api.Service._System.View;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
@@ -40,6 +41,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("GetPageToApiVoidView")]
         [HttpGet]
+        [Authorize(Roles = "PageApiVoid/GetPageToApiVoidView,Admin")]
         public ApiResult<List<SysPageToApiVoidDto>> GetPageToApiVoidView()
         {
             _logger.Info("開始呼叫SysPageApiVoidService.GetPageToApiVoidView");
@@ -62,6 +64,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("InsertPageApiVoid")]
         [HttpPost]
+        [Authorize(Roles = "PageApiVoid/InsertPageApiVoid,Admin")]
         public ApiResult<string> InsertPageApiVoid(SysPageApiVoidEntry sysPageApiVoidEntry)
         {
             _logger.Info("開始呼叫SysPageApiVoidService.InsertPageApiVoid");
@@ -75,6 +78,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("DeletePageApiVoid")]
         [HttpDelete]
+        [Authorize(Roles = "PageApiVoid/DeletePageApiVoid,Admin")]
         public ApiResult<string> DeletePageApiVoid(SysPageApiVoidEntry sysPageApiVoidEntry)
         {
             _logger.Info("開始呼叫SysPageApiVoidService.DeletePageApiVoid");

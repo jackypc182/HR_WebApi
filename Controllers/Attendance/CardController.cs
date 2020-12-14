@@ -6,6 +6,7 @@ using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto.Attendance;
 using JBHRIS.Api.Dto.Attendance.Entry;
 using JBHRIS.Api.Service.Attendance.Normal;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
@@ -38,6 +39,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetCard")]
         [HttpPost]
+        [Authorize(Roles = "Card/GetCard,Admin")]
         public ApiResult<List<CardDto>> GetCard(AttendanceEntry attendanceEntry)
         {
             _logger.Info("開始呼叫CardService.GetCard");
@@ -60,6 +62,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetCardReason")]
         [HttpPost]
+        [Authorize(Roles = "Card/GetCardReason,Admin")]
         public ApiResult<List<CardReasonDto>> GetCardReason()
         {
             _logger.Info("開始呼叫CardService.GetCardReason");

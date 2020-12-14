@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto._System.View;
 using JBHRIS.Api.Service._System.View;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
@@ -29,6 +30,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("GetNews")]
         [HttpGet]
+        [Authorize(Roles = "News/GetNews,Admin")]
         public ApiResult<List<NewsDto>> GetNews()
         {
             _logger.Info("開始呼叫SysNewsService.GetNews");
@@ -51,6 +53,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("GetNewsById")]
         [HttpGet]
+        [Authorize(Roles = "News/GetNewsById,Admin")]
         public ApiResult<NewsDto> GetNewsById(string id)
         {
             _logger.Info("開始呼叫SysNewsService.GetNewsById");
@@ -73,6 +76,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("InsertNews")]
         [HttpPost]
+        [Authorize(Roles = "News/InsertNews,Admin")]
         public ApiResult<string> InsertNews(NewsDto newsDto)
         {
             _logger.Info("開始呼叫SysNewsService.InsertNews");
@@ -94,6 +98,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("UpdateNews")]
         [HttpPut]
+        [Authorize(Roles = "News/UpdateNews,Admin")]
         public ApiResult<string> UpdateNews(NewsDto newsDto)
         {
             _logger.Info("開始呼叫SysNewsService.UpdateNews");
@@ -115,6 +120,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("DeleteNewsById")]
         [HttpDelete]
+        [Authorize(Roles = "News/DeleteNewsById,Admin")]
         public ApiResult<string> DeleteNewsById(string id)
         {
             _logger.Info("開始呼叫SysNewsService.DeleteNewsById");

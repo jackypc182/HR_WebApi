@@ -62,11 +62,12 @@ namespace HR_Api_Demo.Controllers
             //_otherCodeViewService = otherCodeViewService;
         }
         /// <summary>
-        /// 
+        /// 取得所有員工
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
         [Route("GetPeople")]
+        [HttpGet]
+        [Authorize(Roles = "Employee/GetPeople,Admin")]
         public ApiResult<List<EmployeeViewDto>> GetPeople()
         {
             _logger.Info("開始呼叫EmployeeListService.GetPeople");
@@ -85,11 +86,12 @@ namespace HR_Api_Demo.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 取得部門清單
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
         [Route("GetPeopleByDept")]
+        [HttpPost]
+        [Authorize(Roles = "Employee/GetPeopleByDept,Admin")]
         public ApiResult<List<string>> GetPeopleByDept(GetPeopleByDeptEntry getPeopleByDeptEntry)
         {
             _logger.Info("開始呼叫EmployeeInfoService.GetPeopleByDept");
@@ -112,9 +114,9 @@ namespace HR_Api_Demo.Controllers
         /// </summary>
         /// <param name="employeeList">工號清單</param>
         /// <returns></returns>
-        [HttpPost]
         [Route("GetEmployeeInfo")]
-        [Authorize(Roles = "Employee/GetEmployeeInfo")]
+        [HttpPost]
+        [Authorize(Roles = "Employee/GetEmployeeInfo,Admin")]
         public ApiResult<List<EmployeeInfoDto>> GetEmployeeInfo(List<string> employeeList)
         {
             _logger.Info("開始呼叫EmployeeInfoService.GetEmployeeInfo");
@@ -139,8 +141,9 @@ namespace HR_Api_Demo.Controllers
         /// </remarks>
         /// <param name="employeeList">工號清單</param>
         /// <returns></returns>
-        [HttpPost]
         [Route("GetEmployeeInfoView")]
+        [HttpPost]
+        [Authorize(Roles = "Employee/GetEmployeeInfoView,Admin")]
         public ApiResult<List<EmployeeInfoViewDto>> GetEmployeeInfoView(List<string> employeeList)
         {
             _logger.Info("開始呼叫EmployeeInfoService.GetEmployeeInfoView");
@@ -162,8 +165,9 @@ namespace HR_Api_Demo.Controllers
         /// </summary>
         /// <param name="employeeList"></param>
         /// <returns></returns>
-        [HttpPost]
         [Route("GetEmployeeView")]
+        [HttpPost]
+        [Authorize(Roles = "Employee/GetEmployeeView,Admin")]
         public ApiResult<List<EmployeeViewDto>> GetEmployeeView(List<string> employeeList)
         {
             _logger.Info("開始呼叫EmployeeInfoService.GetEmployeeView");
@@ -185,8 +189,9 @@ namespace HR_Api_Demo.Controllers
         /// </summary>
         /// <param name="employeeBirthdayEntry"></param>
         /// <returns></returns>
-        [HttpPost]
         [Route("GetPeopleBirthday")]
+        [HttpPost]
+        [Authorize(Roles = "Employee/GetPeopleBirthday,Admin")]
         public ApiResult<List<string>> GetPeopleBirthday(EmployeeBirthdayEntry employeeBirthdayEntry)
         {
             _logger.Info("開始呼叫EmployeeInfoService.GetPeopleBirthday");
@@ -208,8 +213,9 @@ namespace HR_Api_Demo.Controllers
         /// 更新員工基本資料
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
         [Route("UpdateEmployeeInfo")]
+        [HttpPost]
+        [Authorize(Roles = "Employee/UpdateEmployeeInfo,Admin")]
         public ApiResult<bool> UpdateEmployeeInfo(UpdateEmployeeInfoViewDto empInfo)
         {
             _logger.Info("開始呼叫EmployeeInfoService.UpdateEmployeeInfo");
@@ -231,8 +237,9 @@ namespace HR_Api_Demo.Controllers
         /// 取得親屬關係
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
         [Route("GetRelcodeView")]
+        [HttpGet]
+        [Authorize(Roles = "Employee/GetRelcodeView,Admin")]
         public ApiResult<List<RelcodeDto>> GetRelcodeView()
         {
             _logger.Info("開始呼叫EmployeeInfoService.GetRelcodeView");

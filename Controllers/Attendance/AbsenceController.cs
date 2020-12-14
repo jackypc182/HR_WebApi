@@ -7,6 +7,7 @@ using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto.Attendance;
 using JBHRIS.Api.Dto.Attendance.Entry;
 using JBHRIS.Api.Service.Attendance.Normal;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
@@ -44,6 +45,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// <remarks>請假服務的輔助說明</remarks>  
         [Route("GetAbsenceTaken")]
         [HttpPost]
+        [Authorize(Roles = "Absence/GetAbsenceTaken,Admin")]
         public ApiResult<List<AbsenceTakenDto>> GetAbsenceTaken(AbsenceEntry absenceEntryDto)
         {
             _logger.Info("開始呼叫AbsenceService.GetAbsenceTaken");
@@ -67,6 +69,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetAbsenceCancel")]
         [HttpPost]
+        [Authorize(Roles = "Absence/GetAbsenceCancel,Admin")]
         public ApiResult<List<AbsenceCancelDto>> GetAbsenceCancel(AbsenceEntry absenceEntryDto)
         {
             _logger.Info("開始呼叫AbsenceService.GetAbsenceCancel");
@@ -90,6 +93,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetAbsBalance")]
         [HttpPost]
+        [Authorize(Roles = "Absence/GetAbsBalance,Admin")]
         public ApiResult<List<AbsenceBalanceDto>> GetAbsBalance(AbsenceEntry absenceEntryDto)
         {
             _logger.Info("開始呼叫AbsenceService.GetAbsBalance");
@@ -113,6 +117,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetPeopleAbs")]
         [HttpPost]
+        [Authorize(Roles = "Absence/GetPeopleAbs,Admin")]
         public ApiResult<List<string>> GetPeopleAbs(AbsenceEntry absenceEntryDto)
         {
             _logger.Info("開始呼叫AbsenceService.GetPeopleAbs");
@@ -135,6 +140,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetHcode")]
         [HttpPost]
+        [Authorize(Roles = "Absence/GetHcode,Admin")]
         public ApiResult<List<HcodeDto>> GetHcode()
         {
             _logger.Info("開始呼叫AbsenceService.GetHcode");
@@ -158,6 +164,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetHcodeTypes")]
         [HttpGet]
+        [Authorize(Roles = "Absence/GetHcodeTypes,Admin")]
         public ApiResult<List<HcodeTypeDto>> GetHcodeTypes()
         {
             _logger.Info("開始呼叫AbsenceService.GetHcodeTypes");
@@ -181,6 +188,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetHcodeTypesByHcode")]
         [HttpPost]
+        [Authorize(Roles = "Absence/GetHcodeTypesByHcode,Admin")]
         public ApiResult<List<HcodeDto>> GetHcodeTypesByHcode(HcodeTypesByHcodeEntry hcodeTypesByHcodeEntry)
         {
             _logger.Info("開始呼叫AbsenceService.GetHcodeTypes");

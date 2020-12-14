@@ -42,6 +42,7 @@ namespace HR_Api_Demo.Controllers
         /// <returns></returns>
         [Route("Check")]
         [HttpPost]
+        [Authorize(Roles = "WorkScheduleCheck/Check,Admin")]
         public ApiResult<List<WorkScheduleIssueDto>> Check(WorkScheduleCheckEntry workScheduleCheckEntry)// Check(dynamic workScheduleCheckEntry)//
         {
             //WorkScheduleCheckEntry workScheduleCheckEntry = new WorkScheduleCheckEntry();
@@ -61,6 +62,7 @@ namespace HR_Api_Demo.Controllers
         /// <returns></returns>
         [Route("CheckWithQuery")]
         [HttpPost]
+        [Authorize(Roles = "WorkScheduleCheck/CheckWithQuery,Admin")]
         public ApiResult<List<WorkScheduleIssueDto>> CheckWithQuery(WorkScheduleCheckEntry workScheduleCheckEntry)// Check(dynamic workScheduleCheckEntry)//
         {
             _logger.Info("開始呼叫WorkScheduleCheck.CheckWithQuery");
@@ -72,6 +74,7 @@ namespace HR_Api_Demo.Controllers
         /// <returns></returns>
         [Route("GetScheduleTypes")]
         [HttpPost]
+        [Authorize(Roles = "WorkScheduleCheck/GetScheduleTypes,Admin")]
         public ApiResult<string> GetScheduleTypes()
         {
             _logger.Info("開始呼叫WorkScheduleCheck.GetScheduleTypes");
@@ -91,12 +94,13 @@ namespace HR_Api_Demo.Controllers
             return apiResult;
         }
         /// <summary>
-        /// 
+        /// 取得員工班別代碼
         /// </summary>
         /// <param name="workschedulecheckEntry"></param>
         /// <returns></returns>
         [Route("GetWorkschedules")]
         [HttpPost]
+        [Authorize(Roles = "WorkScheduleCheck/GetWorkschedules,Admin")]
         public ApiResult<string> GetWorkschedules(WorkschedulecheckEntry workschedulecheckEntry  )
         {
             _logger.Info("開始呼叫WorkScheduleCheck.GetWorkschedules");

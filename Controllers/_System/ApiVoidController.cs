@@ -6,6 +6,7 @@ using JBHRIS.Api.Dal._System.View;
 using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto._System.View;
 using JBHRIS.Api.Service._System.View;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
@@ -37,6 +38,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("GetApiVoid")]
         [HttpGet]
+        [Authorize(Roles = "ApiVoid/GetApiVoidView,Admin")]
         public ApiResult<List<SysApiVoidDto>> GetApiVoidView()
         {
             _logger.Info("開始呼叫SysApiVoidService.GetApiVoidView");
@@ -59,6 +61,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("InsertApiVoid")]
         [HttpPost]
+        [Authorize(Roles = "ApiVoid/InsertApiVoidView,Admin")]
         public ApiResult<string> InsertApiVoidView(SysApiVoidDto sysApiVoidDto)
         {
             _logger.Info("開始呼叫SysApiVoidService.InsertApiVoidView");
@@ -70,6 +73,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("UpdateApiVoid")]
         [HttpPut]
+        [Authorize(Roles = "ApiVoid/UpdateApiVoidView,Admin")]
         public ApiResult<string> UpdateApiVoidView(SysApiVoidDto sysApiVoidDto)
         {
             _logger.Info("開始呼叫SysApiVoidService.UpdateApiVoidView");
@@ -81,6 +85,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("DeleteApiVoid")]
         [HttpDelete]
+        [Authorize(Roles = "ApiVoid/DeleteApiVoidView,Admin")]
         public ApiResult<string> DeleteApiVoidView(string Code)
         {
             _logger.Info("開始呼叫SysApiVoidService.DeleteApiVoidView");

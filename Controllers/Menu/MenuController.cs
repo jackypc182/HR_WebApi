@@ -7,6 +7,7 @@ using JBHRIS.Api.Dal.JBHR;
 using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto._System.View;
 using JBHRIS.Api.Service.Menu.View;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
@@ -30,6 +31,7 @@ namespace HR_WebApi.Controllers.Menu
         /// <param name="code">根節點(Menu)</param>
         [Route("GetMenu")]
         [HttpGet]
+        [Authorize(Roles = "Menu/GetMenu,Admin")]
         public ApiResult<List<SysMenuDto>> GetMenu(string code)
         {
             _logger.Info("開始呼叫MenuService.GetMenu");
@@ -54,6 +56,7 @@ namespace HR_WebApi.Controllers.Menu
         /// <param name="keyword">查詢字</param>
         [Route("GetFeatures")]
         [HttpGet]
+        [Authorize(Roles = "Menu/GetFeatures,Admin")]
         public ApiResult<List<SysMenuDto>> GetFeatures(string code,string keyword)
         {
             _logger.Info("開始呼叫MenuService.GetFeatures");
@@ -76,6 +79,7 @@ namespace HR_WebApi.Controllers.Menu
         /// </summary>
         [Route("InsertMenu")]
         [HttpPost]
+        [Authorize(Roles = "Menu/InsertMenu,Admin")]
         public ApiResult<string> InsertMenu(SysMenuDto sysMenuDto)
         {
             _logger.Info("開始呼叫MenuService.InsertMenu");
@@ -97,6 +101,7 @@ namespace HR_WebApi.Controllers.Menu
         /// </summary>
         [Route("UpdateMenu")]
         [HttpPut]
+        [Authorize(Roles = "Menu/UpdateMenu,Admin")]
         public ApiResult<string> UpdateMenu(SysMenuDto sysMenuDto)
         {
             _logger.Info("開始呼叫MenuService.UpdateMenu");
@@ -118,6 +123,7 @@ namespace HR_WebApi.Controllers.Menu
         /// </summary>
         [Route("DeleteMenu")]
         [HttpDelete]
+        [Authorize(Roles = "Menu/DeleteMenu,Admin")]
         public ApiResult<string> DeleteMenu(string code)
         {
             _logger.Info("開始呼叫MenuService.DeleteMenu");

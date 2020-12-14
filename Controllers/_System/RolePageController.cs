@@ -7,6 +7,7 @@ using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto._System.Entry;
 using JBHRIS.Api.Dto._System.View;
 using JBHRIS.Api.Service._System.View;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
@@ -40,6 +41,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("InsertRolePage")]
         [HttpPost]
+        [Authorize(Roles = "RolePage/InsertRolePage,Admin")]
         public ApiResult<string> InsertRolePage(SysRolePageEntry sysRolePageEntry)
         {
             _logger.Info("開始呼叫SysRolePageService.InsertRolePageView");
@@ -53,6 +55,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("DeleteRolePage")]
         [HttpDelete]
+        [Authorize(Roles = "RolePage/DeleteRolePage,Admin")]
         public ApiResult<string> DeleteRolePage(SysRolePageEntry sysRolePageEntry)
         {
             _logger.Info("開始呼叫SysRolePageService.DeleteRolePageView");
@@ -64,6 +67,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("GetRoleToPageView")]
         [HttpGet]
+        [Authorize(Roles = "RolePage/GetRoleToPageView,Admin")]
         public ApiResult<List<SysRoleToPageDto>> GetRoleToPageView()
         {
             _logger.Info("開始呼叫SysRolePageService.GetRoleToPageView");
@@ -86,6 +90,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("GetPageToRoleView")]
         [HttpGet]
+        [Authorize(Roles = "RolePage/GetPageToRoleView,Admin")]
         public ApiResult<List<SysPageToRoleDto>> GetPageToRoleView()
         {
             _logger.Info("開始呼叫SysRolePageService.GetPageToRoleView");

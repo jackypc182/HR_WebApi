@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto._System.View;
 using JBHRIS.Api.Service._System.View;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
@@ -39,6 +40,7 @@ namespace HR_WebApi.Controllers._System
         /// <returns>角色清單</returns>
         [Route("GetRole")]
         [HttpGet]
+        [Authorize(Roles = "Role/GetRole,Admin")]
         public ApiResult<List<SysRoleDto>> GetRole()
         {
             _logger.Info("開始呼叫SysRoleViewService.GetRole");
@@ -70,6 +72,7 @@ namespace HR_WebApi.Controllers._System
         /// </remarks>
         [Route("InsertRole")]
         [HttpPost]
+        [Authorize(Roles = "Role/InsertRole,Admin")]
         public ApiResult<List<SysRoleDto>> InsertRole(SysRoleDto sysRoleDto)
         {
             _logger.Info("開始呼叫SysRoleViewService.InsertRole");
@@ -82,6 +85,7 @@ namespace HR_WebApi.Controllers._System
         /// <param name="sysRoleDto">角色key</param>
         [Route("UpdateRole")]
         [HttpPut]
+        [Authorize(Roles = "Role/UpdateRole,Admin")]
         public ApiResult<List<SysRoleDto>> UpdateRole(SysRoleDto sysRoleDto)
         {
             _logger.Info("開始呼叫SysRoleViewService.UpdateRole");
@@ -94,6 +98,7 @@ namespace HR_WebApi.Controllers._System
         /// <param name="Code">角色key</param>
         [Route("DeleteRole")]
         [HttpDelete]
+        [Authorize(Roles = "Role/DeleteRole,Admin")]
         public ApiResult<List<SysRoleDto>> DeleteRole(string Code)
         {
             _logger.Info("開始呼叫SysRoleViewService.DeleteRole");

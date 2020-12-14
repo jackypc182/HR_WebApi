@@ -7,6 +7,7 @@ using JBHRIS.Api.Dto.Attendance;
 using JBHRIS.Api.Dto.Attendance.Entry;
 using JBHRIS.Api.Dto.Attendance.View;
 using JBHRIS.Api.Service.Attendance.View;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -48,6 +49,7 @@ namespace HR_WebApi.Controllers.Attendance.View
         /// <param name="abseneceEntitleViewEntry"></param>
         /// <returns></returns>
         [HttpPost("GetAbsenceEntitleView")]
+        [Authorize(Roles = "AbsenceView/GetAbsenceEntitleView,Admin")]
         public ApiResult<List<AbsenceEntitleViewDto>> GetAbsenceEntitleView(AbseneceEntitleViewEntry  abseneceEntitleViewEntry)
         {
             return _absenceEntitleViewService.GetAbsenceEntitleView(abseneceEntitleViewEntry);
@@ -70,6 +72,7 @@ namespace HR_WebApi.Controllers.Attendance.View
         /// <param name="abseneceTakenViewEntry"></param>
         /// <returns></returns>
         [HttpPost("GetAbsenceTakenView")]
+        [Authorize(Roles = "AbsenceView/GetAbsenceTakenView,Admin")]
         public ApiResult<List<AbsenceTakenViewDto>> GetAbsenceTakenView(AbsenceTakenViewEntry abseneceTakenViewEntry)
         {
             return _absenceTakenViewService.GetAbsenceTakenView(abseneceTakenViewEntry);

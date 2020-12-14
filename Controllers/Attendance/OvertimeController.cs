@@ -6,6 +6,7 @@ using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto.Attendance;
 using JBHRIS.Api.Dto.Attendance.Entry;
 using JBHRIS.Api.Service.Attendance.Normal;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
@@ -39,6 +40,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// <remarks></remarks>
         [Route("GetOvertime")]
         [HttpPost]
+        [Authorize(Roles = "Overtime/GetOvertime,Admin")]
         public ApiResult<List<OvertimeDto>> GetOvertime(AttendanceEntry attendanceEntry)
         {
             _logger.Info("開始呼叫OvertimeService.GetOvertime");
@@ -62,6 +64,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetPeopleOvertime")]
         [HttpPost]
+        [Authorize(Roles = "Overtime/GetPeopleOvertime,Admin")]
         public ApiResult<List<string>> GetPeopleOvertime(AttendanceEntry attendanceEntry)
         {
             _logger.Info("開始呼叫OvertimeService.GetPeopleOvertime");
@@ -84,6 +87,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetOvertimeType")]
         [HttpPost]
+        [Authorize(Roles = "Overtime/GetOvertimeType,Admin")]
         public ApiResult<List<OvertimeTypeDto>> GetOvertimeType()
         {
             _logger.Info("開始呼叫OvertimeService.GetOvertimeType");
@@ -106,6 +110,7 @@ namespace HR_WebApi.Controllers.Attendance
         /// <returns></returns>
         [Route("GetOvertimeReason")]
         [HttpPost]
+        [Authorize(Roles = "Overtime/GetOvertimeReason,Admin")]
         public ApiResult<List<OvertimeReasonDto>> GetOvertimeReason()
         {
             _logger.Info("開始呼叫OvertimeService.GetOvertimeReason");

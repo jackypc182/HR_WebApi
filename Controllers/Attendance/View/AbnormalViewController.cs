@@ -7,6 +7,7 @@ using JBHRIS.Api.Dto.Attendance;
 using JBHRIS.Api.Dto.Attendance.Entry;
 using JBHRIS.Api.Dto.Attendance.View;
 using JBHRIS.Api.Service.Attendance.View;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,6 +33,7 @@ namespace HR_WebApi.Controllers.Attendance.View
         /// { "employeeList": [ "A1357","A0793" ],"dateBegin": "2020-09-01", "dateEnd": "2020-09-05","isCheck":true }
         /// </remarks>
         [HttpPost("AbnormalSearchView")]
+        [Authorize(Roles = "AbnormalView/AbnormalSearchView,Admin")]
         public ApiResult<List<AbnormalSearchViewDto>> GetAbnormalSearchView(AbnormalSearchViewEntry abnormalSearchViewEntry)
         {
             return _abnormalViewService.GetAbnormalSearchView(abnormalSearchViewEntry);

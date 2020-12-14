@@ -6,6 +6,7 @@ using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto.Home;
 using JBHRIS.Api.Home;
 using JBHRIS.Api.Service._System.View;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
@@ -35,6 +36,7 @@ namespace HR_WebApi.Controllers.Home
         /// <returns></returns>
         [Route("GetBillboards")]
         [HttpPost]
+        [Authorize(Roles = "BillBoard/GetBillboards,Admin")]
         public ApiResult<List<BillboardDto>> GetBillboards()
         {
             _logger.Info("開始呼叫SysNewsService.GetBillboards");
@@ -58,6 +60,7 @@ namespace HR_WebApi.Controllers.Home
         /// <returns></returns>
         [Route("GetBillboardsById")]
         [HttpPost]
+        [Authorize(Roles = "BillBoard/GetBillboardsById,Admin")]
         public ApiResult<BillboardDetailDto> GetBillboardsById(string id)
         {
             _logger.Info("開始呼叫SysNewsService.GetBillboardsById");

@@ -6,6 +6,7 @@ using JBHRIS.Api.Dto;
 using JBHRIS.Api.Dto._System.Entry;
 using JBHRIS.Api.Dto._System.View;
 using JBHRIS.Api.Service._System.View;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
@@ -41,6 +42,7 @@ namespace HR_WebApi.Controllers._System
         /// <returns>使用者角色資料</returns>
         [Route("GetUserRole")]
         [HttpPost]
+        [Authorize(Roles = "UserRole/GetUserRole,Admin")]
         public ApiResult<List<SysUserRoleDto>> GetUserRole(List<string> nobr)
         {
             _logger.Info("開始呼叫SysUserRoleViewService.GetUserRoleView");
@@ -63,6 +65,7 @@ namespace HR_WebApi.Controllers._System
         /// </summary>
         [Route("InsertUserRole")]
         [HttpPost]
+        [Authorize(Roles = "UserRole/InsertUserRole,Admin")]
         public ApiResult<string> InsertUserRole(SysUserRoleEntry sysUserRoleEntry)
         {
             _logger.Info("開始呼叫SysUserRoleViewService.InsertUserRole");
@@ -75,6 +78,7 @@ namespace HR_WebApi.Controllers._System
         /// <param name="id">Autokey</param>
         [Route("DeleteUserRole")]
         [HttpDelete]
+        [Authorize(Roles = "UserRole/DeleteUserRole,Admin")]
         public ApiResult<string> DeleteUserRoleView(SysUserRoleEntry sysUserRoleEntry)
         {
             _logger.Info("開始呼叫SysUserRoleViewService.DeleteUserRoleView");
