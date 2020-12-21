@@ -84,7 +84,9 @@ namespace HR_WebApi.Controllers._System
             apiResult.State = false;
             try
             {
-                apiResult.State = _sysNewsService.InsertNews(newsDto);
+                var KeyMan = User.Identity.Name;
+                if (KeyMan == null) KeyMan = "";
+                apiResult.State = _sysNewsService.InsertNews(newsDto, KeyMan);
             }
             catch (Exception ex)
             {
@@ -106,7 +108,9 @@ namespace HR_WebApi.Controllers._System
             apiResult.State = false;
             try
             {
-                apiResult.State = _sysNewsService.UpdateNews(newsDto);
+                var KeyMan = User.Identity.Name;
+                if (KeyMan == null) KeyMan = "";
+                apiResult.State = _sysNewsService.UpdateNews(newsDto, KeyMan);
             }
             catch (Exception ex)
             {
