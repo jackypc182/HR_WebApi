@@ -56,7 +56,7 @@ namespace HR_WebApi
             services.AddSingleton<NLog.ILogger>(NLog.LogManager.GetLogger("HR"));
             services.AddMemoryCache();
             //var config = Configuration.GetSection("Moduleregister");
-            services.AddDbContext<JBHRIS.Api.Dal.JBHR.JBHRContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:12Connection"]));
+            services.AddDbContext<JBHRIS.Api.Dal.JBHR.JBHRContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
             //JwtConfing.Configure(Configuration, services);
             services.AddHangfire(configuration => configuration
              .UseSimpleAssemblyNameTypeSerializer()
